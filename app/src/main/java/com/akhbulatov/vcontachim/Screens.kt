@@ -5,6 +5,6 @@ import com.akhbulatov.vcontachim.fragments.SplashFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
-fun splashFr() = FragmentScreen{SplashFragment()}
-    fun homeFr() = FragmentScreen{HomeFragment()}
+    fun splashFr() = FragmentScreen { SplashFragment() }
+    fun homeFr() = FragmentScreen { HomeFragment() }
 }
