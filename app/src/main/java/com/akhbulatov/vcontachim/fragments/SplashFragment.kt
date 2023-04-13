@@ -16,7 +16,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
         lifecycleScope.launch {
             delay(3000)
-            VcontachimApplication.router.navigateTo(Screens.homeFr())
+            VcontachimApplication.router.navigateTo(Screens.loginFr())
         }
     }
 }
