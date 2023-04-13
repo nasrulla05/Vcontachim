@@ -5,11 +5,15 @@
     android:background="#F5F5F5"
     android:orientation="vertical">
 
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginTop="244dp"
         android:src="@drawable/new_vk_logo_color_48" />
 
     <TextView
@@ -19,7 +23,7 @@
         android:layout_marginTop="32dp"
         android:text="Вконтачим"
         android:textColor="@color/black"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
     <ProgressBar
@@ -29,5 +33,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="109dp" />
 
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
 
 </LinearLayout>
