@@ -6,5 +6,5 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
     fun splashFr() = FragmentScreen { SplashFragment() }
-    fun homeFr() = FragmentScreen { LoginFragment() }
+    fun loginFr() = FragmentScreen { LoginFragment() }
 }

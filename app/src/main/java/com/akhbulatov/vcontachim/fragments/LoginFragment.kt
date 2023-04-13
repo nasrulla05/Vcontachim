@@ -7,7 +7,7 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.FragmentLoginBinding
 
 class LoginFragment:Fragment(R.layout.fragment_login) {
-    var binding:FragmentLoginBinding? = null
+   private var binding:FragmentLoginBinding? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
