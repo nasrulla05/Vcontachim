@@ -13,9 +13,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Если параметр savedInstanceState равен null , то это обычный запуск приложения
-        // Если параметр savedInstanceState равен НЕ null , то это уже поворот экрана
-
+        // Запускает splash экран только в случае если savedInstanceState равен null
         if (savedInstanceState == null) {
             VcontachimApplication.router.navigateTo(Screens.splashFr())
         }
