@@ -13,6 +13,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         VcontachimApplication.router.replaceScreen(Screens.splashFr())
+
+        if(savedInstanceState != null){
+            VcontachimApplication.router.navigateTo(Screens.loginFr())
+        }
     }
     override fun onResume() {
         super.onResume()
