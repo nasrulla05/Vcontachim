@@ -12,12 +12,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        VcontachimApplication.router.replaceScreen(Screens.splashFr())
 
-        if(savedInstanceState != null){
-            VcontachimApplication.router.navigateTo(Screens.loginFr())
+        // Если параметр savedInstanceState равен null , то это обычный запуск приложения
+        // Если параметр savedInstanceState равен НЕ null , то это уже поворот экрана
+
+        if (savedInstanceState == null) {
+            VcontachimApplication.router.navigateTo(Screens.splashFr())
         }
     }
+
     override fun onResume() {
         super.onResume()
         VcontachimApplication.navigateHolder.setNavigator(navigator)
