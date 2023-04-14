@@ -2,4 +2,7 @@
     <string name="app_name">Vcontachim</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vc">Вконтачим</string>
+    <string name="com_in">Войдите для продолжения</string>
+    <string name="enter">Войти</string>
 </resources>

@@ -17,11 +17,11 @@
         android:src="@drawable/new_vk_logo_color_48" />
 
     <TextView
+        android:text="@string/vc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
-        android:text="Вконтачим"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold" />
