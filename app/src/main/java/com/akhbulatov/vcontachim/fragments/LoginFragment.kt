@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
+import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentLoginBinding
 
 class LoginFragment:Fragment(R.layout.fragment_login) {
@@ -15,8 +17,10 @@ class LoginFragment:Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
 
         binding!!.enter.setOnClickListener {
-
+            VcontachimApplication.router.navigateTo(Screens.authFr())
         }
+
+
 
     }
 
