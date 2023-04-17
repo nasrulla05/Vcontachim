@@ -1,7 +1,6 @@
 package com.akhbulatov.vcontachim.activity
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.akhbulatov.vcontachim.R
@@ -14,8 +13,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private var binding: ActivityMainBinding? = null
     private var navigator = AppNavigator(activity = this, R.id.action_container)
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         val rootLayout: View = findViewById(R.id.activity_main)
         binding = ActivityMainBinding.bind(rootLayout)
 
@@ -23,9 +22,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         binding!!.bottomNavigation.setOnItemSelectedListener { item ->
             if (item.itemId == R.id.home) {
-                VcontachimApplication.router.backTo(Screens.homeFr())
+                VcontachimApplication.router.replaceScreen(Screens.homeFr())
             } else {
-                VcontachimApplication.router.backTo(Screens.profileFr())
+                VcontachimApplication.router.replaceScreen(Screens.profileFr())
             }
             true
         }

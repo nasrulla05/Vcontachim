@@ -33,9 +33,8 @@ class AuthViewModel : ViewModel() {
             editor.putString("access_token", beforeAccessToken)
             editor.apply()
 
-                VcontachimApplication.router.backTo(Screens.mainAc())
 
+            VcontachimApplication.router.navigateTo(Screens.mainAc())
         }
     }
-
 }
