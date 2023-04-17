@@ -1,8 +1,5 @@
 package com.akhbulatov.vcontachim.fragments
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -13,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.FragmentAuthBinding
-import com.akhbulatov.vcontachim.viewModel.AuthViewModel
+import com.akhbulatov.vcontachim.viewmodel.AuthViewModel
 
 class AuthFragment : Fragment(R.layout.fragment_auth) {
 
@@ -25,7 +22,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             "response_type=token"
 
     private var binding: FragmentAuthBinding? = null
-    val viewModel: AuthViewModel by lazy {
+    private val viewModel: AuthViewModel by lazy {
         ViewModelProvider(this)[AuthViewModel::class.java]
     }
 

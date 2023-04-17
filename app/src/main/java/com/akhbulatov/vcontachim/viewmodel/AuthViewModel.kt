@@ -1,4 +1,4 @@
-package com.akhbulatov.vcontachim.viewModel
+package com.akhbulatov.vcontachim.viewmodel
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.akhbulatov.vcontachim.VcontachimApplication
 
 class AuthViewModel:ViewModel() {
+
     fun getAccessToken(url:Uri){
         val urlString = url.toString()
         val urlDecoder = Uri.decode(urlString)
