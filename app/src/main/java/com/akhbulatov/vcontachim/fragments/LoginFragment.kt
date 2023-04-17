@@ -11,7 +11,6 @@ import com.akhbulatov.vcontachim.databinding.FragmentLoginBinding
 class LoginFragment:Fragment(R.layout.fragment_login) {
    private var binding:FragmentLoginBinding? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
@@ -19,9 +18,6 @@ class LoginFragment:Fragment(R.layout.fragment_login) {
         binding!!.enter.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.authFr())
         }
-
-
-
     }
 
     override fun onDestroyView() {

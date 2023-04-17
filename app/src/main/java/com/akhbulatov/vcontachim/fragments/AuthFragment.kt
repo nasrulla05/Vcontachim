@@ -14,14 +14,14 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.FragmentAuthBinding
 
 class AuthFragment : Fragment(R.layout.fragment_auth) {
-    val authURL =
+    private val authURL =
         "https://oauth.vk.com/authorize?" +
                 "client_id=51611155&" +
                 "redirect_uri=https://oauth.vk.com/blank.html&" +
                 "scope=12&" +
                 "display=mobile&" +
                 "response_type=token"
-    var binding: FragmentAuthBinding? = null
+    private var binding: FragmentAuthBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
