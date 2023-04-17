@@ -14,13 +14,6 @@ import com.akhbulatov.vcontachim.viewmodel.AuthViewModel
 
 class AuthFragment : Fragment(R.layout.fragment_auth) {
 
-    private val authUrl =  "https://oauth.vk.com/authorize?" +
-            "client_id=51611155&" +
-            "redirect_uri=https://oauth.vk.com/blank.html&" +
-            "scope=12&" +
-            "display=mobile&" +
-            "response_type=token"
-
     private var binding: FragmentAuthBinding? = null
     private val viewModel: AuthViewModel by lazy {
         ViewModelProvider(this)[AuthViewModel::class.java]
@@ -30,7 +23,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAuthBinding.bind(view)
 
-        binding!!.webView.loadUrl(authUrl)
+        binding!!.webView.loadUrl(viewModel.authUrl)
 
         binding!!.webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(

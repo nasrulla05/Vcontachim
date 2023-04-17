@@ -6,9 +6,16 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.akhbulatov.vcontachim.VcontachimApplication
 
-class AuthViewModel:ViewModel() {
+class AuthViewModel : ViewModel() {
 
-    fun getAccessToken(url:Uri){
+    val authUrl = "https://oauth.vk.com/authorize?" +
+            "client_id=51611155&" +
+            "redirect_uri=https://oauth.vk.com/blank.html&" +
+            "scope=12&" +
+            "display=mobile&" +
+            "response_type=token"
+
+    fun getAccessToken(url: Uri) {
         val urlString = url.toString()
         val urlDecoder = Uri.decode(urlString)
         val finalUrlDecoded = Uri.decode(urlDecoder)
