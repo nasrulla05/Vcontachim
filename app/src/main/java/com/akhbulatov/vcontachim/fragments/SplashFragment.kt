@@ -1,5 +1,6 @@
 package com.akhbulatov.vcontachim.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -16,7 +17,17 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
         lifecycleScope.launch {
             delay(3000)
-            VcontachimApplication.router.navigateTo(Screens.loginFr())
+
+            val sharedPreferences = requireContext().getSharedPreferences(
+                "vcontachim_preferences",
+                Context.MODE_PRIVATE
+            )
+            val authorizedUser = sharedPreferences.getString("access_token", null)
+            if (authorizedUser == null) {
+                VcontachimApplication.router.navigateTo(Screens.loginFr())
+            } else {
+                VcontachimApplication.router.navigateTo(Screens.mainAc())
+            }
         }
     }
 }

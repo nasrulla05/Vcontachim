@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 
 class AuthViewModel : ViewModel() {
@@ -31,7 +32,10 @@ class AuthViewModel : ViewModel() {
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString("access_token", beforeAccessToken)
             editor.apply()
+
+            if (beforeAccessToken.isNotEmpty()) {
+                VcontachimApplication.router.navigateTo(Screens.mainAc())
+            }
         }
     }
-
 }
