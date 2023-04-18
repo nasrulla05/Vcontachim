@@ -10,7 +10,7 @@ object Screens {
     fun splashFr() = FragmentScreen { SplashFragment() }
     fun loginFr() = FragmentScreen { LoginFragment() }
     fun authFr() = FragmentScreen { AuthFragment() }
-    fun homeFr() = FragmentScreen{HomeFragment()}
-    fun profileFr() = FragmentScreen{ProfileFragment()}
-    fun mainAc() = ActivityScreen{ Intent(it,MainActivity::class.java) }
+    fun homeFr() = FragmentScreen { HomeFragment() }
+    fun profileFr() = FragmentScreen { ProfileFragment() }
+    fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
 }
