@@ -3,4 +3,13 @@
     <string name="com_in">Войдите для продолжения</string>
     <string name="enter">Войти</string>
     <string name="auth">Авторизация</string>
+    <string name="profile">Профиль</string>
+    <string name="complete_info">Полная информация</string>
+    <string name="friend">Друзья</string>
+    <string name="community">Сообщества</string>
+    <string name="photo">Фотографии</string>
+    <string name="video">Видео</string>
+    <string name="music">Музыка</string>
+    <string name="about_app">О приложении</string>
+    <string name="exit">Выйти</string>
 </resources>
