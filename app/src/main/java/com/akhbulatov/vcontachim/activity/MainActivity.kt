@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val rootLayout: View = findViewById(R.id.activity_main)
         binding = ActivityMainBinding.bind(rootLayout)
 
-        VcontachimApplication.router.replaceScreen(Screens.homeFr())
+        if (savedInstanceState == null) {
+            VcontachimApplication.router.replaceScreen(Screens.homeFr())
+        }
 
         binding!!.bottomNavigation.setOnItemSelectedListener { item ->
             if (item.itemId == R.id.home) {
