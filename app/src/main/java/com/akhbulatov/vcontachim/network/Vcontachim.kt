@@ -2,12 +2,14 @@ package com.akhbulatov.vcontachim.network
 
 import com.akhbulatov.vcontachim.model.Root
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface Vcontachim {
-    @GET("user.get")
+    @GET("users.get")
     suspend fun getUsers(
-        @Query("fields") fields: String = "photo_100",
-        @Query("v") v: Double = 5.131
+        @Header("Authorization") token:String,
+        @Query("v") v: Double = 5.131,
+        @Query("fields") fields: String ="contacts,photo_100"
     ): Root
 }

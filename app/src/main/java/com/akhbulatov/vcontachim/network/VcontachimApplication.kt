@@ -18,7 +18,7 @@ class VcontachimApplication : Application() {
         navigateHolder = cicerone.getNavigatorHolder()
 
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://api.vk.com/method")
+            .baseUrl("https://api.vk.com/method/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
