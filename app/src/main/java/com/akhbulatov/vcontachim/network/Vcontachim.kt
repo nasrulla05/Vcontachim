@@ -8,8 +8,8 @@ import retrofit2.http.Query
 interface Vcontachim {
     @GET("users.get")
     suspend fun getUsers(
-        @Header("Authorization") token:String,
+        @Header("Authorization") token: String,
         @Query("v") v: Double = 5.131,
-        @Query("fields") fields: String ="contacts,photo_100"
+        @Query("fields") fields: String = "contacts,photo_100"
     ): Root
 }

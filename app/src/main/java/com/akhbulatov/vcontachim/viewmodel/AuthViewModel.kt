@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.akhbulatov.vcontachim.Screens
-import com.akhbulatov.vcontachim.network.VcontachimApplication
+import com.akhbulatov.vcontachim.VcontachimApplication
 
 class AuthViewModel : ViewModel() {
 

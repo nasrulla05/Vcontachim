@@ -18,5 +18,5 @@ class Root(
         @SerializedName("mobile_phone")
         val mobile_phone: String?
 
-    ) : java.io.Serializable
+    )
 }

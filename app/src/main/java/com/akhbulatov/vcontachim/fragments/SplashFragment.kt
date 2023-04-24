@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
-import com.akhbulatov.vcontachim.network.VcontachimApplication
+import com.akhbulatov.vcontachim.VcontachimApplication
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
-import com.akhbulatov.vcontachim.network.VcontachimApplication
+import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.ActivityMainBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
 

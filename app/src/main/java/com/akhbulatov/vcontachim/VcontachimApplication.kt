@@ -1,7 +1,8 @@
-package com.akhbulatov.vcontachim.network
+package com.akhbulatov.vcontachim
 
 import android.app.Application
 import android.content.Context
+import com.akhbulatov.vcontachim.network.Vcontachim
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
