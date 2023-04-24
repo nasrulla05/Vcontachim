@@ -30,7 +30,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 .load(response.avatar)
                 .into(binding!!.avatar)
 
-            binding!!.nameSurname.text = "${response.name }  ${response.surname}"
+            binding!!.nameSurname.text = "${response.name} ${response.surname}"
             binding!!.mobilePhone.text = response.mobile_phone
         }
 
