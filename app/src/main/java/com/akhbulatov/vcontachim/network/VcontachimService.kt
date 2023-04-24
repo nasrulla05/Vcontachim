@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface Vcontachim {
+interface VcontachimService {
     @GET("users.get")
     suspend fun getUsers(
         @Header("Authorization") token: String,

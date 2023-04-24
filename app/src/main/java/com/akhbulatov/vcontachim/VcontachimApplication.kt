@@ -2,7 +2,7 @@ package com.akhbulatov.vcontachim
 
 import android.app.Application
 import android.content.Context
-import com.akhbulatov.vcontachim.network.Vcontachim
+import com.akhbulatov.vcontachim.network.VcontachimService
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -23,11 +23,11 @@ class VcontachimApplication : Application() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        vcontachim = retrofit.create()
+        vcontachimService = retrofit.create()
     }
 
     companion object {
-        lateinit var vcontachim: Vcontachim
+        lateinit var vcontachimService: VcontachimService
 
         lateinit var context: Context
 

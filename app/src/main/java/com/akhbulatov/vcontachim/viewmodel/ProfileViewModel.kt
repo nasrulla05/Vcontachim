@@ -22,7 +22,7 @@ class ProfileViewModel : ViewModel() {
                         Context.MODE_PRIVATE
                     )
                 val accessToken = sharedPreferences.getString("access_token",null)
-                val users = VcontachimApplication.vcontachim.getUsers("Bearer $accessToken")
+                val users = VcontachimApplication.vcontachimService.getUsers("Bearer $accessToken")
                 profileLiveData.value = users
 
             } catch (e: Exception) {
