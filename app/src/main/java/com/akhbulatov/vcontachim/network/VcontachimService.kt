@@ -1,5 +1,6 @@
 package com.akhbulatov.vcontachim.network
 
+import com.akhbulatov.vcontachim.model.Friends
 import com.akhbulatov.vcontachim.model.Root
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -12,4 +13,11 @@ interface VcontachimService {
         @Query("v") v: Double = 5.131,
         @Query("fields") fields: String = "contacts,photo_100"
     ): Root
+
+    @GET("friends.get")
+    suspend fun getFriends(
+        @Header("Authorization") token: String,
+        @Query("v") v :Double = 5.131,
+        @Query("fields") fields:String = "photo_100"
+    ):Friends
 }

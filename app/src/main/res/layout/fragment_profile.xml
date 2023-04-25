@@ -46,7 +46,7 @@
                     android:id="@+id/avatar"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="19.5dp"
                     tools:src="@tools:sample/avatars" />
 
@@ -100,6 +100,7 @@
                 android:background="#D7D8D9" />
 
             <LinearLayout
+                android:id="@+id/friends_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24.5dp"
