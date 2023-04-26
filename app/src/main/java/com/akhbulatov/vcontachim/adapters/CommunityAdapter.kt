@@ -36,8 +36,8 @@ class CommunityAdapter : RecyclerView.Adapter<CommunityAdapter.CommunityViewHold
             .into(holder.binding.communityPhoto)
 
         holder.binding.communityName.text = community.name
-        holder.binding.member.text = "${community.members} участников"
-        if (community.verified == "1") {
+        holder.binding.memberTV.text = "${community.members} участников"
+        if (community.verified == 1) {
             holder.binding.verified.visibility = View.VISIBLE
         } else {
             holder.binding.verified.visibility = View.GONE

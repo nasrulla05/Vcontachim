@@ -27,6 +27,6 @@ interface VcontachimService {
         @Header("Authorization") token:String,
         @Query("v") v: Double = 5.131,
         @Query("extended") extended:Int = 1,
-        @Query("fields")fields: String = "member_count"
+        @Query("fields")fields: String = "members_count,verified"
     ): Community
 }

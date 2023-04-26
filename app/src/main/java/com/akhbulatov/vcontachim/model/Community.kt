@@ -16,9 +16,9 @@ class Community (
         val name:String,
 
         @SerializedName("members_count")
-        val members:String,
+        val members:Int,
 
         @SerializedName("verified")
-        val verified:String
+        val verified:Int
     )
 }
