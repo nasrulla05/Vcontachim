@@ -17,7 +17,7 @@ interface VcontachimService {
     @GET("friends.get")
     suspend fun getFriends(
         @Header("Authorization") token: String,
-        @Query("v") v :Double = 5.131,
-        @Query("fields") fields:String = "photo_100"
-    ):Friends
+        @Query("v") v: Double = 5.131,
+        @Query("fields") fields: String = "photo_100"
+    ): Friends
 }

@@ -2,7 +2,6 @@ package com.akhbulatov.vcontachim.model
 
 import com.google.gson.annotations.SerializedName
 
-
 class Friends(
     val response: Response
 ) {

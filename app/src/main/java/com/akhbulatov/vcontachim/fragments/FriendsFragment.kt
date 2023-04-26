@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.FriendsAdapter
@@ -28,9 +27,6 @@ class FriendsFragment : Fragment(R.layout.fragment_friends) {
 
         val friendAdapter = FriendsAdapter()
         binding!!.friendsList.adapter = friendAdapter
-
-        val dividerFriends = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        binding!!.friendsList.addItemDecoration(dividerFriends)
 
         viewModel.friendsLiveData.observe(viewLifecycleOwner) {
             friendAdapter.friends = it.response.items
