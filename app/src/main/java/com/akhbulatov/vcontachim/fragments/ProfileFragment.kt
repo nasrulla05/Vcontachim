@@ -49,5 +49,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding!!.friendsLayout.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.friendsFr())
         }
+        binding!!.community.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.communitiesFr())
+        }
     }
 }

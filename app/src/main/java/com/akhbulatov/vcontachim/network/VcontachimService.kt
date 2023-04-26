@@ -1,5 +1,6 @@
 package com.akhbulatov.vcontachim.network
 
+import com.akhbulatov.vcontachim.model.Community
 import com.akhbulatov.vcontachim.model.Friends
 import com.akhbulatov.vcontachim.model.Root
 import retrofit2.http.GET
@@ -20,4 +21,12 @@ interface VcontachimService {
         @Query("v") v: Double = 5.131,
         @Query("fields") fields: String = "photo_100"
     ): Friends
+
+    @GET("groups.get")
+    suspend fun getCommunity(
+        @Header("Authorization") token:String,
+        @Query("v") v: Double = 5.131,
+        @Query("extended") extended:Int = 1,
+        @Query("fields")fields: String = "member_count"
+    ): Community
 }
