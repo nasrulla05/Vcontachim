@@ -24,9 +24,9 @@ interface VcontachimService {
 
     @GET("groups.get")
     suspend fun getCommunity(
-        @Header("Authorization") token:String,
+        @Header("Authorization") token: String,
         @Query("v") v: Double = 5.131,
-        @Query("extended") extended:Int = 1,
-        @Query("fields")fields: String = "members_count,verified"
+        @Query("extended") extended: Int = 1,
+        @Query("fields") fields: String = "members_count,verified"
     ): Community
 }

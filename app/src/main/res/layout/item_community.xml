@@ -50,7 +50,6 @@
             android:textSize="13sp"
             tools:text="77756 участников" />
 
-
     </LinearLayout>
 
 </LinearLayout>

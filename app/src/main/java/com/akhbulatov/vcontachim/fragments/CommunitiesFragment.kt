@@ -13,9 +13,10 @@ import com.google.android.material.snackbar.Snackbar
 
 class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
     private var binding: FragmentCommunitiesBinding? = null
-    val viewModel: CommunitiesViewModel by lazy {
+    private val viewModel: CommunitiesViewModel by lazy {
         ViewModelProvider(this)[CommunitiesViewModel::class.java]
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCommunitiesBinding.bind(view)
@@ -25,21 +26,21 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
         val communityAdapter = CommunityAdapter()
         binding!!.communityList.adapter = communityAdapter
 
-        viewModel.communityLiveData.observe(viewLifecycleOwner){
+        viewModel.communityLiveData.observe(viewLifecycleOwner) {
             communityAdapter.communities = it.response.items
             communityAdapter.notifyDataSetChanged()
         }
 
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            if (it){
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it) {
                 binding!!.progressBar.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding!!.progressBar.visibility = View.GONE
             }
         }
 
-        viewModel.errorLiveData.observe(viewLifecycleOwner){
-            val snackbar:Snackbar = Snackbar.make(
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            val snackbar: Snackbar = Snackbar.make(
                 requireView(),
                 it,
                 Snackbar.LENGTH_LONG
