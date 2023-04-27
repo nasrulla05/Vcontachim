@@ -14,4 +14,5 @@ object Screens {
     fun profileFr() = FragmentScreen { ProfileFragment() }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
     fun friendsFr() = FragmentScreen{FriendsFragment()}
+    fun communitiesFr() = FragmentScreen{CommunitiesFragment()}
 }
