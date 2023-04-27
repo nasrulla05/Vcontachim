@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Circle">
+    <style name="Circle_avatars">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
