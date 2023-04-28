@@ -52,5 +52,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding!!.community.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.communitiesFr())
         }
+        binding!!.photoFragment.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.photoFr())
+        }
     }
 }
