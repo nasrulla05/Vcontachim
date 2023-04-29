@@ -37,6 +37,14 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
             .load(photo.avatar)
             .into(holder.binding.avatar156)
         holder.binding.season.text = photo.title
-        holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотографий"
+        if (photo.sizePhoto == 0) {
+            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотографий"
+        } else if (photo.sizePhoto == 1) {
+            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотография"
+        } else if (photo.sizePhoto!! >= 4) {
+            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотографии"
+        } else {
+            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотографий"
+        }
     }
 }
