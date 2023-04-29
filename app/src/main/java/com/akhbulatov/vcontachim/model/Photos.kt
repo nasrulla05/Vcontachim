@@ -6,9 +6,8 @@ class Photos(
     val response: Response
 ) {
     class Response(
-        items: List<Items>
+        val items: List<Items>
     )
-
     class Items(
         @SerializedName("size")
         val sizePhoto: Int?,
@@ -19,4 +18,5 @@ class Photos(
         @SerializedName("thumb_src")
         val avatar: String
     )
+
 }
