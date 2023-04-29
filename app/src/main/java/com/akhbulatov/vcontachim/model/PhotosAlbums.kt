@@ -2,7 +2,7 @@ package com.akhbulatov.vcontachim.model
 
 import com.google.gson.annotations.SerializedName
 
-class Photos(
+class PhotosAlbums(
     val response: Response
 ) {
     class Response(
@@ -10,7 +10,7 @@ class Photos(
     )
     class Items(
         @SerializedName("size")
-        val sizePhoto: Int?,
+        val sizePhoto: Int,
 
         @SerializedName("title")
         val title: String,

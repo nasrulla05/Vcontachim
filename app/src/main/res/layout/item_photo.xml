@@ -16,7 +16,7 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/season"
+        android:id="@+id/name_yer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"

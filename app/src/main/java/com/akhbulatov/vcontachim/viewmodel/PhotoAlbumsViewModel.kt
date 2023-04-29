@@ -6,15 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.model.Photos
+import com.akhbulatov.vcontachim.model.PhotosAlbums
 import kotlinx.coroutines.launch
 
-class PhotoViewModel : ViewModel() {
+class PhotoAlbumsViewModel : ViewModel() {
     val progressBarLiveData = MutableLiveData<Boolean>()
-    val photosLiveData = MutableLiveData<Photos>()
+    val photoAlbumsLiveData = MutableLiveData<PhotosAlbums>()
     val errorLiveData = MutableLiveData<String>()
 
-    fun main() {
+    fun getPhotoAlbums() {
         viewModelScope.launch {
             try {
                 val sharedPreferences: SharedPreferences =
@@ -25,16 +25,14 @@ class PhotoViewModel : ViewModel() {
                 val accessToken = sharedPreferences.getString("access_token", null)
 
                 progressBarLiveData.value = true
-                val photos: Photos =
+                val photos: PhotosAlbums =
                     VcontachimApplication.vcontachimService.getAlbums("Bearer $accessToken")
-                photosLiveData.value = photos
+                photoAlbumsLiveData.value = photos
                 progressBarLiveData.value = false
             } catch (e: Exception) {
                 progressBarLiveData.value = false
                 errorLiveData.value = e.message
             }
-
-
         }
     }
 }

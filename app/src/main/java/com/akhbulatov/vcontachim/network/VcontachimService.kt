@@ -2,7 +2,7 @@ package com.akhbulatov.vcontachim.network
 
 import com.akhbulatov.vcontachim.model.Community
 import com.akhbulatov.vcontachim.model.Friends
-import com.akhbulatov.vcontachim.model.Photos
+import com.akhbulatov.vcontachim.model.PhotosAlbums
 import com.akhbulatov.vcontachim.model.Root
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -37,5 +37,5 @@ interface VcontachimService {
         @Header("Authorization") token: String,
         @Query("v") v: Double = 5.131,
         @Query("need_covers") needCovers: Int = 1
-    ): Photos
+    ): PhotosAlbums
 }

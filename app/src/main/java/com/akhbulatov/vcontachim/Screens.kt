@@ -15,5 +15,5 @@ object Screens {
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
     fun friendsFr() = FragmentScreen{FriendsFragment()}
     fun communitiesFr() = FragmentScreen{CommunitiesFragment()}
-    fun photoFr() = FragmentScreen{PhotoFragment()}
+    fun photoAlbumsFr() = FragmentScreen{PhotosAlbumsFragment()}
 }
