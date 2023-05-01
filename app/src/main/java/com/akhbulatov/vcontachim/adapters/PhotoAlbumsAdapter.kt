@@ -39,7 +39,7 @@ class PhotoAlbumsAdapter : RecyclerView.Adapter<PhotoAlbumsAdapter.PhotosAlbumsV
             .into(holder.binding.avatar156)
         holder.binding.nameYer.text = photo.title
         val plurals = VcontachimApplication.context.resources.getQuantityString(
-            R.plurals.Plurals,
+            R.plurals.plurals_photo_albums,
             photo.sizePhoto
         )
         holder.binding.quantityPhoto.text = "${photo.sizePhoto} $plurals"
