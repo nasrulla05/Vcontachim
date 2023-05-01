@@ -8,12 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.PhotoAlbumsAdapter
-import com.akhbulatov.vcontachim.databinding.FragmentPhotoBinding
+import com.akhbulatov.vcontachim.databinding.FragmentPhotoAlbumsBinding
 import com.akhbulatov.vcontachim.viewmodel.PhotoAlbumsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
-    private var binding: FragmentPhotoBinding? = null
+    private var binding: FragmentPhotoAlbumsBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[PhotoAlbumsViewModel::class.java]
     }
@@ -21,9 +21,9 @@ class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPhotoBinding.bind(view)
+        binding = FragmentPhotoAlbumsBinding.bind(view)
 
-        binding!!.toolbarExit.setNavigationOnClickListener { VcontachimApplication.router.exit() }
+        binding!!.Toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
 
         val photosAdapter = PhotoAlbumsAdapter()
         binding!!.photoList.adapter = photosAdapter

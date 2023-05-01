@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.ItemPhotoBinding
 import com.akhbulatov.vcontachim.model.PhotosAlbums
 import com.bumptech.glide.Glide
@@ -36,15 +37,11 @@ class PhotoAlbumsAdapter : RecyclerView.Adapter<PhotoAlbumsAdapter.PhotosAlbumsV
         Glide.with(holder.itemView)
             .load(photo.avatar)
             .into(holder.binding.avatar156)
-        holder.binding.season.text = photo.title
-        if (photo.sizePhoto == 0) {
-            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотографий"
-        } else if (photo.sizePhoto == 1) {
-            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотография"
-        } else if (photo.sizePhoto >= 4) {
-            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотографии"
-        } else {
-            holder.binding.quantityPhoto.text = "${photo.sizePhoto} фотографий"
-        }
+        holder.binding.nameYer.text = photo.title
+        val plurals = VcontachimApplication.context.resources.getQuantityString(
+            R.plurals.Plurals,
+            photo.sizePhoto
+        )
+        holder.binding.quantityPhoto.text = "${photo.sizePhoto} $plurals"
     }
 }

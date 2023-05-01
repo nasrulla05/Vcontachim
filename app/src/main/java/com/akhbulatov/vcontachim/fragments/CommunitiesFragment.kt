@@ -21,7 +21,7 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCommunitiesBinding.bind(view)
 
-        binding!!.toolbarExit.setNavigationOnClickListener { VcontachimApplication.router.exit() }
+        binding!!.toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
 
         val communityAdapter = CommunityAdapter()
         binding!!.communityList.adapter = communityAdapter
