@@ -21,7 +21,7 @@ class PhotoAlbumsAdapter : RecyclerView.Adapter<PhotoAlbumsAdapter.PhotosAlbumsV
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosAlbumsViewHolder {
         val layoutInflate: LayoutInflater = LayoutInflater.from(parent.context)
         val itemView: View = layoutInflate.inflate(
-            R.layout.item_photo,
+            R.layout.item_photo_albums,
             parent,
             false
         )
