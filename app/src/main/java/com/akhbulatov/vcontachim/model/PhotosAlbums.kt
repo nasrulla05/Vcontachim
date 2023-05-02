@@ -8,7 +8,11 @@ class PhotosAlbums(
     class Response(
         val items: List<Items>
     )
+
     class Items(
+        @SerializedName("id")
+        val id:Long,
+
         @SerializedName("size")
         val sizePhoto: Int,
 
@@ -16,7 +20,7 @@ class PhotosAlbums(
         val title: String,
 
         @SerializedName("thumb_src")
-        val avatar: String
+        val avatar: String,
     )
 
 }

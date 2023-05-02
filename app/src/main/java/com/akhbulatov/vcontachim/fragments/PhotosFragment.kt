@@ -7,26 +7,29 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.adapters.PhotoAlbumsAdapter
-import com.akhbulatov.vcontachim.databinding.FragmentPhotoAlbumsBinding
-import com.akhbulatov.vcontachim.viewmodel.PhotoAlbumsViewModel
+import com.akhbulatov.vcontachim.adapters.PhotosAdapter
+import com.akhbulatov.vcontachim.databinding.FragmentPhotosBinding
+import com.akhbulatov.vcontachim.model.PhotosAlbums
+import com.akhbulatov.vcontachim.viewmodel.PhotosViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
-    private var binding: FragmentPhotoAlbumsBinding? = null
+class PhotosFragment : Fragment(R.layout.fragment_photos) {
+    private var binding: FragmentPhotosBinding? = null
     private val viewModel by lazy {
-        ViewModelProvider(this)[PhotoAlbumsViewModel::class.java]
+        ViewModelProvider(this)[PhotosViewModel::class.java]
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPhotoAlbumsBinding.bind(view)
+        binding = FragmentPhotosBinding.bind(view)
 
-        binding!!.toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
+        binding!!.toolbar.setNavigationOnClickListener {
+            VcontachimApplication.router.exit()
+        }
 
-        val photosAdapter = PhotoAlbumsAdapter()
-        binding!!.photoList.adapter = photosAdapter
+        val photosAdapter = PhotosAdapter()
+        binding!!.photos.adapter = photosAdapter
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
             if (it) {
@@ -36,8 +39,8 @@ class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
             }
         }
 
-        viewModel.photoAlbumsLiveData.observe(viewLifecycleOwner) {
-            photosAdapter.photos = it.response.items
+        viewModel.photosLiveData.observe(viewLifecycleOwner) {
+            photosAdapter.photos = it
             photosAdapter.notifyDataSetChanged()
         }
 
@@ -49,12 +52,19 @@ class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
             )
             snackbar.show()
         }
-        viewModel.getPhotoAlbums()
+        val id = requireArguments().getLong("id")
+        viewModel.getPhotos(id)
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+    companion object {
+        fun main(albumId: PhotosAlbums.Items): Fragment {
+            val photo = PhotosFragment()
+            val bundle = Bundle()
+            bundle.putLong("id", albumId.id)
+            photo.arguments = bundle
+
+            return photo
+        }
     }
 }

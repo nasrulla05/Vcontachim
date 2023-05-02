@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.databinding.ItemPhotoBinding
+import com.akhbulatov.vcontachim.databinding.ItemPhotoAlbumsBinding
 import com.akhbulatov.vcontachim.model.PhotosAlbums
 import com.bumptech.glide.Glide
 
@@ -15,7 +16,7 @@ class PhotoAlbumsAdapter : RecyclerView.Adapter<PhotoAlbumsAdapter.PhotosAlbumsV
     var photos: List<PhotosAlbums.Items> = emptyList()
 
     class PhotosAlbumsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding: ItemPhotoBinding = ItemPhotoBinding.bind(itemView)
+        val binding: ItemPhotoAlbumsBinding = ItemPhotoAlbumsBinding.bind(itemView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosAlbumsViewHolder {
@@ -43,5 +44,9 @@ class PhotoAlbumsAdapter : RecyclerView.Adapter<PhotoAlbumsAdapter.PhotosAlbumsV
             photo.sizePhoto
         )
         holder.binding.quantityPhoto.text = "${photo.sizePhoto} $plurals"
+
+        holder.binding.itemPhotoAlbums.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.photosFr(photo))
+        }
     }
 }
