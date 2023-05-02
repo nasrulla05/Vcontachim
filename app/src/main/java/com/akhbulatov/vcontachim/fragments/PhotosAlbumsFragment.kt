@@ -23,7 +23,7 @@ class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPhotoAlbumsBinding.bind(view)
 
-        binding!!.Toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
+        binding!!.toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
 
         val photosAdapter = PhotoAlbumsAdapter()
         binding!!.photoList.adapter = photosAdapter
