@@ -11,7 +11,7 @@
         android:id="@+id/avatar_48"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        app:shapeAppearanceOverlay="@style/Circle"
+        app:shapeAppearanceOverlay="@style/CircleAvatars"
         tools:src="@tools:sample/avatars" />
 
     <TextView
