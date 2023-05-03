@@ -17,5 +17,6 @@ object Screens {
     fun friendsFr() = FragmentScreen { FriendsFragment() }
     fun communitiesFr() = FragmentScreen { CommunitiesFragment() }
     fun photoAlbumsFr() = FragmentScreen { PhotosAlbumsFragment() }
-    fun photosFr(albumId: PhotosAlbums.Items) = FragmentScreen {PhotosFragment.main(albumId)}
+    fun photosFr(itemAlbum: PhotosAlbums.Items) =
+        FragmentScreen { PhotosFragment.createFragment(itemAlbum) }
 }

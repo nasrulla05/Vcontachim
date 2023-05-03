@@ -7,12 +7,12 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        app:subtitleTextColor="#818C99"
-        app:subtitle="4 эчпочмака"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/ic_back_icon"
+        app:subtitle="4 эчпочмака"
+        app:subtitleTextColor="#818C99"
         tools:title="Лето 2022" />
 
     <FrameLayout
@@ -27,13 +27,12 @@
             android:layout_gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
-            tools:listitem="@layout/item_photo"
             android:id="@+id/photos"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
-             />
+            tools:listitem="@layout/item_photo" />
 
     </FrameLayout>
 </LinearLayout>

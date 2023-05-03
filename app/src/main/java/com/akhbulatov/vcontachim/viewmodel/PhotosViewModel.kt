@@ -26,7 +26,10 @@ class PhotosViewModel : ViewModel() {
 
                 progressBarLiveData.value = true
                 val photos =
-                    VcontachimApplication.vcontachimService.getPhotos("Bearer $accessToken", albumId = id)
+                    VcontachimApplication.vcontachimService.getPhotos(
+                        "Bearer $accessToken",
+                        albumId = id
+                    )
                 photosLiveData.value = photos
                 progressBarLiveData.value = false
 
@@ -36,8 +39,6 @@ class PhotosViewModel : ViewModel() {
                 errorLiveData.value = e.message
 
             }
-
-
         }
     }
 }

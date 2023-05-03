@@ -68,12 +68,16 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
     }
 
     companion object {
-        fun main(albumId: PhotosAlbums.Items): Fragment {
+        const val ARGUMENTS_ID = "id"
+        const val ARGUMENTS_SIZE_PHOTO = "sizePhoto"
+        const val ARGUMENTS_TITLE = "title"
+
+        fun createFragment(albumId: PhotosAlbums.Items): Fragment {
             val photo = PhotosFragment()
             val bundle = Bundle()
-            bundle.putLong("id", albumId.id)
-            bundle.putInt("sizePhoto", albumId.sizePhoto)
-            bundle.putString("title", albumId.title)
+            bundle.putLong(ARGUMENTS_ID, albumId.id)
+            bundle.putInt(ARGUMENTS_SIZE_PHOTO, albumId.sizePhoto)
+            bundle.putString(ARGUMENTS_TITLE, albumId.title)
             photo.arguments = bundle
 
             return photo

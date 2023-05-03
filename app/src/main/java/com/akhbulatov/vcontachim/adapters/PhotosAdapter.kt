@@ -29,8 +29,8 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
     override fun getItemCount() = photos.size
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
-       val photo:Photos.Item = photos[position]
-        val sizes:Photos.Size = photo.sizes[0]
+        val photo: Photos.Item = photos[position]
+        val sizes: Photos.Size = photo.sizes[0]
 
         Glide.with(holder.itemView)
             .load(sizes.photo)
