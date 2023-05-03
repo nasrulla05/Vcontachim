@@ -66,8 +66,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     @SuppressLint("CommitPrefEdits")
     private fun showExitDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setTitle("@string/logout")
-        builder.setPositiveButton("@string/exit") { _, _ ->
+        builder.setTitle(R.string.logout)
+        builder.setPositiveButton(R.string.exit) { _, _ ->
             val sharedPreferences: SharedPreferences =
                 VcontachimApplication.context.getSharedPreferences(
                     "vcontachim_preferences",
@@ -78,7 +78,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             editor.apply()
             VcontachimApplication.router.replaceScreen(Screens.launchAc())
         }
-        builder.setNegativeButton("@string/cansel", null)
+        builder.setNegativeButton(R.string.cansel, null)
 
         val exitDialog: AlertDialog = builder.create()
         exitDialog.show()
