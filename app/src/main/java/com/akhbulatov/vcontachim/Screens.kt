@@ -3,6 +3,7 @@ package com.akhbulatov.vcontachim
 import android.content.Intent
 import com.akhbulatov.vcontachim.activity.MainActivity
 import com.akhbulatov.vcontachim.fragments.*
+import com.akhbulatov.vcontachim.model.PhotosAlbums
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
@@ -13,7 +14,9 @@ object Screens {
     fun homeFr() = FragmentScreen { HomeFragment() }
     fun profileFr() = FragmentScreen { ProfileFragment() }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
-    fun friendsFr() = FragmentScreen{FriendsFragment()}
-    fun communitiesFr() = FragmentScreen{CommunitiesFragment()}
-    fun photoAlbumsFr() = FragmentScreen{PhotosAlbumsFragment()}
+    fun friendsFr() = FragmentScreen { FriendsFragment() }
+    fun communitiesFr() = FragmentScreen { CommunitiesFragment() }
+    fun photoAlbumsFr() = FragmentScreen { PhotosAlbumsFragment() }
+    fun photosFr(itemAlbum: PhotosAlbums.Items) =
+        FragmentScreen { PhotosFragment.createFragment(itemAlbum) }
 }

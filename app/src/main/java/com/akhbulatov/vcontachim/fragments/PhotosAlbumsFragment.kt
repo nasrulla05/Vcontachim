@@ -50,6 +50,7 @@ class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
             snackbar.show()
         }
         viewModel.getPhotoAlbums()
+
     }
 
     override fun onDestroyView() {

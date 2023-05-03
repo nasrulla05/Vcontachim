@@ -1,9 +1,6 @@
 package com.akhbulatov.vcontachim.network
 
-import com.akhbulatov.vcontachim.model.Community
-import com.akhbulatov.vcontachim.model.Friends
-import com.akhbulatov.vcontachim.model.PhotosAlbums
-import com.akhbulatov.vcontachim.model.Root
+import com.akhbulatov.vcontachim.model.*
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -38,4 +35,11 @@ interface VcontachimService {
         @Query("v") v: Double = 5.131,
         @Query("need_covers") needCovers: Int = 1
     ): PhotosAlbums
+
+    @GET("photos.get")
+    suspend fun getPhotos(
+        @Header("Authorization") token: String,
+        @Query("v") v: Double = 5.131,
+        @Query("album_id") albumId: Long
+    ): Photos
 }
