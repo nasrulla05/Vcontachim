@@ -14,11 +14,12 @@ object Screens {
     fun authFr() = FragmentScreen { AuthFragment() }
     fun homeFr() = FragmentScreen { HomeFragment() }
     fun profileFr() = FragmentScreen { ProfileFragment() }
-    fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
     fun friendsFr() = FragmentScreen { FriendsFragment() }
     fun communitiesFr() = FragmentScreen { CommunitiesFragment() }
     fun photoAlbumsFr() = FragmentScreen { PhotosAlbumsFragment() }
     fun photosFr(itemAlbum: PhotosAlbums.Items) =
         FragmentScreen { PhotosFragment.createFragment(itemAlbum) }
-    fun launchAc() = ActivityScreen{Intent(it,LaunchActivity::class.java)}
+
+    fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
+    fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
 }
