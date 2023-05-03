@@ -40,7 +40,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         }
 
         viewModel.photosLiveData.observe(viewLifecycleOwner) {
-            photosAdapter.photos = it
+            photosAdapter.photos = it.response.items
             photosAdapter.notifyDataSetChanged()
         }
 
@@ -53,6 +53,16 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             snackbar.show()
         }
         val id = requireArguments().getLong("id")
+        val title = requireArguments().getString("title")
+        val sizePhoto = requireArguments().getInt("sizePhoto")
+
+        val plurals = VcontachimApplication.context.resources.getQuantityString(
+            R.plurals.plurals_photo_albums,
+            sizePhoto
+        )
+        binding!!.toolbar.title = title
+        binding!!.toolbar.subtitle = "$sizePhoto $plurals"
+
         viewModel.getPhotos(id)
 
     }
@@ -62,6 +72,8 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             val photo = PhotosFragment()
             val bundle = Bundle()
             bundle.putLong("id", albumId.id)
+            bundle.putInt("sizePhoto", albumId.sizePhoto)
+            bundle.putString("title", albumId.title)
             photo.arguments = bundle
 
             return photo

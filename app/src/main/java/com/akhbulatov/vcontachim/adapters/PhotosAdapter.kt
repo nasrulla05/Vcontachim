@@ -10,7 +10,7 @@ import com.akhbulatov.vcontachim.model.Photos
 import com.bumptech.glide.Glide
 
 class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
-    var photos: List<Photos.Size> = emptyList()
+    var photos: List<Photos.Item> = emptyList()
 
     class PhotosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemPhotoBinding = ItemPhotoBinding.bind(itemView)
@@ -29,11 +29,11 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
     override fun getItemCount() = photos.size
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
-       val photo:Photos.Size = photos[position]
-        val sizes:Photos.Size = 
+       val photo:Photos.Item = photos[position]
+        val sizes:Photos.Size = photo.sizes[0]
 
         Glide.with(holder.itemView)
-            .load(size.photo)
+            .load(sizes.photo)
             .into(holder.binding.photo)
     }
 }

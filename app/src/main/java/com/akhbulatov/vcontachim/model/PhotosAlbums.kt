@@ -20,7 +20,7 @@ class PhotosAlbums(
         val title: String,
 
         @SerializedName("thumb_src")
-        val avatar: String,
+        val avatar: String
     )
 
 }

@@ -7,6 +7,8 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+        app:subtitleTextColor="#818C99"
+        app:subtitle="4 эчпочмака"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

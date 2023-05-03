@@ -18,7 +18,7 @@
         <item quantity="zero"> Фотографий</item>
         <item quantity="one"> Фотография</item>
         <item quantity="two"> Фотографий></item>
-        <item quantity="few"> Фотографий</item>
+        <item quantity="few"> Фотографии</item>
         <item quantity="many"> Фотографий</item>
         <item quantity="other"> Фотографий</item>
     </plurals>
