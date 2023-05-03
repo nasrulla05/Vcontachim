@@ -1,6 +1,7 @@
 package com.akhbulatov.vcontachim
 
 import android.content.Intent
+import com.akhbulatov.vcontachim.activity.LaunchActivity
 import com.akhbulatov.vcontachim.activity.MainActivity
 import com.akhbulatov.vcontachim.fragments.*
 import com.akhbulatov.vcontachim.model.PhotosAlbums
@@ -19,4 +20,5 @@ object Screens {
     fun photoAlbumsFr() = FragmentScreen { PhotosAlbumsFragment() }
     fun photosFr(itemAlbum: PhotosAlbums.Items) =
         FragmentScreen { PhotosFragment.createFragment(itemAlbum) }
+    fun launchAc() = ActivityScreen{Intent(it,LaunchActivity::class.java)}
 }

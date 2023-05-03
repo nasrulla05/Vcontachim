@@ -1,6 +1,9 @@
 package com.akhbulatov.vcontachim.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -55,5 +58,29 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding!!.photoFragment.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.photoAlbumsFr())
         }
+        binding!!.exit.setOnClickListener {
+            showExitDialog()
+        }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    private fun showExitDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("Выйти из аккаунта?")
+        builder.setPositiveButton("Выйти") { _, _ ->
+            val sharedPreferences: SharedPreferences =
+                VcontachimApplication.context.getSharedPreferences(
+                    "vcontachim_preferences",
+                    Context.MODE_PRIVATE
+                )
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.remove("access_token")
+            editor.apply()
+            VcontachimApplication.router.replaceScreen(Screens.launchAc())
+        }
+        builder.setNegativeButton("Отмена", null)
+
+        val exitDialog: AlertDialog = builder.create()
+        exitDialog.show()
     }
 }

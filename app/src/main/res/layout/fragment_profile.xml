@@ -35,7 +35,7 @@
         <LinearLayout
             android:id="@+id/photo_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -246,13 +246,21 @@
                 android:layout_marginRight="16dp"
                 android:background="#D7D8D9" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/exit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="25dp"
-                android:text="@string/exit"
-                android:textColor="#E64646" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/exit"
+                    android:textColor="#E64646" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
