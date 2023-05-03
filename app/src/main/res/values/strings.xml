@@ -16,7 +16,6 @@
     <string name="logout">Выйти из аккаунта</string>
     <string name="cansel">Отмена</string>
 
-
     <plurals name="plurals_photo_albums" tools:ignore="MissingQuantity">
         <item quantity="zero"> Фотографий</item>
         <item quantity="one"> Фотография</item>
