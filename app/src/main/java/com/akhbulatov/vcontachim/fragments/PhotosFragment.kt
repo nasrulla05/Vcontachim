@@ -52,9 +52,9 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             )
             snackbar.show()
         }
-        val id = requireArguments().getLong("id")
-        val title = requireArguments().getString("title")
-        val sizePhoto = requireArguments().getInt("sizePhoto")
+        val id = requireArguments().getLong(ARGUMENTS_ID)
+        val title = requireArguments().getString(ARGUMENTS_TITLE)
+        val sizePhoto = requireArguments().getInt(ARGUMENTS_SIZE_PHOTO)
 
         val plurals = VcontachimApplication.context.resources.getQuantityString(
             R.plurals.plurals_photo_albums,
@@ -68,9 +68,9 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
     }
 
     companion object {
-        const val ARGUMENTS_ID = "id"
-        const val ARGUMENTS_SIZE_PHOTO = "sizePhoto"
-        const val ARGUMENTS_TITLE = "title"
+        private const val ARGUMENTS_ID = "id"
+        private const val ARGUMENTS_SIZE_PHOTO = "sizePhoto"
+        private const val ARGUMENTS_TITLE = "title"
 
         fun createFragment(albumId: PhotosAlbums.Items): Fragment {
             val photo = PhotosFragment()
