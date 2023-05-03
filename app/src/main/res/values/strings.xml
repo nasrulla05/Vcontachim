@@ -13,6 +13,8 @@
     <string name="about_app">О приложении</string>
     <string name="exit">Выйти</string>
     <string name="photo_albums">Фотоальбомы</string>
+    <string name="logout">Выйти из аккаунта</string>
+    <string name="cansel">Отмена</string>
 
     <plurals name="plurals_photo_albums" tools:ignore="MissingQuantity">
         <item quantity="zero"> Фотографий</item>
