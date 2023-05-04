@@ -45,5 +45,12 @@ class VideoAdapter : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
         )
         holder.binding.nameVideo.text = video.title
         holder.binding.numbersViews.text = "${video.views} $plurals"
+
+        val hours = video.duration / 3600
+        val min = (video.duration % 3600) / 60
+        val sec = video.duration % 60
+
+        val time = String.format("$hours:$min:$sec")
+        holder.binding.duration.text = time
     }
 }

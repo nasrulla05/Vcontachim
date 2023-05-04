@@ -16,7 +16,10 @@ class Video(
         @SerializedName("views")
         val views: Int,
 
-        val image:List<Image>
+        val image: List<Image>,
+
+        @SerializedName("duration")
+        val duration: Int
     )
 
     class Image(
