@@ -58,6 +58,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding!!.photoFragment.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.photoAlbumsFr())
         }
+        binding!!.video.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.videoFr())
+        }
         binding!!.exit.setOnClickListener {
             showExitDialog()
         }

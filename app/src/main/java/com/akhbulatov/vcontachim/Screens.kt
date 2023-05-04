@@ -19,6 +19,7 @@ object Screens {
     fun photoAlbumsFr() = FragmentScreen { PhotosAlbumsFragment() }
     fun photosFr(itemAlbum: PhotosAlbums.Items) =
         FragmentScreen { PhotosFragment.createFragment(itemAlbum) }
+    fun videoFr() = FragmentScreen { VideoFragment() }
 
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }

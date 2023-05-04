@@ -24,4 +24,13 @@
         <item quantity="many"> Фотографий</item>
         <item quantity="other"> Фотографий</item>
     </plurals>
+
+    <plurals name="plurals_video" tools:ignore="MissingQuantity">
+        <item quantity="zero">Просмотров</item>
+        <item quantity="one">Просмотр</item>
+        <item quantity="two">Просмотров</item>
+        <item quantity="few">Просмотров</item>
+        <item quantity="many">Просмотров</item>
+        <item quantity="other">Просмотров</item>
+    </plurals>
 </resources>

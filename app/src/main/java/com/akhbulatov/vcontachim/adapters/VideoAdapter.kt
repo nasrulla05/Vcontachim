@@ -1,0 +1,49 @@
+package com.akhbulatov.vcontachim.adapters
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.VcontachimApplication
+import com.akhbulatov.vcontachim.databinding.ItemVideoBinding
+import com.akhbulatov.vcontachim.model.Video
+import com.bumptech.glide.Glide
+
+class VideoAdapter : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
+    var videos: List<Video.Item> = emptyList()
+
+    class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding: ItemVideoBinding = ItemVideoBinding.bind(itemView)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val itemView = layoutInflater.inflate(
+            R.layout.item_video,
+            parent,
+            false
+        )
+        return VideoViewHolder(itemView)
+    }
+
+    override fun getItemCount() = videos.size
+
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
+        val video: Video.Item = videos[position]
+        val sizeVideo: Video.Image = video.image[0]
+
+        Glide.with(holder.itemView)
+            .load(sizeVideo.photo)
+            .into(holder.binding.itemVideo)
+
+        val plurals = VcontachimApplication.context.resources.getQuantityString(
+            R.plurals.plurals_video,
+            video.views
+        )
+        holder.binding.nameVideo.text = video.title
+        holder.binding.numbersViews.text = "${video.views} $plurals"
+    }
+}
