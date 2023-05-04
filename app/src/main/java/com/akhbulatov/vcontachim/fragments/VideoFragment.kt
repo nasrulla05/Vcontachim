@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.VideoAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentVideoBinding
 import com.akhbulatov.vcontachim.viewmodel.VideoViewModel
@@ -21,6 +22,10 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVideoBinding.bind(view)
+
+        binding!!.video.setNavigationOnClickListener {
+            VcontachimApplication.router.exit()
+        }
 
         val videoAdapter = VideoAdapter()
         binding!!.videoList.adapter = videoAdapter
