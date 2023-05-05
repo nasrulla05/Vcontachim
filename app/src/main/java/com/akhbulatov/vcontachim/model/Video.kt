@@ -19,7 +19,10 @@ class Video(
         val image: List<Image>,
 
         @SerializedName("duration")
-        val duration: Int
+        val duration: Int,
+
+        @SerializedName("date")
+        val date: Long
     )
 
     class Image(

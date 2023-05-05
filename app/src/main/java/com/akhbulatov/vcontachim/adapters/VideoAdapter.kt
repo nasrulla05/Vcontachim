@@ -10,6 +10,7 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.ItemVideoBinding
 import com.akhbulatov.vcontachim.model.Video
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
 
 class VideoAdapter : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
     var videos: List<Video.Item> = emptyList()
@@ -30,7 +31,7 @@ class VideoAdapter : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
 
     override fun getItemCount() = videos.size
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         val video: Video.Item = videos[position]
         val sizeVideo: Video.Image = video.image[0]
@@ -52,5 +53,9 @@ class VideoAdapter : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
 
         val time = String.format("$hours:$min:$sec")
         holder.binding.duration.text = time
+
+        val formatter = SimpleDateFormat("d MMMM yyyy")
+        val date = formatter.format(video.date * 1000L)
+        holder.binding.releaseDate.text = date
     }
 }
