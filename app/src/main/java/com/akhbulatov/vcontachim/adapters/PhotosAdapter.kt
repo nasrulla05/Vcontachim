@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
+import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.ItemPhotoBinding
 import com.akhbulatov.vcontachim.model.Photos
 import com.bumptech.glide.Glide
@@ -35,5 +37,17 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
         Glide.with(holder.itemView)
             .load(sizes.photo)
             .into(holder.binding.photo)
+
+        val likes: Photos.Likes = photo.likes
+
+        val comments = photo.comments
+
+        val reposts = photo.reposts
+
+        holder.itemView.setOnClickListener {
+            VcontachimApplication.router.replaceScreen(Screens.photoAc())
+
+            VcontachimApplication.router.navigateTo(Screens.photoFr(likes,comments,reposts,sizes))
+        }
     }
 }
