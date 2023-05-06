@@ -42,4 +42,11 @@ interface VcontachimService {
         @Query("v") v: Double = 5.131,
         @Query("album_id") albumId: Long
     ): Photos
+
+    @GET("video.get")
+    suspend fun getVideo(
+        @Header("Authorization") token: String,
+        @Query("v") v: Double = 5.131,
+        @Query("extended") extended: Int = 1
+    ): Video
 }

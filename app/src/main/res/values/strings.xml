@@ -15,6 +15,7 @@
     <string name="photo_albums">Фотоальбомы</string>
     <string name="logout">Выйти из аккаунта</string>
     <string name="cansel">Отмена</string>
+    <string name="add">Добавленные</string>
 
     <plurals name="plurals_photo_albums" tools:ignore="MissingQuantity">
         <item quantity="zero"> Фотографий</item>
@@ -23,5 +24,14 @@
         <item quantity="few"> Фотографии</item>
         <item quantity="many"> Фотографий</item>
         <item quantity="other"> Фотографий</item>
+    </plurals>
+
+    <plurals name="plurals_video" tools:ignore="MissingQuantity">
+        <item quantity="zero">Просмотров</item>
+        <item quantity="one">Просмотр</item>
+        <item quantity="two">Просмотра</item>
+        <item quantity="few">Просмотров</item>
+        <item quantity="many">Просмотров</item>
+        <item quantity="other">Просмотров</item>
     </plurals>
 </resources>

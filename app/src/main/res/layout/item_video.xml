@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginBottom="12dp"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/itemVideo"
+            android:layout_width="136dp"
+            android:layout_height="76dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/RectangleAlbum"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="51dp"
+            android:layout_marginBottom="11dp"
+            android:background="@drawable/time_video"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:text="12:45" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            tools:text="Как быстро собраться
+ на работу" />
+
+        <TextView
+            android:id="@+id/numbers_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="#818C99"
+            android:textSize="13sp"
+            tools:text="658000 просмотров" />
+
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="#818C99"
+            android:textSize="13sp"
+            tools:text="4 июля 2023" />
+    </LinearLayout>
+
+</LinearLayout>
