@@ -8,11 +8,12 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.ItemPhotoBinding
-import com.akhbulatov.vcontachim.model.Photos
+import com.akhbulatov.vcontachim.model.Item
+import com.akhbulatov.vcontachim.model.Size
 import com.bumptech.glide.Glide
 
 class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
-    var photos: List<Photos.Item> = emptyList()
+    var photos: List<Item> = emptyList()
 
     class PhotosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemPhotoBinding = ItemPhotoBinding.bind(itemView)
@@ -20,34 +21,26 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val itemView: View = layoutInflater.inflate(
+        val itemView1: View = layoutInflater.inflate(
             R.layout.item_photo,
             parent,
             false
         )
-        return PhotosViewHolder(itemView)
+        return PhotosViewHolder(itemView1)
     }
 
     override fun getItemCount() = photos.size
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
-        val photo: Photos.Item = photos[position]
-        val sizes: Photos.Size = photo.sizes[0]
+        val photo: Item = photos[position]
+        val sizes: Size = photo.sizes[0]
+
+        holder.binding.photo.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.photoAc(photo))
+        }
 
         Glide.with(holder.itemView)
             .load(sizes.photo)
             .into(holder.binding.photo)
-
-        val likes: Photos.Likes = photo.likes
-
-        val comments = photo.comments
-
-        val reposts = photo.reposts
-
-        holder.itemView.setOnClickListener {
-            VcontachimApplication.router.replaceScreen(Screens.photoAc())
-
-            VcontachimApplication.router.navigateTo(Screens.photoFr(likes,comments,reposts,sizes))
-        }
     }
 }

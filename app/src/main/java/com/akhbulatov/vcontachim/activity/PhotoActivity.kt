@@ -1,26 +1,27 @@
 package com.akhbulatov.vcontachim.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.databinding.ContainerBinding
-import com.akhbulatov.vcontachim.model.Photos
+import com.akhbulatov.vcontachim.model.Item
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import java.io.Serializable
 
-class PhotoActivity:AppCompatActivity(R.layout.container) {
+class PhotoActivity : AppCompatActivity(R.layout.container) {
     private var navigator = AppNavigator(this, R.id.photo_container)
-    private var binding:ContainerBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val rootLayout: View = findViewById(R.id.container)
-        binding = ContainerBinding.bind(rootLayout)
+
+        val photoExtra: Serializable? = intent.getSerializableExtra(ARGUMENTS_PHOTO)
+        val photo: Item = photoExtra as Item
 
         if (savedInstanceState == null) {
-            VcontachimApplication.router.navigateTo(Screens.photoFr())
+            VcontachimApplication.router.navigateTo(Screens.photoFr(photo))
         }
     }
 
@@ -32,6 +33,19 @@ class PhotoActivity:AppCompatActivity(R.layout.container) {
     override fun onPause() {
         super.onPause()
         VcontachimApplication.navigateHolder.removeNavigator()
+    }
+
+    companion object {
+        const val ARGUMENTS_PHOTO = "PHOTO"
+
+        fun loadPhoto(
+            context: Context,
+            itemPhoto: Item
+        ): Intent {
+            val intent = Intent(context, PhotoActivity::class.java)
+            intent.putExtra(ARGUMENTS_PHOTO, itemPhoto)
+            return intent
+        }
     }
 
 }

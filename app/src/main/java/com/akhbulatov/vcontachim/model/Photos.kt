@@ -1,39 +1,41 @@
 package com.akhbulatov.vcontachim.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 class Photos(
     val response: Response
-) {
-    class Response(
-        val items: List<Item>
-    )
+)
 
-    class Item(
-        val sizes: List<Size>,
-        val likes: Likes,
-        val comments: Comments,
-        val reposts: Reposts,
-    )
+class Response(
+    val items: List<Item>
+) : Serializable
 
-    class Size(
-        @SerializedName("url")
-        val photo: String
-    )
+class Item(
+    val sizes: List<Size>,
+    val likes: Likes,
+    val comments: Comments,
+    val reposts: Reposts,
+) : Serializable
 
-    class Likes(
-        @SerializedName("count")
-        val count: Long
-    )
+class Size(
+    @SerializedName("url")
+    val photo: String
+) : Serializable
 
-    class Comments(
-        @SerializedName("count")
-        val count: Long
-    )
+class Likes(
+    @SerializedName("count")
+    val count: Long
+) : Serializable
 
-    class Reposts(
-        @SerializedName("count")
-        val count: Long
-    )
-}
+class Comments(
+    @SerializedName("count")
+    val count: Long
+) : Serializable
+
+class Reposts(
+    @SerializedName("count")
+    val count: Long
+) : Serializable
+
 
