@@ -14,10 +14,6 @@
         app:navigationIcon="@drawable/ic_back_icon"
         app:navigationIconTint="@color/white" />
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/photo"
@@ -29,7 +25,7 @@
 
     <Space
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="0.3" />
 
     <LinearLayout
@@ -69,7 +65,7 @@
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -88,8 +84,8 @@
                 tools:text="179" />
 
             <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="0dp"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -101,9 +97,10 @@
             android:orientation="horizontal">
 
             <Space
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                tools:ignore="NestedWeights" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="wrap_content"

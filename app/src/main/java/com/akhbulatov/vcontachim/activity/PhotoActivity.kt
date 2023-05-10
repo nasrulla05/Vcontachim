@@ -11,7 +11,7 @@ import com.akhbulatov.vcontachim.model.Item
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import java.io.Serializable
 
-class PhotoActivity : AppCompatActivity(R.layout.container) {
+class PhotoActivity : AppCompatActivity(R.layout.activity_photo) {
     private var navigator = AppNavigator(this, R.id.photo_container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class PhotoActivity : AppCompatActivity(R.layout.container) {
     companion object {
         const val ARGUMENTS_PHOTO = "PHOTO"
 
-        fun loadPhoto(
+        fun createFragment(
             context: Context,
             itemPhoto: Item
         ): Intent {

@@ -21,12 +21,12 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val itemView1: View = layoutInflater.inflate(
+        val itemView: View = layoutInflater.inflate(
             R.layout.item_photo,
             parent,
             false
         )
-        return PhotosViewHolder(itemView1)
+        return PhotosViewHolder(itemView)
     }
 
     override fun getItemCount() = photos.size

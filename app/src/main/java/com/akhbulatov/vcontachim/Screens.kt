@@ -32,7 +32,7 @@ object Screens {
     fun photoAc(
         itemPhoto: Item
     ) = ActivityScreen {
-        PhotoActivity.loadPhoto(
+        PhotoActivity.createFragment(
             context = it,
             itemPhoto
         )
