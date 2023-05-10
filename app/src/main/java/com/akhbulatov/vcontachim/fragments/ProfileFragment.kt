@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.fragments
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -23,7 +22,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         ViewModelProvider(this)[ProfileViewModel::class.java]
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
@@ -66,7 +64,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    @SuppressLint("CommitPrefEdits")
     private fun showExitDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.logout)
