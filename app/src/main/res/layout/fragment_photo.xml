@@ -36,10 +36,12 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
@@ -60,6 +62,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -93,6 +96,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 

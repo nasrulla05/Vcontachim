@@ -3,6 +3,7 @@ package com.akhbulatov.vcontachim.network
 import com.akhbulatov.vcontachim.model.*
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface VcontachimService {
@@ -41,7 +42,7 @@ interface VcontachimService {
         @Header("Authorization") token: String,
         @Query("v") v: Double = 5.131,
         @Query("album_id") albumId: Long,
-        @Query("extended") extended:Int = 1
+        @Query("extended") extended: Int = 1
     ): Photos
 
     @GET("video.get")
@@ -50,4 +51,12 @@ interface VcontachimService {
         @Query("v") v: Double = 5.131,
         @Query("extended") extended: Int = 1
     ): Video
+
+    @POST("likes.add")
+    suspend fun getLike(
+        @Header("Authorization") token: String,
+        @Query("v") v: Double = 5.131,
+        @Query("type") type: String = "photo",
+        @Query("item_id") itemId: Long
+    ): Likes
 }

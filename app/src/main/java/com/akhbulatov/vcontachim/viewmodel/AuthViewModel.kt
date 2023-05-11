@@ -12,7 +12,7 @@ class AuthViewModel : ViewModel() {
     val authUrl = "https://oauth.vk.com/authorize?" +
             "client_id=51611155&" +
             "redirect_uri=https://oauth.vk.com/blank.html&" +
-            "scope=offline,photos,video&" +
+            "scope=offline,photos,video,wall&" +
             "display=mobile&" +
             "response_type=token"
 
