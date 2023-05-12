@@ -45,7 +45,6 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             }
         }
 
-
         binding!!.likesLayout.setOnClickListener { viewModel.addLike(photo!!.id) }
 
         viewModel.likeLiveData.observe(viewLifecycleOwner) {
@@ -77,5 +76,4 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             return photo
         }
     }
-
 }
