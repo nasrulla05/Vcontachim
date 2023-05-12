@@ -21,7 +21,7 @@ class PhotoActivity : AppCompatActivity(R.layout.activity_photo) {
         val photo: Item = photoExtra as Item
 
         if (savedInstanceState == null) {
-            VcontachimApplication.router.navigateTo(Screens.photoFr(photo))
+            VcontachimApplication.router.replaceScreen(Screens.photoFr(photo))
         }
     }
 

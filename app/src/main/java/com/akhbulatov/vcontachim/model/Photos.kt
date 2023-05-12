@@ -16,6 +16,7 @@ class Item(
     val likes: Likes,
     val comments: Comments,
     val reposts: Reposts,
+    val id: Long
 ) : Serializable
 
 class Size(
@@ -24,6 +25,9 @@ class Size(
 ) : Serializable
 
 class Likes(
+    @SerializedName("user_likes")
+    val userLikes: Int,
+
     @SerializedName("count")
     val count: Long
 ) : Serializable
