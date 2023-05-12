@@ -1,10 +1,8 @@
 package com.akhbulatov.vcontachim.fragments
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
@@ -22,7 +20,6 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         ViewModelProvider(this)[PhotoViewModel::class.java]
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,15 +39,17 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             Glide.with(view)
                 .load(photo.sizes[0].photo)
                 .into(binding!!.photo)
-        }
-        if (photo!!.likes.userLikes >= 1) {
-            binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
+
+            if (photo.likes.userLikes >= 1) {
+                binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
+            }
         }
 
-        binding!!.likes.setOnClickListener { viewModel.addLike(photo.id) }
+
+        binding!!.likesLayout.setOnClickListener { viewModel.addLike(photo!!.id) }
 
         viewModel.likeLiveData.observe(viewLifecycleOwner) {
-            if (photo.likes.userLikes < 1) {
+            if (photo!!.likes.userLikes < 1) {
                 binding!!.like.text = "${photo.likes.count + 1}"
                 binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
             }

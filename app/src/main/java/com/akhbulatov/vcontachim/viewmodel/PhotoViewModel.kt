@@ -13,7 +13,7 @@ class PhotoViewModel : ViewModel() {
     val likeLiveData = MutableLiveData<Likes>()
     val errorLiveData = MutableLiveData<String>()
 
-    fun addLike(id: Long) {
+    fun addLike(likeID: Long) {
         viewModelScope.launch {
             try {
                 val sharedPreferences: SharedPreferences =
@@ -23,8 +23,8 @@ class PhotoViewModel : ViewModel() {
                     )
 
                 val token = sharedPreferences.getString("access_token", null)
-                val like = VcontachimApplication.vcontachimService.getLike(
-                    itemId = id,
+                val like = VcontachimApplication.vcontachimService.postLike(
+                    itemId = likeID,
                     token = "Bearer $token"
                 )
                 likeLiveData.value = like
