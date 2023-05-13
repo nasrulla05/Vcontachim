@@ -1,7 +1,9 @@
 package com.akhbulatov.vcontachim
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.akhbulatov.vcontachim.model.SharedPreferences
 import com.akhbulatov.vcontachim.network.VcontachimService
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
@@ -24,11 +26,14 @@ class VcontachimApplication : Application() {
             .build()
 
         vcontachimService = retrofit.create()
+        sharedPr = SharedPreferences()
     }
 
     companion object {
+        lateinit var sharedPr:SharedPreferences
         lateinit var vcontachimService: VcontachimService
 
+        @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
 
         private lateinit var cicerone: Cicerone<Router>

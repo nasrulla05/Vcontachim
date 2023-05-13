@@ -1,7 +1,5 @@
 package com.akhbulatov.vcontachim.viewmodel
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,12 +16,7 @@ class CommunitiesViewModel : ViewModel() {
     fun getCommunity() {
         viewModelScope.launch {
             try {
-                val sharedPreferences: SharedPreferences =
-                    VcontachimApplication.context.getSharedPreferences(
-                        "vcontachim_preferences",
-                        Context.MODE_PRIVATE
-                    )
-                val accessToken: String? = sharedPreferences.getString("access_token", null)
+                val accessToken = VcontachimApplication.sharedPr.accessToken
                 progressBarLiveData.value = true
 
                 val community: Community =

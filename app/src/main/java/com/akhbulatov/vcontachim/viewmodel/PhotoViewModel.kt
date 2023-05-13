@@ -1,7 +1,5 @@
 package com.akhbulatov.vcontachim.viewmodel
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,13 +14,8 @@ class PhotoViewModel : ViewModel() {
     fun addLike(photoId: Long) {
         viewModelScope.launch {
             try {
-                val sharedPreferences: SharedPreferences =
-                    VcontachimApplication.context.getSharedPreferences(
-                        "vcontachim_preferences",
-                        Context.MODE_PRIVATE
-                    )
 
-                val token = sharedPreferences.getString("access_token", null)
+                val token = VcontachimApplication.sharedPr.accessToken
                 val like = VcontachimApplication.vcontachimService.postLike(
                     itemId = photoId,
                     token = "Bearer $token"
@@ -38,14 +31,8 @@ class PhotoViewModel : ViewModel() {
     fun deleteLike(photoId: Long) {
         viewModelScope.launch {
             try {
-                val sharedPreferences: SharedPreferences =
-                    VcontachimApplication.context.getSharedPreferences(
-                        "vcontachim_preferences",
-                        Context.MODE_PRIVATE
-                    )
 
-                val token = sharedPreferences.getString("access_token", null)
-
+                val token = VcontachimApplication.sharedPr.accessToken
                 val deleteLike = VcontachimApplication.vcontachimService.deleteLike(
                     itemId = photoId,
                     token = "Bearer $token"

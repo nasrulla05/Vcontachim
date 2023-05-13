@@ -1,7 +1,5 @@
 package com.akhbulatov.vcontachim.viewmodel
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,20 +15,16 @@ class PhotosViewModel : ViewModel() {
     fun getPhotos(id: Long) {
         viewModelScope.launch {
             try {
-                val sharedPreferences: SharedPreferences =
-                    VcontachimApplication.context.getSharedPreferences(
-                        "vcontachim_preferences",
-                        Context.MODE_PRIVATE
-                    )
-                val accessToken: String? = sharedPreferences.getString("access_token", null)
-
+                val accessToken: String? = VcontachimApplication.sharedPr.accessToken
                 progressBarLiveData.value = true
+
                 val photos =
                     VcontachimApplication.vcontachimService.getPhotos(
                         "Bearer $accessToken",
                         albumId = id
                     )
                 photosLiveData.value = photos
+
                 progressBarLiveData.value = false
 
             } catch (e: Exception) {

@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.viewmodel
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -24,12 +23,8 @@ class AuthViewModel : ViewModel() {
             val afterAccessToken = finalUrlDecoded.substringAfter("access_token=")
             val beforeAccessToken = afterAccessToken.substringBefore("&")
 
-            val sharedPreferences: SharedPreferences =
-                VcontachimApplication.context.getSharedPreferences(
-                    "vcontachim_preferences",
-                    Context.MODE_PRIVATE
-                )
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            val editor: SharedPreferences.Editor =
+                VcontachimApplication.sharedPr.sharedPreferences.edit()
             editor.putString("access_token", beforeAccessToken)
             editor.apply()
 

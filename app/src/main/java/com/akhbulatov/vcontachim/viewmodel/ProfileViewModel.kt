@@ -1,7 +1,5 @@
 package com.akhbulatov.vcontachim.viewmodel
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,12 +14,8 @@ class ProfileViewModel : ViewModel() {
     fun getProfileInfo() {
         viewModelScope.launch {
             try {
-                val sharedPreferences: SharedPreferences =
-                    VcontachimApplication.context.getSharedPreferences(
-                        "vcontachim_preferences",
-                        Context.MODE_PRIVATE
-                    )
-                val accessToken = sharedPreferences.getString("access_token",null)
+
+                val accessToken = VcontachimApplication.sharedPr.accessToken
                 val users = VcontachimApplication.vcontachimService.getUsers("Bearer $accessToken")
                 profileLiveData.value = users
 
