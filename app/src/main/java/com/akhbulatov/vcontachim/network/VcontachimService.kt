@@ -61,7 +61,7 @@ interface VcontachimService {
     ): Like
 
     @POST("likes.delete")
-    suspend fun postDelete(
+    suspend fun deleteLike(
         @Header("Authorization") token: String,
         @Query("v") v:Double = 5.131,
         @Query("type") type:String = "photo",
