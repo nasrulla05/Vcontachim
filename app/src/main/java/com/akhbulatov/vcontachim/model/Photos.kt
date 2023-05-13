@@ -3,15 +3,15 @@ package com.akhbulatov.vcontachim.model
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class Photos(
+data class Photos(
     val response: Response
 )
 
-class Response(
+data class Response(
     val items: List<Item>
 ) : Serializable
 
-class Item(
+data class Item(
     val sizes: List<Size>,
     val likes: Likes,
     val comments: Comments,
@@ -19,12 +19,12 @@ class Item(
     val id: Long
 ) : Serializable
 
-class Size(
+data class Size(
     @SerializedName("url")
     val photo: String
 ) : Serializable
 
-class Likes(
+data class Likes(
     @SerializedName("user_likes")
     val userLikes: Int,
 
@@ -32,12 +32,12 @@ class Likes(
     val count: Long
 ) : Serializable
 
-class Comments(
+data class Comments(
     @SerializedName("count")
     val count: Long
 ) : Serializable
 
-class Reposts(
+data class Reposts(
     @SerializedName("count")
     val count: Long
 ) : Serializable

@@ -29,32 +29,53 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             VcontachimApplication.router.exit()
         }
 
-        val photoSerializable: Serializable? = arguments?.getSerializable(ARGUMENTS_PHOTO)
-        val photo: Item? = photoSerializable as? Item
+        val photoSerializable: Serializable = arguments?.getSerializable(ARGUMENTS_PHOTO)!!
+        var photo: Item = photoSerializable as Item
 
-        if (photo != null) {
-            binding!!.like.text = photo.likes.count.toString()
-            binding!!.comments.text = photo.comments.count.toString()
-            binding!!.reposts.text = photo.reposts.count.toString()
-            Glide.with(view)
-                .load(photo.sizes[0].photo)
-                .into(binding!!.photo)
+        binding!!.like.text = photo.likes.count.toString()
+        binding!!.comments.text = photo.comments.count.toString()
+        binding!!.reposts.text = photo.reposts.count.toString()
+        Glide.with(view)
+            .load(photo.sizes[0].photo)
+            .into(binding!!.photo)
 
-            if (photo.likes.userLikes >= 1) {
-                binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
-            }
+        if (photo.likes.userLikes >= 1) {
+            binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
+        } else {
+            binding!!.likes.setImageResource(R.drawable.ic_like21)
         }
 
-        binding!!.likesLayout.setOnClickListener { viewModel.addLike(photo!!.id) }
+        binding!!.likesLayout.setOnClickListener {
+            if (photo.likes.userLikes == 0) {
+                viewModel.addLike(photo.id)
+            } else {
+                viewModel.deleteLike(photo.id)
+            }
+        }
 
         viewModel.likeLiveData.observe(viewLifecycleOwner) {
-            if (photo!!.likes.userLikes < 1) {
+            photo = photo.copy(
+                likes = photo.likes.copy(
+                    userLikes = if (photo.likes.userLikes == 0) {
+                        1
+                    } else {
+                        0
+                    },
+                    count = it.response.likes
+                )
+            )
+
+            if (photo.likes.userLikes < 1) {
                 binding!!.like.text = "${photo.likes.count + 1}"
                 binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
+
+            } else {
+                binding!!.like.text = "${photo.likes.count - 1}"
+                binding!!.likes.setImageResource(R.drawable.ic_like21)
             }
         }
 
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+        viewModel.errorLikeLiveData.observe(viewLifecycleOwner) {
             val snackbar = Snackbar.make(
                 requireView(),
                 it,
