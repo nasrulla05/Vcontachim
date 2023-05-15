@@ -40,6 +40,10 @@ class VideoAdapter : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
             .load(sizeVideo.photo)
             .into(holder.binding.itemVideo)
 
+        holder.binding.moreVertical.setOnClickListener {
+
+        }
+
         val plurals = VcontachimApplication.context.resources.getQuantityString(
             R.plurals.plurals_video,
             video.views

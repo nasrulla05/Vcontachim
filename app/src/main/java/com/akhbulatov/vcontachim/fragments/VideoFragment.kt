@@ -52,6 +52,11 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
             snackbar.show()
         }
         viewModel.getVideo()
+
+        viewModel.videoDeleteLiveData.observe(viewLifecycleOwner){
+            viewModel.deleteVideo(it.response)
+            videoAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onDestroyView() {
