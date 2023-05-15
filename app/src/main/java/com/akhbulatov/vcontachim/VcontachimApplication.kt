@@ -3,8 +3,8 @@ package com.akhbulatov.vcontachim
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.akhbulatov.vcontachim.database.SharedPreferencesManager
 import com.akhbulatov.vcontachim.network.VcontachimService
+import com.akhbulatov.vcontachim.preferences.SharedPreferencesManager
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
