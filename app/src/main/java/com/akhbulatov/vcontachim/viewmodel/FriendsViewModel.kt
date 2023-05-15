@@ -16,11 +16,10 @@ class FriendsViewModel : ViewModel() {
     fun main() {
         viewModelScope.launch {
             try {
-                val accessToken = VcontachimApplication.sharedPr.accessToken
                 progressBarLiveData.value = true
 
                 val friends: Friends =
-                    VcontachimApplication.vcontachimService.getFriends("Bearer $accessToken")
+                    VcontachimApplication.vcontachimService.getFriends()
                 friendsLiveData.value = friends
 
                 progressBarLiveData.value = false

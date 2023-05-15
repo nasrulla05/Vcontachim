@@ -15,12 +15,10 @@ class PhotoAlbumsViewModel : ViewModel() {
     fun getPhotoAlbums() {
         viewModelScope.launch {
             try {
-
-                val accessToken = VcontachimApplication.sharedPr.accessToken
                 progressBarLiveData.value = true
 
                 val photos: PhotosAlbums =
-                    VcontachimApplication.vcontachimService.getAlbums("Bearer $accessToken")
+                    VcontachimApplication.vcontachimService.getAlbums()
                 photoAlbumsLiveData.value = photos
 
                 progressBarLiveData.value = false

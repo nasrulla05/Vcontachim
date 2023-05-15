@@ -1,4 +1,4 @@
-package com.akhbulatov.vcontachim.model
+package com.akhbulatov.vcontachim.database
 
 import android.content.Context
 import android.content.SharedPreferences

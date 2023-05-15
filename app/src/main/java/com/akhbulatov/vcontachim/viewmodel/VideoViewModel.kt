@@ -15,11 +15,9 @@ class VideoViewModel : ViewModel() {
     fun getVideo() {
         viewModelScope.launch {
             try {
-
-                val accessToken: String? = VcontachimApplication.sharedPr.accessToken
                 progressBarLiveData.value = true
 
-                val video = VcontachimApplication.vcontachimService.getVideo("Bearer $accessToken")
+                val video = VcontachimApplication.vcontachimService.getVideo()
                 videoLiveData.value = video
 
                 progressBarLiveData.value = false

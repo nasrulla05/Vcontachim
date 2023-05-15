@@ -16,11 +16,10 @@ class CommunitiesViewModel : ViewModel() {
     fun getCommunity() {
         viewModelScope.launch {
             try {
-                val accessToken = VcontachimApplication.sharedPr.accessToken
                 progressBarLiveData.value = true
 
                 val community: Community =
-                    VcontachimApplication.vcontachimService.getCommunity("Bearer $accessToken")
+                    VcontachimApplication.vcontachimService.getCommunity()
                 communityLiveData.value = community
                 progressBarLiveData.value = false
 

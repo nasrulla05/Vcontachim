@@ -14,12 +14,7 @@ class PhotoViewModel : ViewModel() {
     fun addLike(photoId: Long) {
         viewModelScope.launch {
             try {
-
-                val token = VcontachimApplication.sharedPr.accessToken
-                val like = VcontachimApplication.vcontachimService.postLike(
-                    itemId = photoId,
-                    token = "Bearer $token"
-                )
+                val like = VcontachimApplication.vcontachimService.postLike(itemId = photoId)
                 likeLiveData.value = like
 
             } catch (e: Exception) {
@@ -31,12 +26,7 @@ class PhotoViewModel : ViewModel() {
     fun deleteLike(photoId: Long) {
         viewModelScope.launch {
             try {
-
-                val token = VcontachimApplication.sharedPr.accessToken
-                val deleteLike = VcontachimApplication.vcontachimService.deleteLike(
-                    itemId = photoId,
-                    token = "Bearer $token"
-                )
+                val deleteLike = VcontachimApplication.vcontachimService.deleteLike(itemId = photoId)
                 likeLiveData.value = deleteLike
 
             } catch (e: Exception) {

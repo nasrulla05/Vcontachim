@@ -14,9 +14,7 @@ class ProfileViewModel : ViewModel() {
     fun getProfileInfo() {
         viewModelScope.launch {
             try {
-
-                val accessToken = VcontachimApplication.sharedPr.accessToken
-                val users = VcontachimApplication.vcontachimService.getUsers("Bearer $accessToken")
+                val users = VcontachimApplication.vcontachimService.getUsers()
                 profileLiveData.value = users
 
             } catch (e: Exception) {
