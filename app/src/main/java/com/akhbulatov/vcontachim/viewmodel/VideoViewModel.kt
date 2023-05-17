@@ -11,6 +11,7 @@ class VideoViewModel : ViewModel() {
     val progressBarLiveData = MutableLiveData<Boolean>()
     val videoLiveData = MutableLiveData<Video>()
     val errorLiveData = MutableLiveData<String>()
+    val videoDelLiveData = MutableLiveData<Video.Item>()
 
     fun getVideo() {
         viewModelScope.launch {
@@ -24,6 +25,17 @@ class VideoViewModel : ViewModel() {
 
             } catch (e: Exception) {
                 progressBarLiveData.value = false
+                errorLiveData.value = e.message
+            }
+        }
+    }
+
+    fun deleteVideo(itemVideo: Video.Item) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.deleteVideo(videoId = itemVideo.id)
+                videoDelLiveData.value = itemVideo
+            } catch (e: Exception) {
                 errorLiveData.value = e.message
             }
         }
