@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.network
 
-import com.akhbulatov.vcontachim.adapters.model.*
 import com.akhbulatov.vcontachim.model.*
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -63,6 +62,6 @@ interface VcontachimService {
     @POST("video.delete")
     suspend fun deleteVideo(
         @Query("v") v: Double = 5.131,
-        @Query("video_id") videoId: Long
-    ): VideoDel
+        @Query("video_id") videoId: Int
+    )
 }

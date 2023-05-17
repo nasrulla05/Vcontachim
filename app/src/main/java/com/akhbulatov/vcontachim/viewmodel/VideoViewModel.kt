@@ -1,18 +1,18 @@
 package com.akhbulatov.vcontachim.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.model.Video
-import com.akhbulatov.vcontachim.model.VideoDel
 import kotlinx.coroutines.launch
 
 class VideoViewModel : ViewModel() {
     val progressBarLiveData = MutableLiveData<Boolean>()
     val videoLiveData = MutableLiveData<Video>()
     val errorLiveData = MutableLiveData<String>()
-    val videoDeleteLiveData = MutableLiveData<VideoDel>()
+    val videoDelLiveData = MutableLiveData<Video.Item>()
 
     fun getVideo() {
         viewModelScope.launch {
@@ -31,18 +31,13 @@ class VideoViewModel : ViewModel() {
         }
     }
 
-    fun deleteVideo(videoId: Long) {
+    @SuppressLint("SuspiciousIndentation")
+    fun deleteVideo(videoId:Video.Item) {
         viewModelScope.launch {
             try {
-                progressBarLiveData.value = true
-
-                val deleteVideo =
-                    VcontachimApplication.vcontachimService.deleteVideo(videoId = videoId)
-                videoDeleteLiveData.value = deleteVideo
-
-                progressBarLiveData.value = false
-            } catch (e: Exception) {
-                progressBarLiveData.value = false
+                    VcontachimApplication.vcontachimService.deleteVideo(videoId = videoId.id)
+                videoDelLiveData.value = videoId
+            }catch (e:Exception){
                 errorLiveData.value = e.message
             }
         }

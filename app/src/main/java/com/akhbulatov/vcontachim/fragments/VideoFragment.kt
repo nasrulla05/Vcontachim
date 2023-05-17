@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.VideoAdapter
+import com.akhbulatov.vcontachim.adddialog.AddVideoBottomDialog
 import com.akhbulatov.vcontachim.databinding.FragmentVideoBinding
+import com.akhbulatov.vcontachim.model.Video
 import com.akhbulatov.vcontachim.viewmodel.VideoViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,7 +29,22 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
             VcontachimApplication.router.exit()
         }
 
-        val videoAdapter = VideoAdapter()
+        val videoAdapter = VideoAdapter(
+            itemVideo = object : VideoAdapter.DeleteVideo {
+                override fun onDeleteClick(video: Video.Item) {
+                    val bottomDialog = AddVideoBottomDialog(
+                        context = view.context,
+                        videoDel = object : AddVideoBottomDialog.AddVideoDelete {
+                            override fun onVideoDelete(video: Video.Item) {
+                                viewModel.deleteVideo(videoId = video)
+                            }
+                        },
+                        video = video
+                    )
+                    bottomDialog.show()
+                }
+            }
+        )
         binding!!.videoList.adapter = videoAdapter
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
@@ -53,8 +70,11 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
         }
         viewModel.getVideo()
 
-        viewModel.videoDeleteLiveData.observe(viewLifecycleOwner){
-            viewModel.deleteVideo(it.response)
+
+        viewModel.videoDelLiveData.observe(viewLifecycleOwner) {
+            val mutableList = videoAdapter.videos.toMutableList()
+            mutableList.remove(it)
+            videoAdapter.videos = mutableList
             videoAdapter.notifyDataSetChanged()
         }
     }
