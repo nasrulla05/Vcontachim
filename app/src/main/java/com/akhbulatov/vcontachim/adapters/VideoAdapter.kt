@@ -44,7 +44,6 @@ class VideoAdapter(private val itemVideo:DeleteVideo) : RecyclerView.Adapter<Vid
             itemVideo.onDeleteClick(video)
         }
 
-        holder.binding.moreVertical
         val plurals = VcontachimApplication.context.resources.getQuantityString(
             R.plurals.plurals_video,
             video.views
