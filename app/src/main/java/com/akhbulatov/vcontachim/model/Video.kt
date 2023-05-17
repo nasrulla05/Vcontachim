@@ -10,7 +10,10 @@ class Video(
 
     class Item(
         @SerializedName("id")
-        val id:Int,
+        val id: Int,
+
+        @SerializedName("player")
+        val player: String,
 
         @SerializedName("title")
         val title: String,
