@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.BottomVideoMenuVideoBinding
@@ -29,6 +30,13 @@ class MenuVideoBottomDialog(
         binding!!.copyLink.setOnClickListener {
             val clipBoard = ContextCompat.getSystemService(context, ClipboardManager::class.java)
             clipBoard!!.setPrimaryClip(ClipData.newPlainText("", video.player))
+
+            val toast = Toast.makeText(
+                context,
+                "Ссылка скопирована",
+                Toast.LENGTH_LONG
+            )
+            toast.show()
             dismiss()
         }
 
