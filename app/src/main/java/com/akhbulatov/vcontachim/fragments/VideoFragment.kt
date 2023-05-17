@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.VideoAdapter
-import com.akhbulatov.vcontachim.adddialog.AddVideoBottomDialog
+import com.akhbulatov.vcontachim.adddialog.RemoveVideoBottomDialog
 import com.akhbulatov.vcontachim.databinding.FragmentVideoBinding
 import com.akhbulatov.vcontachim.model.Video
 import com.akhbulatov.vcontachim.viewmodel.VideoViewModel
@@ -30,13 +30,13 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
         }
 
         val videoAdapter = VideoAdapter(
-            itemVideo = object : VideoAdapter.DeleteVideo {
+            itemVideo = object : VideoAdapter.DeleteVideoListener {
                 override fun onDeleteClick(video: Video.Item) {
-                    val bottomDialog = AddVideoBottomDialog(
+                    val bottomDialog = RemoveVideoBottomDialog(
                         context = view.context,
-                        videoDel = object : AddVideoBottomDialog.AddVideoDelete {
+                        videoDel = object : RemoveVideoBottomDialog.AddVideoDeleteCallback {
                             override fun onVideoDelete(video: Video.Item) {
-                                viewModel.deleteVideo(videoId = video)
+                                viewModel.deleteVideo(itemVideo = video)
                             }
                         },
                         video = video

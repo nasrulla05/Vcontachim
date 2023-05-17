@@ -32,7 +32,7 @@
             android:textSize="16sp"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:text="Скопировать ссылку"
+            android:text="@string/copy_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -55,7 +55,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginStart="16dp"
-            android:text="Удалить из моих видео"
+            android:text="@string/remove_video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

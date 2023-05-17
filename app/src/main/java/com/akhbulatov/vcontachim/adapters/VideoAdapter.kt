@@ -12,7 +12,7 @@ import com.akhbulatov.vcontachim.model.Video
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class VideoAdapter(private val itemVideo:DeleteVideo) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
+class VideoAdapter(private val itemVideo:DeleteVideoListener) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
     var videos: List<Video.Item> = emptyList()
 
     class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -63,7 +63,7 @@ class VideoAdapter(private val itemVideo:DeleteVideo) : RecyclerView.Adapter<Vid
         holder.binding.releaseDate.text = date
     }
 
-    interface DeleteVideo {
+    interface DeleteVideoListener {
         fun onDeleteClick(video:Video.Item)
     }
 }

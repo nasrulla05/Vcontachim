@@ -16,6 +16,8 @@
     <string name="logout">Выйти из аккаунта</string>
     <string name="cansel">Отмена</string>
     <string name="add">Добавленные</string>
+    <string name="copy_link">Скопировать ссылку</string>
+    <string name="remove_video">Удалить из моих видео</string>
 
     <plurals name="plurals_photo_albums" tools:ignore="MissingQuantity">
         <item quantity="zero"> Фотографий</item>

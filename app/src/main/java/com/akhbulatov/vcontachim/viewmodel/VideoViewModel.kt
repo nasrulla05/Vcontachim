@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.viewmodel
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,13 +30,12 @@ class VideoViewModel : ViewModel() {
         }
     }
 
-    @SuppressLint("SuspiciousIndentation")
-    fun deleteVideo(videoId:Video.Item) {
+    fun deleteVideo(itemVideo: Video.Item) {
         viewModelScope.launch {
             try {
-                    VcontachimApplication.vcontachimService.deleteVideo(videoId = videoId.id)
-                videoDelLiveData.value = videoId
-            }catch (e:Exception){
+                VcontachimApplication.vcontachimService.deleteVideo(videoId = itemVideo.id)
+                videoDelLiveData.value = itemVideo
+            } catch (e: Exception) {
                 errorLiveData.value = e.message
             }
         }
