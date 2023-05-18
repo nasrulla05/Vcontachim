@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
@@ -12,8 +14,8 @@ import com.akhbulatov.vcontachim.model.Video
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class VideoAdapter(private val itemVideo:DeleteVideoListener) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
-    var videos: List<Video.Item> = emptyList()
+class VideoAdapter(private val itemVideo: DeleteVideoListener) :
+    ListAdapter<Video.Item, VideoAdapter.VideoViewHolder>(VideoDiffCallback) {
 
     class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemVideoBinding = ItemVideoBinding.bind(itemView)
@@ -29,15 +31,13 @@ class VideoAdapter(private val itemVideo:DeleteVideoListener) : RecyclerView.Ada
         return VideoViewHolder(itemView)
     }
 
-    override fun getItemCount() = videos.size
-
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        val video: Video.Item = videos[position]
-        val sizeVideo: Video.Image = video.image[0]
+        val video: Video.Item = getItem(position)
+//        val sizeVideo: Video.Image = video.image[0]
 
         Glide.with(holder.itemView)
-            .load(sizeVideo.photo)
+            .load(video.image[0].photo)
             .into(holder.binding.itemVideo)
 
         holder.binding.moreVertical.setOnClickListener {
@@ -64,6 +64,17 @@ class VideoAdapter(private val itemVideo:DeleteVideoListener) : RecyclerView.Ada
     }
 
     interface DeleteVideoListener {
-        fun onDeleteClick(video:Video.Item)
+        fun onDeleteClick(video: Video.Item)
+    }
+
+    object VideoDiffCallback : DiffUtil.ItemCallback<Video.Item>() {
+        override fun areItemsTheSame(oldItem: Video.Item, newItem: Video.Item): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Video.Item, newItem: Video.Item): Boolean {
+            return oldItem == newItem
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -19,7 +18,6 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         ViewModelProvider(this)[PhotosViewModel::class.java]
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPhotosBinding.bind(view)
@@ -40,8 +38,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         }
 
         viewModel.photosLiveData.observe(viewLifecycleOwner) {
-            photosAdapter.photos = it.response.items
-            photosAdapter.notifyDataSetChanged()
+            photosAdapter.submitList(it.response.items)
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {

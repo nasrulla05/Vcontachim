@@ -27,8 +27,7 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
         binding!!.communityList.adapter = communityAdapter
 
         viewModel.communityLiveData.observe(viewLifecycleOwner) {
-            communityAdapter.communities = it.response.items
-            communityAdapter.notifyDataSetChanged()
+            communityAdapter.submitList(it.response.items)
         }
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {

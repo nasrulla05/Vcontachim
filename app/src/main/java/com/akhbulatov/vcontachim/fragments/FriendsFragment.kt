@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -15,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 class FriendsFragment : Fragment(R.layout.fragment_friends) {
     private var binding: FragmentFriendsBinding? = null
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFriendsBinding.bind(view)
@@ -29,8 +27,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends) {
         binding!!.friendsList.adapter = friendAdapter
 
         viewModel.friendsLiveData.observe(viewLifecycleOwner) {
-            friendAdapter.friends = it.response.items
-            friendAdapter.notifyDataSetChanged()
+            friendAdapter.submitList(it.response.items)
         }
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {

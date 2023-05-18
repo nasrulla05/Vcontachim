@@ -4,14 +4,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemFriendBinding
 import com.akhbulatov.vcontachim.model.Friends
 import com.bumptech.glide.Glide
 
-class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>() {
-    var friends: List<Friends.Item> = emptyList()
+class FriendsAdapter : ListAdapter<Friends.Item,FriendsAdapter.FriendsViewHolder>(FriendsDiffCallback) {
 
     class FriendsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemFriendBinding = ItemFriendBinding.bind(itemView)
@@ -30,7 +31,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>() 
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FriendsViewHolder, position: Int) {
-        val friend: Friends.Item = friends[position]
+        val friend: Friends.Item = getItem(position)
 
         Glide.with(holder.itemView)
             .load(friend.avatar100)
@@ -39,6 +40,15 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>() 
         holder.binding.nameLastName.text =
             "${friend.firstName} ${friend.lastName}"
     }
+    object FriendsDiffCallback:DiffUtil.ItemCallback<Friends.Item>(){
 
-    override fun getItemCount() = friends.size
+        override fun areItemsTheSame(oldItem: Friends.Item, newItem: Friends.Item): Boolean {
+            return oldItem.firstName == newItem.firstName
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Friends.Item, newItem: Friends.Item): Boolean {
+            return oldItem == newItem
+        }
+    }
 }
