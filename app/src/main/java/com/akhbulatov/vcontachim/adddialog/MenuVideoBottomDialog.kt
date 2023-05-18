@@ -1,8 +1,12 @@
 package com.akhbulatov.vcontachim.adddialog
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.BottomVideoMenuVideoBinding
 import com.akhbulatov.vcontachim.model.Video
@@ -22,6 +26,20 @@ class MenuVideoBottomDialog(
         binding = BottomVideoMenuVideoBinding.bind(rootLayout)
 
         binding!!.nameVideo.text = video.title
+
+        binding!!.copyLink.setOnClickListener {
+            val clipBoard:ClipboardManager? = ContextCompat.getSystemService(context, ClipboardManager::class.java)
+            clipBoard!!.setPrimaryClip(ClipData.newPlainText("", video.player))
+
+            val toast = Toast.makeText(
+                context,
+                R.string.link_copied,
+                Toast.LENGTH_LONG
+            )
+            toast.show()
+            dismiss()
+        }
+
         binding!!.deleteVideo.setOnClickListener {
             videoDel.onVideoDelete(video)
             dismiss()
@@ -32,4 +50,3 @@ class MenuVideoBottomDialog(
         fun onVideoDelete(video: Video.Item)
     }
 }
-
