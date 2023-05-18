@@ -28,7 +28,7 @@ class MenuVideoBottomDialog(
         binding!!.nameVideo.text = video.title
 
         binding!!.copyLink.setOnClickListener {
-            val clipBoard = ContextCompat.getSystemService(context, ClipboardManager::class.java)
+            val clipBoard:ClipboardManager? = ContextCompat.getSystemService(context, ClipboardManager::class.java)
             clipBoard!!.setPrimaryClip(ClipData.newPlainText("", video.player))
 
             val toast = Toast.makeText(
