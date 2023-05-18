@@ -12,7 +12,8 @@ import com.akhbulatov.vcontachim.databinding.ItemFriendBinding
 import com.akhbulatov.vcontachim.model.Friends
 import com.bumptech.glide.Glide
 
-class FriendsAdapter : ListAdapter<Friends.Item,FriendsAdapter.FriendsViewHolder>(FriendsDiffCallback) {
+class FriendsAdapter :
+    ListAdapter<Friends.Item, FriendsAdapter.FriendsViewHolder>(FriendsDiffCallback) {
 
     class FriendsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemFriendBinding = ItemFriendBinding.bind(itemView)
@@ -40,10 +41,11 @@ class FriendsAdapter : ListAdapter<Friends.Item,FriendsAdapter.FriendsViewHolder
         holder.binding.nameLastName.text =
             "${friend.firstName} ${friend.lastName}"
     }
-    object FriendsDiffCallback:DiffUtil.ItemCallback<Friends.Item>(){
+
+    object FriendsDiffCallback : DiffUtil.ItemCallback<Friends.Item>() {
 
         override fun areItemsTheSame(oldItem: Friends.Item, newItem: Friends.Item): Boolean {
-            return oldItem.firstName == newItem.firstName
+            return oldItem.lastName == newItem.lastName
         }
 
         @SuppressLint("DiffUtilEquals")

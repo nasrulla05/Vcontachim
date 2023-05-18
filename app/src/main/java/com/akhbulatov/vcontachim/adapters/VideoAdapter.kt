@@ -34,7 +34,6 @@ class VideoAdapter(private val itemVideo: DeleteVideoListener) :
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         val video: Video.Item = getItem(position)
-//        val sizeVideo: Video.Image = video.image[0]
 
         Glide.with(holder.itemView)
             .load(video.image[0].photo)

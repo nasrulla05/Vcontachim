@@ -31,7 +31,6 @@ class PhotosAdapter : ListAdapter<Item, PhotosAdapter.PhotosViewHolder>(PhotosDi
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         val photo: Item = getItem(position)
-//        val sizes: Size = photo.sizes[0]
 
         holder.binding.photo.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.photoAc(photo))
