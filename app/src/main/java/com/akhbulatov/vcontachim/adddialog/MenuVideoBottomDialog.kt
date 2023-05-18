@@ -33,7 +33,7 @@ class MenuVideoBottomDialog(
 
             val toast = Toast.makeText(
                 context,
-                "Ссылка скопирована",
+                (R.string.copy_link1),
                 Toast.LENGTH_LONG
             )
             toast.show()
