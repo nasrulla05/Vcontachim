@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -20,7 +19,6 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
         ViewModelProvider(this)[VideoViewModel::class.java]
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVideoBinding.bind(view)
@@ -56,8 +54,7 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
         }
 
         viewModel.videoLiveData.observe(viewLifecycleOwner) {
-            videoAdapter.videos = it.response.items
-            videoAdapter.notifyDataSetChanged()
+            videoAdapter.submitList(it.response.items)
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
@@ -72,10 +69,9 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
 
 
         viewModel.videoDelLiveData.observe(viewLifecycleOwner) {
-            val mutableList = videoAdapter.videos.toMutableList()
+            val mutableList = videoAdapter.currentList.toMutableList()
             mutableList.remove(it)
-            videoAdapter.videos = mutableList
-            videoAdapter.notifyDataSetChanged()
+            videoAdapter.submitList(mutableList)
         }
     }
 

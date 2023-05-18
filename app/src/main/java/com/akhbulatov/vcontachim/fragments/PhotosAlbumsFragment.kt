@@ -37,8 +37,7 @@ class PhotosAlbumsFragment : Fragment(R.layout.fragment_photo_albums) {
         }
 
         viewModel.photoAlbumsLiveData.observe(viewLifecycleOwner) {
-            photosAdapter.photos = it.response.items
-            photosAdapter.notifyDataSetChanged()
+            photosAdapter.submitList(it.response.items)
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
