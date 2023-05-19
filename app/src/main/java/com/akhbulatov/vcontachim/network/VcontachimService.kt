@@ -42,7 +42,7 @@ interface VcontachimService {
     @GET("video.get")
     suspend fun getVideo(
         @Query("v") v: Double = 5.131,
-        @Query("extended") extended: Int = 1
+        @Query("extended") extended: Int = 1,
     ): Video
 
     @POST("likes.add")
