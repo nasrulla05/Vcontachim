@@ -3,18 +3,19 @@ package com.akhbulatov.vcontachim.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentVideoPlayerBinding
 import com.akhbulatov.vcontachim.model.Video
-import java.io.File
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
 import java.io.Serializable
 import java.text.SimpleDateFormat
 
 class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
     private var binding: FragmentVideoPlayerBinding? = null
+    private var player: ExoPlayer? = null
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,25 +28,28 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
 
         val itemSerializable: Serializable = arguments?.getSerializable(ARGUMENTS_ITEM)!!
         val item: Video.Item = itemSerializable as Video.Item
-        binding!!.play.setOnClickListener {
-
+        binding!!.video.setOnClickListener {
+            player = ExoPlayer.Builder(requireContext())
+                .build()
+                .also { exoPlayer ->
+                    binding!!.video.player = exoPlayer
+                    val mediaItem = MediaItem.fromUri(item.player)
+                    exoPlayer.setMediaItem(mediaItem)
+                    exoPlayer.play()
+                }
         }
         binding!!.title.text = item.title
         val formatter = SimpleDateFormat("d MMMM yyyy")
         val date = formatter.format(item.date * 1000)
         binding!!.date.text = date
-        val plurals = VcontachimApplication.context.resources.getQuantityString(R.plurals.plurals_video,item.views)
+        val plurals = VcontachimApplication.context.resources.getQuantityString(
+            R.plurals.plurals_video,
+            item.views
+        )
         binding!!.numberViews.text = "${item.views} $plurals"
         binding!!.commentCount.text = item.comments.toString()
         binding!!.likesCount.text = item.likes.likes_count.toString()
         binding!!.shareCount.text = item.reposts.reposts_count.toString()
-
-        binding!!.play.setOnClickListener {
-            binding!!.video.setVideoURI(File(item.player).toUri())
-//            binding!!.video.setMediaController(MediaController(requireContext()))
-//            binding!!.video.requestFocus()
-            binding!!.video.start()
-        }
     }
 
     companion object {

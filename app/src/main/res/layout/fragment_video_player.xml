@@ -51,30 +51,11 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <VideoView
+        <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/video"
             android:layout_width="match_parent"
             android:layout_height="216dp"
             android:layout_marginTop="10dp" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ellipse_182" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/play_48" />
-
-    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
