@@ -33,7 +33,7 @@ class VideoViewModel : ViewModel() {
     fun deleteVideo(itemVideo: Video.Item) {
         viewModelScope.launch {
             try {
-                VcontachimApplication.vcontachimService.deleteVideo(videoId = itemVideo.id)
+                VcontachimApplication.vcontachimService.deleteVideo(videoId = itemVideo.itemId)
                 videoDelLiveData.value = itemVideo
             } catch (e: Exception) {
                 errorLiveData.value = e.message
