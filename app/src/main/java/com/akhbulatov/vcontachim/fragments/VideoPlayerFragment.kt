@@ -55,12 +55,12 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         exoPlayer?.playWhenReady = true
         binding!!.video.player = exoPlayer
         val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
-        val mediaItem = MediaItem.fromUri(URL)
+        val mediaItem = MediaItem.fromUri(item.player)
         val mediaSource =
             DashMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
         exoPlayer?.setMediaSource(mediaSource)
         exoPlayer?.seekTo(playbackPosition)
-        exoPlayer?.playWhenReady = playWhenReady
+        exoPlayer?.playWhenReady
         exoPlayer?.pause()
         exoPlayer?.prepare()
 
@@ -75,26 +75,12 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        releasePlayer()
-    }
-
     override fun onPause() {
         super.onPause()
         releasePlayer()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        releasePlayer()
-    }
-
     companion object {
-        const val URL2 =
-            "https://vk.com/video_ext.php?oid=-56643473&id=456245378&hash=b5e979a9793c2e6d&__ref=vk.api&api_hash=1684676843b4a0a093a97f38ef99_G44TKNJZGI4TGOI"
-        const val URL =
-            "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd"
         const val ARGUMENTS_ITEM = "ITEM"
 
         fun createVideoPlayer(
@@ -108,7 +94,6 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
             return videoPlayer
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
