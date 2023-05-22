@@ -50,7 +50,7 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         preparePlayer(item)
     }
 
-    fun preparePlayer(item: Video.Item) {
+    private fun preparePlayer(item: Video.Item) {
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
         exoPlayer?.playWhenReady = true
         binding!!.video.player = exoPlayer
@@ -60,7 +60,6 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
             DashMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
         exoPlayer?.setMediaSource(mediaSource)
         exoPlayer?.seekTo(playbackPosition)
-        exoPlayer?.playWhenReady
         exoPlayer?.pause()
         exoPlayer?.prepare()
 
