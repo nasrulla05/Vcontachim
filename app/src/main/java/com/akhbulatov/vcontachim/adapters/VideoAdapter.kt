@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.ItemVideoBinding
 import com.akhbulatov.vcontachim.model.Video
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class VideoAdapter(private val itemVideo: DeleteVideoListener) :
+class VideoAdapter(
+    private val itemVideo: DeleteVideoListener) :
     ListAdapter<Video.Item, VideoAdapter.VideoViewHolder>(VideoDiffCallback) {
 
     class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,32 +35,35 @@ class VideoAdapter(private val itemVideo: DeleteVideoListener) :
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        val video: Video.Item = getItem(position)
+        val itemVideo: Video.Item = getItem(position)
 
         Glide.with(holder.itemView)
-            .load(video.image[0].photo)
+            .load(itemVideo.image[0].photo)
             .into(holder.binding.itemVideo)
 
         holder.binding.moreVertical.setOnClickListener {
-            itemVideo.onDeleteClick(video)
+            this.itemVideo.onDeleteClick(itemVideo)
         }
 
+        holder.binding.video.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.videoPlayerFr(itemVideo))
+        }
         val plurals = VcontachimApplication.context.resources.getQuantityString(
             R.plurals.plurals_video,
-            video.views
+            itemVideo.views
         )
-        holder.binding.nameVideo.text = video.title
-        holder.binding.numbersViews.text = "${video.views} $plurals"
+        holder.binding.nameVideo.text = itemVideo.title
+        holder.binding.numbersViews.text = "${itemVideo.views} $plurals"
 
-        val hours = video.duration / 3600
-        val min = (video.duration % 3600) / 60
-        val sec = video.duration % 60
+        val hours = itemVideo.duration / 3600
+        val min = (itemVideo.duration % 3600) / 60
+        val sec = itemVideo.duration % 60
 
         val time = String.format("$hours:$min:$sec")
         holder.binding.duration.text = time
 
         val formatter = SimpleDateFormat("d MMMM yyyy")
-        val date = formatter.format(video.date * 1000L)
+        val date = formatter.format(itemVideo.date * 1000L)
         holder.binding.releaseDate.text = date
     }
 

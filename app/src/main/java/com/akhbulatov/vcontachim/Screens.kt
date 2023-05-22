@@ -7,6 +7,7 @@ import com.akhbulatov.vcontachim.activity.PhotoActivity
 import com.akhbulatov.vcontachim.fragments.*
 import com.akhbulatov.vcontachim.model.Item
 import com.akhbulatov.vcontachim.model.PhotosAlbums
+import com.akhbulatov.vcontachim.model.Video
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
@@ -26,6 +27,10 @@ object Screens {
     fun photoFr(
         itemPhoto: Item
     ) = FragmentScreen { PhotoFragment.createPhoto(itemPhoto) }
+
+    fun videoPlayerFr(
+        item: Video.Item
+    ) = FragmentScreen { VideoPlayerFragment.createVideoPlayer(item) }
 
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
