@@ -67,18 +67,18 @@ interface VcontachimService {
 
     @POST("likes.add")
     suspend fun postVideo(
-        @Query("v") v:Double = 5.131,
+        @Query("v") v: Double = 5.131,
         @Query("type") type: String = "video",
         @Query("item_id") itemId: Int,
-        @Query("owner_id") ownerId:Int
-    ):LikesVideo
+        @Query("owner_id") ownerId: Int
+    ): LikesVideo
 
     @POST("likes.delete")
     suspend fun deleteLikesVideo(
-        @Query("v") v:Double = 5.131,
-        @Query("type") type:String = "video",
+        @Query("v") v: Double = 5.131,
+        @Query("type") type: String = "video",
         @Query("item_id") itemId: Int,
-        @Query("owner_id") ownerId:Int
-    ):LikesVideo
+        @Query("owner_id") ownerId: Int
+    ): LikesVideo
 
 }

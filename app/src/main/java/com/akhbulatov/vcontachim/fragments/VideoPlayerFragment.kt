@@ -65,11 +65,14 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         }
 
         binding!!.likesClick.setOnClickListener {
-            if (item.likes.userLikes == 0) viewModel.addLike(
-                id = item.itemId,
-                ownerId = item.ownerId
-            )
-            else viewModel.deleteLike(id = item.itemId, ownerId = item.ownerId)
+            if (item.likes.userLikes == 0) {
+                viewModel.addLike(
+                    id = item.itemId,
+                    ownerId = item.ownerId
+                )
+            } else {
+                viewModel.deleteLike(id = item.itemId, ownerId = item.ownerId)
+            }
         }
 
         viewModel.addLikeLiveData.observe(viewLifecycleOwner) {

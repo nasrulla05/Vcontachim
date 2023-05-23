@@ -16,7 +16,7 @@ import java.io.Serializable
 
 class PhotoFragment : Fragment(R.layout.fragment_photo) {
     private var binding: FragmentPhotoBinding? = null
-    private val viewModel:PhotoViewModel by lazy {
+    private val viewModel: PhotoViewModel by lazy {
         ViewModelProvider(this)[PhotoViewModel::class.java]
     }
 
@@ -82,11 +82,6 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             )
             snackbar.show()
         }
-
-
-
-
-
     }
 
     companion object {
