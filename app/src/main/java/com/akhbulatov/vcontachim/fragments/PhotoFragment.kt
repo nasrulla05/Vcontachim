@@ -16,7 +16,7 @@ import java.io.Serializable
 
 class PhotoFragment : Fragment(R.layout.fragment_photo) {
     private var binding: FragmentPhotoBinding? = null
-    private val viewModel by lazy {
+    private val viewModel: PhotoViewModel by lazy {
         ViewModelProvider(this)[PhotoViewModel::class.java]
     }
 
@@ -64,13 +64,12 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
                     count = it.response.likes
                 )
             )
+            binding!!.like.text = "${photo.likes.count}"
 
             if (photo.likes.userLikes < 1) {
-                binding!!.like.text = "${photo.likes.count + 1}"
                 binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
 
             } else {
-                binding!!.like.text = "${photo.likes.count - 1}"
                 binding!!.likes.setImageResource(R.drawable.ic_like21)
             }
         }

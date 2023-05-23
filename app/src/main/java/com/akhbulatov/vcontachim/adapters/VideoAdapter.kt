@@ -73,7 +73,7 @@ class VideoAdapter(
 
     object VideoDiffCallback : DiffUtil.ItemCallback<Video.Item>() {
         override fun areItemsTheSame(oldItem: Video.Item, newItem: Video.Item): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.itemId == newItem.itemId
         }
 
         @SuppressLint("DiffUtilEquals")
