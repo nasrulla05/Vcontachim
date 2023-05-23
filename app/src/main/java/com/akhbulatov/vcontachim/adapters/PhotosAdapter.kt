@@ -31,13 +31,12 @@ class PhotosAdapter : ListAdapter<Item, PhotosAdapter.PhotosViewHolder>(PhotosDi
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         val photo: Item = getItem(position)
-
         holder.binding.photo.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.photoAc(photo))
         }
 
         Glide.with(holder.itemView)
-            .load(photo.sizes[0])
+            .load(photo.sizes[0].photo)
             .into(holder.binding.photo)
     }
 
