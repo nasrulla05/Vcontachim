@@ -86,7 +86,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         }
 
         binding!!.commentsClick.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.commentsFr())
+            VcontachimApplication.router.navigateTo(Screens.commentsFr(photo))
         }
     }
 
