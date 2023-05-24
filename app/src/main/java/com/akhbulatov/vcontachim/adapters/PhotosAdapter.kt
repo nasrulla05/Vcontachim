@@ -37,7 +37,7 @@ class PhotosAdapter : ListAdapter<Item, PhotosAdapter.PhotosViewHolder>(PhotosDi
         }
 
         Glide.with(holder.itemView)
-            .load(photo.sizes[0])
+            .load(photo.sizes[0].photo)
             .into(holder.binding.photo)
     }
 
