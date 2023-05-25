@@ -7,5 +7,6 @@ data class PhotoCommentsUi(
     val lastName: String,
     val photo: String,
     val textComm: String,
-    val date: Int
+    val date: Int,
+    val online:Int
 )

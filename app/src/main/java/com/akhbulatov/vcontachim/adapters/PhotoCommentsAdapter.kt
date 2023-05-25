@@ -51,6 +51,8 @@ class PhotoCommentsAdapter :
         val formatter = SimpleDateFormat("d MMMM yyyy")
         val date = formatter.format(textComm.date *1000L)
         holder.binding.date.text = date
+        if (textComm.online ==1) holder.binding.onlineOrOffline.setImageResource(R.drawable.online_composite_16)
+        else holder.binding.onlineOrOffline.setImageResource(R.drawable.empt)
     }
 
     object PhotoCommentsDiffCallback :

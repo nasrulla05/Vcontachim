@@ -29,6 +29,8 @@ class PhotoComments(
         val id: Long,
         @SerializedName("photo_200")
         val photo:String,
+        @SerializedName("online")
+        val online:Int,
         @SerializedName("first_name")
         val firstName: String,
         @SerializedName("last_name")

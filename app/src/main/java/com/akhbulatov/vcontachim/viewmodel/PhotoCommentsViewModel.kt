@@ -32,7 +32,8 @@ class PhotoCommentsViewModel : ViewModel() {
                         photo = item.photo,
                         textComm = it.textComments,
                         date = it.date,
-                        count = response
+                        count = response,
+                        online = profiles[0].online
                     )
                     ui
                 }
