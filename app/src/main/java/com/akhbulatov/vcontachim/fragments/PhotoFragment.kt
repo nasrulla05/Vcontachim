@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentPhotoBinding
 import com.akhbulatov.vcontachim.model.Item
@@ -81,6 +82,10 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
                 Snackbar.LENGTH_LONG
             )
             snackbar.show()
+        }
+
+        binding!!.commentsClick.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.commentsFr(photo))
         }
     }
 

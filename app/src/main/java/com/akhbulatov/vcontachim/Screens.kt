@@ -32,6 +32,9 @@ object Screens {
         item: Video.Item
     ) = FragmentScreen { VideoPlayerFragment.createVideoPlayer(item) }
 
+    fun commentsFr(item: Item) =
+        FragmentScreen { CommentsFragments.createFragment(item) }
+
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
     fun photoAc(
