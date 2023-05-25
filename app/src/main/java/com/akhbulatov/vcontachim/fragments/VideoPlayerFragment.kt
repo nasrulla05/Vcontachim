@@ -24,7 +24,7 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
     private var exoPlayer: ExoPlayer? = null
     private var playbackPosition = 0L
     private var playWhenReady = true
-    private val viewModel by lazy {
+    private val viewModel: VideoPlayerViewModel by lazy {
         ViewModelProvider(this)[VideoPlayerViewModel::class.java]
     }
 
@@ -65,10 +65,14 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         }
 
         binding!!.likesClick.setOnClickListener {
-            if (item.likes.userLikes == 0) viewModel.addLike(
-                id = item.itemId,
-                ownerId = item.ownerId
-            )
+            if (item.likes.userLikes == 0) {
+                viewModel.addLike(
+                    id = item.itemId,
+                    ownerId = item.ownerId
+                )
+            } else {
+                viewModel.deleteLike(id = item.itemId, ownerId = item.ownerId)
+            }
         }
 
         viewModel.addLikeLiveData.observe(viewLifecycleOwner) {
@@ -78,16 +82,21 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
                     likesCount = it.response.likes
                 )
             )
+            binding!!.likesCount.text = "${item.likes.likesCount}"
 
-            if (item.likes.userLikes == 0) {
-                binding!!.likesCount.text = "${item.likes.likesCount + 1}"
+            if (item.likes.userLikes > 0) {
                 binding!!.like.setColorFilter(
                     ContextCompat.getColor(requireContext(), R.color.red),
                     android.graphics.PorterDuff.Mode.MULTIPLY
                 )
                 binding!!.like.setImageResource(R.drawable.like_filled_red_28)
             } else {
-                binding!!.likesCount.text = "${item.likes.likesCount - 1}"
+                binding!!.like.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    ), android.graphics.PorterDuff.Mode.MULTIPLY
+                )
                 binding!!.like.setImageResource(R.drawable.ic_like21)
             }
         }
