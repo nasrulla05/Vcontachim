@@ -43,22 +43,21 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
             snackbar.show()
         }
 
-        val argId = requireArguments().getLong(ARGUMENTS_ID)
-        viewModel.getComments(argId)
+        val argIdPhoto = requireArguments().getLong(ARGUMENTS_ID_PHOTO)
+        viewModel.getComments(argIdPhoto)
     }
 
     companion object {
-     private const val ARGUMENTS_ID = "ID"
+        private const val ARGUMENTS_ID_PHOTO = "ID"
 
         fun createFragment(photoItem: Item): Fragment {
             val photoCommentsFragments = CommentsFragments()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_ID, photoItem.id)
+            bundle.putLong(ARGUMENTS_ID_PHOTO, photoItem.id)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments
         }
-
     }
 
     override fun onDestroyView() {

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
     android:layout_marginStart="16dp"
+    android:layout_marginBottom="20dp"
     android:orientation="horizontal">
 
     <FrameLayout
@@ -36,20 +36,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:id="@+id/nameSurname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             tools:text="Mikhail Likhachyov" />
 
         <TextView
-            android:textColor="@color/black"
-            android:textSize="13sp"
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:textColor="@color/black"
+            android:textSize="13sp"
             tools:text="Команда ВКонтакте достойно и без пошлости пришла на корпоротив голыми" />
 
         <LinearLayout
@@ -58,13 +58,13 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textColor="#818C99"
-                android:textSize="13sp"
                 android:id="@+id/date"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:textColor="#818C99"
+                android:textSize="13sp"
                 tools:text="15 апр в 18:43" />
 
             <com.google.android.material.imageview.ShapeableImageView

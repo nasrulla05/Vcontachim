@@ -13,12 +13,12 @@ class PhotoComments(
 
     data class ItemPhotoComments(
         @SerializedName("from_id")
-        val fromId:Long,
+        val fromId: Long,
 
         val id: Long,
 
         @SerializedName("date")
-        val date:Int,
+        val date: Int,
 
         @SerializedName("text")
         val textComments: String,
@@ -28,9 +28,9 @@ class PhotoComments(
         @SerializedName("id")
         val id: Long,
         @SerializedName("photo_200")
-        val photo:String,
+        val photo: String,
         @SerializedName("online")
-        val online:Int,
+        val online: Int,
         @SerializedName("first_name")
         val firstName: String,
         @SerializedName("last_name")
