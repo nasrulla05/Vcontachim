@@ -43,16 +43,17 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
             snackbar.show()
         }
 
-        val arg = requireArguments().getLong(ARGUMENTS_ID)
-        viewModel.getComments(arg)
+        val argId = requireArguments().getLong(ARGUMENTS_ID)
+        viewModel.getComments(argId)
     }
 
     companion object {
-        const val ARGUMENTS_ID = "ID"
-        fun createFragment(photoId: Item): Fragment {
+     private const val ARGUMENTS_ID = "ID"
+
+        fun createFragment(photoItem: Item): Fragment {
             val photoCommentsFragments = CommentsFragments()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_ID, photoId.id)
+            bundle.putLong(ARGUMENTS_ID, photoItem.id)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments

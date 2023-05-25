@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemCommentBinding
@@ -13,7 +14,7 @@ import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
 class PhotoCommentsAdapter :
-    androidx.recyclerview.widget.ListAdapter<PhotoCommentsUi, PhotoCommentsAdapter.PhotoCommentsViewHolder>(
+    ListAdapter<PhotoCommentsUi, PhotoCommentsAdapter.PhotoCommentsViewHolder>(
         PhotoCommentsDiffCallback
     ) {
 
@@ -37,11 +38,12 @@ class PhotoCommentsAdapter :
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(
         holder: PhotoCommentsViewHolder,
-        position: Int, ) {
+        position: Int,
+    ) {
         val textComm: PhotoCommentsUi = getItem(position)
 
-            holder.binding.nameSurname.text =
-                "${textComm.firstName} ${textComm.lastName}"
+        holder.binding.nameSurname.text =
+            "${textComm.firstName} ${textComm.lastName}"
         holder.binding.comment.text = textComm.textComm
 
         Glide.with(holder.itemView)
@@ -49,10 +51,14 @@ class PhotoCommentsAdapter :
             .into(holder.binding.avatar)
 
         val formatter = SimpleDateFormat("d MMMM yyyy")
-        val date = formatter.format(textComm.date *1000L)
+        val date = formatter.format(textComm.date * 1000L)
         holder.binding.date.text = date
-        if (textComm.online ==1) holder.binding.onlineOrOffline.setImageResource(R.drawable.online_composite_16)
-        else holder.binding.onlineOrOffline.setImageResource(R.drawable.empt)
+
+        if (textComm.online == 1) {
+            holder.binding.onlineOrOffline.setImageResource(R.drawable.online_composite_16)
+        } else {
+            holder.binding.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
+        }
     }
 
     object PhotoCommentsDiffCallback :
