@@ -9,6 +9,7 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.PhotoCommentsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
 import com.akhbulatov.vcontachim.model.Item
+import com.akhbulatov.vcontachim.model.LikeComment
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,7 +27,17 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
             VcontachimApplication.router.exit()
         }
 
-        val photoCommAdapter = PhotoCommentsAdapter()
+        val likeSerializable = requireArguments().getSerializable(ARGUMENTS_LIKES)
+        val like:LikeComment.Like = likeSerializable as LikeComment.Like
+
+        val photoCommAdapter = PhotoCommentsAdapter(
+            object :PhotoCommentsAdapter.OnClick{
+                override fun likeComm(like: LikeComment.Like) {
+                    viewModel.likeComment(like.likes)
+                }
+            },
+        like = like)
+
         binding!!.commentList.adapter = photoCommAdapter
 
         viewModel.commentsLiveData.observe(viewLifecycleOwner) {
@@ -43,21 +54,28 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
             snackbar.show()
         }
 
-        val argIdPhoto = requireArguments().getLong(ARGUMENTS_ID_PHOTO)
-        viewModel.getComments(argIdPhoto)
+        val arg = requireArguments().getLong(ARGUMENTS_ID)
+        viewModel.getComments(arg)
+
+        viewModel.likeCommLiveData.observe(viewLifecycleOwner) {
+            it.response.likes
+        }
     }
 
     companion object {
-        private const val ARGUMENTS_ID_PHOTO = "ID"
+        private const val ARGUMENTS_ID = "ID"
+        const val ARGUMENTS_LIKES = "LIKES"
 
-        fun createFragment(photoItem: Item): Fragment {
+        fun createFragment(photoId: Item,likeComment: LikeComment.Like): Fragment {
             val photoCommentsFragments = CommentsFragments()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_ID_PHOTO, photoItem.id)
+            bundle.putLong(ARGUMENTS_ID, photoId.id)
+            bundle.putSerializable(ARGUMENTS_LIKES,likeComment.likes)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments
         }
+
     }
 
     override fun onDestroyView() {

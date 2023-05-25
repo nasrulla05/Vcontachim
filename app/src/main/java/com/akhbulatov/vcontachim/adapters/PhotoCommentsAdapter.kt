@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemCommentBinding
+import com.akhbulatov.vcontachim.model.LikeComment
 import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class PhotoCommentsAdapter :
+class PhotoCommentsAdapter(private val likeComment: OnClick, val like: LikeComment.Like) :
     ListAdapter<PhotoCommentsUi, PhotoCommentsAdapter.PhotoCommentsViewHolder>(
         PhotoCommentsDiffCallback
     ) {
@@ -59,6 +60,19 @@ class PhotoCommentsAdapter :
         } else {
             holder.binding.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
         }
+
+        if (like.likes == 1L) holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
+        else holder.binding.like.setImageResource(R.drawable.ic_like21)
+
+        holder.binding.like.setOnClickListener {
+            this.likeComment.likeComm(like)
+            if (like.likes == 1L) holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
+            else holder.binding.like.setImageResource(R.drawable.ic_like21)
+        }
+    }
+
+    interface OnClick {
+        fun likeComm(like: LikeComment.Like)
     }
 
     object PhotoCommentsDiffCallback :
