@@ -14,32 +14,11 @@
         app:subtitle="20"
         app:title="@string/comments" />
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comment_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comment_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_comment" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:hint="@string/comment"
-                android:text="Коментарий"
-                android:textSize="16sp" />
-
-        </FrameLayout>
-
-    </FrameLayout>
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_comment" />
 
 </LinearLayout>
