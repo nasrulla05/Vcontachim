@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.model.LikeComment
 import com.akhbulatov.vcontachim.model.PhotoComments
 import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import kotlinx.coroutines.launch
@@ -12,7 +11,6 @@ import kotlinx.coroutines.launch
 class PhotoCommentsViewModel : ViewModel() {
     val errorLiveData = MutableLiveData<String>()
     val commentsLiveData = MutableLiveData<List<PhotoCommentsUi>>()
-    val likeCommLiveData = MutableLiveData<LikeComment>()
 
     fun getComments(photoId: Long) {
         viewModelScope.launch {
@@ -35,7 +33,8 @@ class PhotoCommentsViewModel : ViewModel() {
                         textComm = it.textComments,
                         date = it.date,
                         count = response,
-                        online = item.online
+                        online = item.online,
+                        usersLike = it.likes.userLikes
                     )
                     ui
                 }
@@ -47,11 +46,19 @@ class PhotoCommentsViewModel : ViewModel() {
         }
     }
 
-    fun likeComment(itemId: Long) {
+    fun likeComment(item: PhotoCommentsUi) {
         viewModelScope.launch {
             try {
-                likeCommLiveData.value =
-                    VcontachimApplication.vcontachimService.addLikeComments(itemId = itemId)
+                    VcontachimApplication.vcontachimService.addLikeComments(itemId = item.id)
+                val mutList = commentsLiveData.value?.toMutableList()
+                // обновляем комментарий на котором был клик
+
+                val result: PhotoCommentsUi = item.copy(
+                    usersLike = if (item.usersLike == 1L) 0 else 1
+                )
+                mutList?.set(index = 0, result)
+                commentsLiveData.value = mutList
+
             } catch (e: Exception) {
                 errorLiveData.value = e.message
             }

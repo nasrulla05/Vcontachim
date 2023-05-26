@@ -9,11 +9,11 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.PhotoCommentsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
 import com.akhbulatov.vcontachim.model.Item
-import com.akhbulatov.vcontachim.model.LikeComment
+import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class CommentsFragments : Fragment(R.layout.fragment_comments) {
+class PhotoCommentsFragments : Fragment(R.layout.fragment_comments) {
     private var binding: FragmentCommentsBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[PhotoCommentsViewModel::class.java]
@@ -27,16 +27,13 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
             VcontachimApplication.router.exit()
         }
 
-        val likeSerializable = requireArguments().getSerializable(ARGUMENTS_LIKES)
-        val like:LikeComment.Like = likeSerializable as LikeComment.Like
-
         val photoCommAdapter = PhotoCommentsAdapter(
-            object :PhotoCommentsAdapter.OnClick{
-                override fun likeComm(like: LikeComment.Like) {
-                    viewModel.likeComment(like.likes)
+            object : PhotoCommentsAdapter.OnClick {
+                override fun likeComm(commentsUi: PhotoCommentsUi) {
+                    viewModel.likeComment(commentsUi)
                 }
-            },
-        like = like)
+            }
+        )
 
         binding!!.commentList.adapter = photoCommAdapter
 
@@ -56,26 +53,19 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
 
         val arg = requireArguments().getLong(ARGUMENTS_ID)
         viewModel.getComments(arg)
-
-        viewModel.likeCommLiveData.observe(viewLifecycleOwner) {
-            it.response.likes
-        }
     }
 
     companion object {
         private const val ARGUMENTS_ID = "ID"
-        const val ARGUMENTS_LIKES = "LIKES"
 
-        fun createFragment(photoId: Item,likeComment: LikeComment.Like): Fragment {
-            val photoCommentsFragments = CommentsFragments()
+        fun createFragment(photoId: Item): Fragment {
+            val photoCommentsFragments = PhotoCommentsFragments()
             val bundle = Bundle()
             bundle.putLong(ARGUMENTS_ID, photoId.id)
-            bundle.putSerializable(ARGUMENTS_LIKES,likeComment.likes)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments
         }
-
     }
 
     override fun onDestroyView() {

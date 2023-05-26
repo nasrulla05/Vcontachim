@@ -6,7 +6,6 @@ import com.akhbulatov.vcontachim.activity.MainActivity
 import com.akhbulatov.vcontachim.activity.PhotoActivity
 import com.akhbulatov.vcontachim.fragments.*
 import com.akhbulatov.vcontachim.model.Item
-import com.akhbulatov.vcontachim.model.LikeComment
 import com.akhbulatov.vcontachim.model.PhotosAlbums
 import com.akhbulatov.vcontachim.model.Video
 import com.github.terrakok.cicerone.androidx.ActivityScreen
@@ -33,8 +32,8 @@ object Screens {
         item: Video.Item
     ) = FragmentScreen { VideoPlayerFragment.createVideoPlayer(item) }
 
-    fun commentsFr(item: Item, likeComment: LikeComment.Like) =
-        FragmentScreen { CommentsFragments.createFragment(item,likeComment) }
+    fun commentsFr(item: Item) =
+        FragmentScreen { PhotoCommentsFragments.createFragment(item) }
 
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }

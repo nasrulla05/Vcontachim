@@ -4,17 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemCommentBinding
-import com.akhbulatov.vcontachim.model.LikeComment
 import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class PhotoCommentsAdapter(private val likeComment: OnClick, val like: LikeComment.Like) :
+class PhotoCommentsAdapter(private val likeComment: OnClick) :
     ListAdapter<PhotoCommentsUi, PhotoCommentsAdapter.PhotoCommentsViewHolder>(
         PhotoCommentsDiffCallback
     ) {
@@ -61,18 +61,24 @@ class PhotoCommentsAdapter(private val likeComment: OnClick, val like: LikeComme
             holder.binding.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
         }
 
-        if (like.likes == 1L) holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
-        else holder.binding.like.setImageResource(R.drawable.ic_like21)
-
         holder.binding.like.setOnClickListener {
-            this.likeComment.likeComm(like)
-            if (like.likes == 1L) holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
-            else holder.binding.like.setImageResource(R.drawable.ic_like21)
+            this.likeComment.likeComm(textComm)
         }
+
+        if (textComm.usersLike == 1L) {
+            holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
+            holder.binding.like.setColorFilter(
+                ContextCompat.getColor(
+                    holder.itemView.context,
+                    R.color.red
+                ), android.graphics.PorterDuff.Mode.MULTIPLY
+            )
+        } else holder.binding.like.setImageResource(R.drawable.ic_like21)
+
     }
 
     interface OnClick {
-        fun likeComm(like: LikeComment.Like)
+        fun likeComm(commentsUi: PhotoCommentsUi)
     }
 
     object PhotoCommentsDiffCallback :

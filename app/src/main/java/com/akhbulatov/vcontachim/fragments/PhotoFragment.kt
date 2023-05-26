@@ -10,7 +10,6 @@ import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentPhotoBinding
 import com.akhbulatov.vcontachim.model.Item
-import com.akhbulatov.vcontachim.model.LikeComment
 import com.akhbulatov.vcontachim.viewmodel.PhotoViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -86,7 +85,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         }
 
         binding!!.commentsClick.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.commentsFr(photo, likeComment = ))
+            VcontachimApplication.router.navigateTo(Screens.commentsFr(photo))
         }
     }
 
