@@ -14,7 +14,7 @@ class VideoPlayerViewModel : ViewModel() {
     fun addLike(id: Int, ownerId: Int) {
         viewModelScope.launch {
             try {
-                val like = VcontachimApplication.vcontachimService.postVideo(
+                val like = VcontachimApplication.vcontachimService.likeVideo(
                     itemId = id,
                     ownerId = ownerId
                 )

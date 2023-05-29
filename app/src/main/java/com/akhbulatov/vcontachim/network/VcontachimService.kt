@@ -66,7 +66,7 @@ interface VcontachimService {
     )
 
     @POST("likes.add")
-    suspend fun postVideo(
+    suspend fun likeVideo(
         @Query("v") v: Double = 5.131,
         @Query("type") type: String = "video",
         @Query("item_id") itemId: Int,
@@ -89,4 +89,18 @@ interface VcontachimService {
         @Query("fields") fields: String = "photo_200,online",
         @Query("extended") extended: Int = 1
     ): PhotoComments
+
+    @POST("likes.add")
+    suspend fun addLikeComments(
+        @Query("v") v: Double = 5.131,
+        @Query("type") type: String = "photo_comment",
+        @Query("item_id") itemId: Long
+    ):LikeComment
+
+    @POST("likes.delete")
+    suspend fun deleteLikeComments(
+        @Query("v") v: Double = 5.131,
+        @Query("type") type: String = "photo_comment",
+        @Query("item_id") itemId: Long,
+    ):LikeComment
 }

@@ -9,10 +9,11 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.PhotoCommentsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
 import com.akhbulatov.vcontachim.model.Item
+import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class CommentsFragments : Fragment(R.layout.fragment_comments) {
+class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
     private var binding: FragmentCommentsBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[PhotoCommentsViewModel::class.java]
@@ -26,7 +27,15 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
             VcontachimApplication.router.exit()
         }
 
-        val photoCommAdapter = PhotoCommentsAdapter()
+        val photoCommAdapter = PhotoCommentsAdapter(
+            object : PhotoCommentsAdapter.OnClick {
+                override fun likeComm(commentsUi: PhotoCommentsUi) {
+                    if (commentsUi.usersLike == 0L) viewModel.likeComment(commentsUi)
+                    else viewModel.likeDelete(commentsUi)
+                }
+            }
+        )
+
         binding!!.commentList.adapter = photoCommAdapter
 
         viewModel.commentsLiveData.observe(viewLifecycleOwner) {
@@ -43,17 +52,17 @@ class CommentsFragments : Fragment(R.layout.fragment_comments) {
             snackbar.show()
         }
 
-        val argIdPhoto = requireArguments().getLong(ARGUMENTS_ID_PHOTO)
-        viewModel.getComments(argIdPhoto)
+        val arg = requireArguments().getLong(ARGUMENTS_PHOTO_ID)
+        viewModel.getComments(arg)
     }
 
     companion object {
-        private const val ARGUMENTS_ID_PHOTO = "ID"
+        private const val ARGUMENTS_PHOTO_ID = "ID"
 
-        fun createFragment(photoItem: Item): Fragment {
-            val photoCommentsFragments = CommentsFragments()
+        fun createFragment(item: Item): Fragment {
+            val photoCommentsFragments = PhotoCommentsFragment()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_ID_PHOTO, photoItem.id)
+            bundle.putLong(ARGUMENTS_PHOTO_ID, item.id)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments

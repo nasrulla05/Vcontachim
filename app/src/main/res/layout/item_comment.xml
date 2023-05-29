@@ -67,13 +67,13 @@
                 android:textSize="13sp"
                 tools:text="15 апр в 18:43" />
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_like21"
-                android:tint="#99A2AD" />
+                app:tint="#99A2AD" />
 
         </LinearLayout>
 

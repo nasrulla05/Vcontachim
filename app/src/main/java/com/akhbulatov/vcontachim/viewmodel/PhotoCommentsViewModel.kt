@@ -33,12 +33,52 @@ class PhotoCommentsViewModel : ViewModel() {
                         textComm = it.textComments,
                         date = it.date,
                         count = response,
-                        online = item.online
+                        online = item.online,
+                        usersLike = it.likes.userLikes,
+                        ownerId = it.fromId
                     )
                     ui
                 }
 
                 commentsLiveData.value = photoCommUi
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            }
+        }
+    }
+
+    fun likeComment(item: PhotoCommentsUi) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.addLikeComments(itemId = item.id)
+                val mutList = commentsLiveData.value?.toMutableList()
+                // обновляем комментарий на котором был клик
+
+                val result: PhotoCommentsUi = item.copy(
+                    usersLike = if (item.usersLike == 1L) 0 else 1
+                )
+                val index = mutList?.indexOf(item)
+                mutList?.set(index = index!!, result)
+                commentsLiveData.value = mutList
+
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            }
+        }
+    }
+
+    fun likeDelete(item: PhotoCommentsUi) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.deleteLikeComments(itemId = item.id)
+                val mutList = commentsLiveData.value?.toMutableList()
+                val result = item.copy(
+                    usersLike = if (item.usersLike == 1L) 0 else 1
+                )
+                val index = mutList!!.indexOf(item)
+                mutList.set(index, result)
+                commentsLiveData.value = mutList
+
             } catch (e: Exception) {
                 errorLiveData.value = e.message
             }

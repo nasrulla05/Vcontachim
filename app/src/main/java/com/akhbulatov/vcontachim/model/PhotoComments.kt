@@ -22,6 +22,13 @@ class PhotoComments(
 
         @SerializedName("text")
         val textComments: String,
+
+        val likes: Likes
+    )
+
+    data class Likes(
+        @SerializedName("user_likes")
+        val userLikes: Long
     )
 
     data class Profile(
