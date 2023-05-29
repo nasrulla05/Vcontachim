@@ -21,6 +21,7 @@
     <string name="link_copied">Ссылка скопирована</string>
     <string name="video_recording">Видеозапись</string>
     <string name="comments">Комментарии</string>
+    <string name="comm">Комментарий</string>
 
     <plurals name="plurals_photo_albums" tools:ignore="MissingQuantity">
         <item quantity="zero"> Фотографий</item>

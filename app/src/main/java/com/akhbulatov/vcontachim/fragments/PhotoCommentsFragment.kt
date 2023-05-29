@@ -52,21 +52,35 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
             snackbar.show()
         }
 
-        val arg = requireArguments().getLong(ARGUMENTS_PHOTO_ID)
-        viewModel.getComments(arg)
+
+        val argItem = arguments?.getSerializable(ARGUMENTS_ITEM)
+        val item: Item = argItem as Item
+
+        viewModel.submitCommLiveData.observe(viewLifecycleOwner) {
+        }
+
+        viewModel.getComments(argItem.id)
+
+        binding!!.leaveAComment.setOnClickListener {
+            viewModel.submitComment(item,"")
+        }
     }
 
     companion object {
-        private const val ARGUMENTS_PHOTO_ID = "ID"
+        private const val ARGUMENTS_ITEM = "ITEM"
 
         fun createFragment(item: Item): Fragment {
             val photoCommentsFragments = PhotoCommentsFragment()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_PHOTO_ID, item.id)
+            bundle.putSerializable(ARGUMENTS_ITEM, item)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments
         }
+    }
+
+    interface UI {
+        fun comm(ui: PhotoCommentsUi)
     }
 
     override fun onDestroyView() {
