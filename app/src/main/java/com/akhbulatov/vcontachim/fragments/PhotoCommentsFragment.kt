@@ -30,7 +30,8 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
         val photoCommAdapter = PhotoCommentsAdapter(
             object : PhotoCommentsAdapter.OnClick {
                 override fun likeComm(commentsUi: PhotoCommentsUi) {
-                    viewModel.likeComment(commentsUi)
+                    if (commentsUi.usersLike == 0L) viewModel.likeComment(commentsUi)
+                    else viewModel.likeDelete(commentsUi)
                 }
             }
         )

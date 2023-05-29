@@ -96,4 +96,11 @@ interface VcontachimService {
         @Query("type") type: String = "photo_comment",
         @Query("item_id") itemId: Long
     ):LikeComment
+
+    @POST("likes.delete")
+    suspend fun deleteLikeComments(
+        @Query("v") v: Double = 5.131,
+        @Query("type") type: String = "photo_comment",
+        @Query("item_id") itemId: Long,
+    ):LikeComment
 }
