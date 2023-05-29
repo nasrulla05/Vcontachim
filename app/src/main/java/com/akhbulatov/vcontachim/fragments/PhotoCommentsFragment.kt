@@ -13,7 +13,7 @@ import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class PhotoCommentsFragments : Fragment(R.layout.fragment_comments) {
+class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
     private var binding: FragmentCommentsBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[PhotoCommentsViewModel::class.java]
@@ -51,17 +51,17 @@ class PhotoCommentsFragments : Fragment(R.layout.fragment_comments) {
             snackbar.show()
         }
 
-        val arg = requireArguments().getLong(ARGUMENTS_ID)
+        val arg = requireArguments().getLong(ARGUMENTS_PHOTO_ID)
         viewModel.getComments(arg)
     }
 
     companion object {
-        private const val ARGUMENTS_ID = "ID"
+        private const val ARGUMENTS_PHOTO_ID = "ID"
 
-        fun createFragment(photoId: Item): Fragment {
-            val photoCommentsFragments = PhotoCommentsFragments()
+        fun createFragment(item: Item): Fragment {
+            val photoCommentsFragments = PhotoCommentsFragment()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_ID, photoId.id)
+            bundle.putLong(ARGUMENTS_PHOTO_ID, item.id)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments

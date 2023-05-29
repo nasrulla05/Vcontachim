@@ -51,7 +51,7 @@ class PhotoCommentsAdapter(private val likeComment: OnClick) :
             .load(textComm.photo)
             .into(holder.binding.avatar)
 
-        val formatter = SimpleDateFormat("d MMMM yyyy")
+        val formatter = SimpleDateFormat("d MMM в k")
         val date = formatter.format(textComm.date * 1000L)
         holder.binding.date.text = date
 
@@ -73,7 +73,9 @@ class PhotoCommentsAdapter(private val likeComment: OnClick) :
                     R.color.red
                 ), android.graphics.PorterDuff.Mode.MULTIPLY
             )
-        } else holder.binding.like.setImageResource(R.drawable.ic_like21)
+        } else {
+            holder.binding.like.setImageResource(R.drawable.ic_like21)
+        }
 
     }
 

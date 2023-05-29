@@ -1,9 +1,11 @@
 package com.akhbulatov.vcontachim.model
 
+import java.io.Serializable
+
 data class LikeComment(
     val response: Like
-):java.io.Serializable{
+): Serializable {
     data class Like(
         val likes:Long
-    ):java.io.Serializable
+    ):Serializable
 }
