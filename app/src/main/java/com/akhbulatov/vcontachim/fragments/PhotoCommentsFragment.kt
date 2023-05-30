@@ -1,6 +1,8 @@
 package com.akhbulatov.vcontachim.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -56,14 +58,36 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
         val argItem = arguments?.getSerializable(ARGUMENTS_ITEM)
         val item: Item = argItem as Item
 
-        viewModel.submitCommLiveData.observe(viewLifecycleOwner) {
-        }
-
         viewModel.getComments(argItem.id)
 
-        binding!!.leaveAComment.setOnClickListener {
-            viewModel.submitComment(item,"")
-        }
+        binding!!.leaveAComment.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Вызывается ДО изменения текста
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (binding!!.leaveAComment.text.isNotEmpty()) {
+                    binding!!.submitComment.setImageResource(R.drawable.send_28_active)
+                    binding!!.submitComment.setOnClickListener {
+                        viewModel.submitComment(item, s.toString())
+
+                        val snackbar = Snackbar.make(
+                            view,
+                            "Комментарий добавлен",
+                            Snackbar.LENGTH_LONG
+                        )
+                        snackbar.show()
+                    }
+                } else {
+                    binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Вызывается ПОСЛЕ изменения текста
+            }
+        })
+
     }
 
     companion object {
@@ -77,10 +101,6 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
 
             return photoCommentsFragments
         }
-    }
-
-    interface UI {
-        fun comm(ui: PhotoCommentsUi)
     }
 
     override fun onDestroyView() {
