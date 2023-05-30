@@ -1,9 +1,13 @@
 package com.akhbulatov.vcontachim.fragments
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
@@ -66,28 +70,39 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
                 if (binding!!.leaveAComment.text.isNotEmpty()) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.submitComment(item, s.toString())
+                        hideKeyBoard()
+                        s!!.clear()
 
-                        val snackbar = Snackbar.make(
-                            view,
-                            "Комментарий добавлен",
-                            Snackbar.LENGTH_LONG
+                        val toast = Toast.makeText(
+                            context,
+                            R.string.comm_add,
+                            Toast.LENGTH_LONG
                         )
-                        snackbar.show()
+                        toast.show()
                     }
                 } else {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
                 }
             }
-
-            override fun afterTextChanged(s: Editable?) {
-                // Вызывается ПОСЛЕ изменения текста
-            }
         })
+    }
 
+    fun hideKeyBoard() {
+        view.let { activity?.hideKeyboard(it!!) }
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {
