@@ -3,6 +3,7 @@ package com.akhbulatov.vcontachim.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.model.Item
 import com.akhbulatov.vcontachim.model.PhotoComments
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 class PhotoCommentsViewModel : ViewModel() {
     val errorLiveData = MutableLiveData<String>()
     val commentsLiveData = MutableLiveData<List<PhotoCommentsUi>>()
+    val leaveCommLiveData = MutableLiveData<String>()
 
     fun getComments(photoId: Long) {
         viewModelScope.launch {
@@ -86,20 +88,14 @@ class PhotoCommentsViewModel : ViewModel() {
         }
     }
 
-    fun submitComment(photo: Item, ui: String) {
+    fun submitComment(photo: Item, message: String) {
         viewModelScope.launch {
             try {
                 VcontachimApplication.vcontachimService.submitComment(
                     photoId = photo.id,
-                    message = ui
+                    message = message
                 )
-
-//                val mutList = commentsLiveData.value?.toMutableList()
-//                val result = photo.copy(
-//                    comments =
-//                )
-//                mutList?.add(result)
-//                commentsLiveData.value = mutList
+                leaveCommLiveData.value = VcontachimApplication.context.getString(R.string.comm_add)
 
             } catch (e: Exception) {
                 errorLiveData.value = e.message

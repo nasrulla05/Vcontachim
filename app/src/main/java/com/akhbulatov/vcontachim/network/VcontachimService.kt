@@ -109,5 +109,5 @@ interface VcontachimService {
         @Query("v") v:Double = 5.131,
         @Query("photo_id") photoId:Long,
         @Query("message") message:String
-    ):PhotoCommentsUi
+    )
 }

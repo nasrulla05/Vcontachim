@@ -81,12 +81,14 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                         hideKeyBoard()
                         s!!.clear()
 
-                        val toast = Toast.makeText(
-                            context,
-                            R.string.comm_add,
-                            Toast.LENGTH_LONG
-                        )
-                        toast.show()
+                        viewModel.leaveCommLiveData.observe(viewLifecycleOwner) {
+                            val toast = Toast.makeText(
+                                context,
+                                it,
+                                Toast.LENGTH_LONG
+                            )
+                            toast.show()
+                        }
                     }
                 } else {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
@@ -96,7 +98,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
     }
 
     fun hideKeyBoard() {
-        view.let { activity?.hideKeyboard(it!!) }
+        activity?.hideKeyboard(requireView())
     }
 
     private fun Context.hideKeyboard(view: View) {
