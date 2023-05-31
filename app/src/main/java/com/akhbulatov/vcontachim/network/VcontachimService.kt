@@ -95,4 +95,11 @@ interface VcontachimService {
         @Query("photo_id") photoId: Long,
         @Query("message") message: String
     )
+
+    @GET("video.getComments")
+    suspend fun getVideoComments(
+        @Query("video_id") videoId: Long,
+        @Query("owner_id") ownerId: Long,
+        @Query("need_likes") needLikes: Long = 1
+    ):VideoComments
 }
