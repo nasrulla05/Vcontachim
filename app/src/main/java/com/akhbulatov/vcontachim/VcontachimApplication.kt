@@ -8,10 +8,7 @@ import com.akhbulatov.vcontachim.preferences.SharedPreferencesManager
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -27,13 +24,23 @@ class VcontachimApplication : Application() {
 
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val request: Request = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer ${sharedPr.accessToken}")
-                    .build()
-                return chain.proceed(request)
-            }
-        })
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    var request: Request = chain.request()
+                    val url: HttpUrl = request
+                        .url()
+                        .newBuilder()
+                        .addQueryParameter("v", "${5.131}")
+                        .build()
+
+                    request = request
+                        .newBuilder()
+                        .addHeader("Authorization", "Bearer ${sharedPr.accessToken}")
+                        .url(url)
+                        .build()
+
+                    return chain.proceed(request)
+                }
+            })
             .build()
 
         val retrofit: Retrofit = Retrofit.Builder()
