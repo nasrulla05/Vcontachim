@@ -1,7 +1,13 @@
 package com.akhbulatov.vcontachim.fragments
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
@@ -52,17 +58,62 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
             snackbar.show()
         }
 
-        val arg = requireArguments().getLong(ARGUMENTS_PHOTO_ID)
-        viewModel.getComments(arg)
+
+        val argItem = arguments?.getSerializable(ARGUMENTS_ITEM)
+        val item: Item = argItem as Item
+
+        viewModel.getComments(argItem.id)
+
+        binding!!.leaveAComment.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Вызывается ДО изменения текста
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding!!.leaveAComment.text.isNotEmpty()) {
+                    binding!!.submitComment.setImageResource(R.drawable.send_28_active)
+                    binding!!.submitComment.setOnClickListener {
+                        viewModel.submitComment(item, s.toString())
+                        hideKeyBoard()
+                        s!!.clear()
+
+                        viewModel.leaveCommLiveData.observe(viewLifecycleOwner) {
+                            val toast = Toast.makeText(
+                                context,
+                                it,
+                                Toast.LENGTH_LONG
+                            )
+                            toast.show()
+                        }
+                    }
+                } else {
+                    binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
+                }
+            }
+        })
+    }
+
+    fun hideKeyBoard() {
+        activity?.hideKeyboard(requireView())
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {
-        private const val ARGUMENTS_PHOTO_ID = "ID"
+        private const val ARGUMENTS_ITEM = "ITEM"
 
         fun createFragment(item: Item): Fragment {
             val photoCommentsFragments = PhotoCommentsFragment()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_PHOTO_ID, item.id)
+            bundle.putSerializable(ARGUMENTS_ITEM, item)
             photoCommentsFragments.arguments = bundle
 
             return photoCommentsFragments
