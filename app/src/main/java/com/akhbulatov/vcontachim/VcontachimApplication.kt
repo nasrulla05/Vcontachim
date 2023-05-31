@@ -29,7 +29,7 @@ class VcontachimApplication : Application() {
                     val url: HttpUrl = request
                         .url()
                         .newBuilder()
-                        .addQueryParameter("v", "${5.131}")
+                        .addQueryParameter("v", "5.131")
                         .build()
 
                     request = request
