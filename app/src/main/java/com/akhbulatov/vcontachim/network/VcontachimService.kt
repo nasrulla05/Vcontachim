@@ -100,6 +100,7 @@ interface VcontachimService {
     suspend fun getVideoComments(
         @Query("video_id") videoId: Long,
         @Query("owner_id") ownerId: Long,
-        @Query("need_likes") needLikes: Long = 1
+        @Query("need_likes") needLikes: Int = 1,
+        @Query("extended") extended: Int = 1
     ):VideoComments
 }

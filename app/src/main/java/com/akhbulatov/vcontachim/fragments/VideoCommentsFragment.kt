@@ -2,15 +2,18 @@ package com.akhbulatov.vcontachim.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.VideoCommAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentVideoCommentsBinding
+import com.akhbulatov.vcontachim.model.Video
 import com.akhbulatov.vcontachim.viewmodel.VideoCommentsViewModel
 
-class VideoCommentsFragment:Fragment(R.layout.fragment_video_comments) {
-    private var binding:FragmentVideoCommentsBinding? = null
+class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
+    private var binding: FragmentVideoCommentsBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[VideoCommentsViewModel::class.java]
     }
@@ -19,8 +22,46 @@ class VideoCommentsFragment:Fragment(R.layout.fragment_video_comments) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVideoCommentsBinding.bind(view)
 
-        val videoCommAdapter = VideoCommAdapter()
+        binding!!.exit.setNavigationOnClickListener {
+            VcontachimApplication.router.exit()
+        }
 
+        val videoCommAdapter = VideoCommAdapter()
+        binding!!.commentList.adapter = videoCommAdapter
+
+        val arg = arguments?.getSerializable(ARGUMENTS_VIDE0)!!
+        val video: Video.Item = arg as Video.Item
+
+        binding!!.exit.subtitle = video.comments.toString()
+
+        viewModel.videoCommLiveData.observe(viewLifecycleOwner) {
+            videoCommAdapter.submitList(it)
+        }
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            val toast = Toast.makeText(
+                requireContext(),
+                it,
+                Toast.LENGTH_LONG
+            )
+            toast.show()
+        }
+
+        viewModel.loadVideoComments(video)
+
+    }
+
+    companion object {
+        const val ARGUMENTS_VIDE0 = "VIDEO"
+
+        fun createFragment(video: Video.Item): Fragment {
+            val fr = VideoCommentsFragment()
+            val bundle = Bundle()
+            bundle.putSerializable(ARGUMENTS_VIDE0, video)
+            fr.arguments = bundle
+
+            return fr
+        }
     }
 
     override fun onDestroyView() {

@@ -4,24 +4,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
+import com.akhbulatov.vcontachim.model.Video
 import com.akhbulatov.vcontachim.model.VideoComments
 import com.akhbulatov.vcontachim.model.VideoCommentsUI
 import kotlinx.coroutines.launch
 
+@Suppress("NAME_SHADOWING")
 class VideoCommentsViewModel : ViewModel() {
 
     val errorLiveData = MutableLiveData<String>()
     val videoCommLiveData = MutableLiveData<List<VideoCommentsUI>>()
 
-    fun loadVideoComments(item:Long) {
+    fun loadVideoComments(video: Video.Item) {
         viewModelScope.launch {
             try {
-           val videoComm:VideoComments =
-               VcontachimApplication.vcontachimService.getVideoComments(item,item)
+                val videoComm =
+                    VcontachimApplication.vcontachimService.getVideoComments(
+                        videoId = video.itemId.toLong(),
+                        ownerId = video.ownerId.toLong()
+                    )
 
                 val videoCommUI = videoComm.response.items.map {
-                    val profile:List<VideoComments.Profile> = videoComm.response.profiles
-                    val item:VideoComments.Profile = profile.first{ profile ->
+                    val profile: List<VideoComments.Profile> = videoComm.response.profiles
+                    val item: VideoComments.Profile = profile.first { profile ->
                         profile.id == it.fromId
                     }
 
