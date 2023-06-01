@@ -114,7 +114,7 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         preparePlayer(item)
 
         binding!!.commentsClick.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.videoComments(item))
+            VcontachimApplication.router.navigateTo(Screens.videoCommAc(item))
         }
     }
 
