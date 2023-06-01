@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentVideoPlayerBinding
 import com.akhbulatov.vcontachim.model.Video
@@ -111,6 +112,10 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         }
 
         preparePlayer(item)
+
+        binding!!.commentsClick.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.videoCommAc(item))
+        }
     }
 
     private fun preparePlayer(item: Video.Item) {

@@ -4,6 +4,7 @@ import android.content.Intent
 import com.akhbulatov.vcontachim.activity.LaunchActivity
 import com.akhbulatov.vcontachim.activity.MainActivity
 import com.akhbulatov.vcontachim.activity.PhotoActivity
+import com.akhbulatov.vcontachim.activity.VideoCommActivity
 import com.akhbulatov.vcontachim.fragments.*
 import com.akhbulatov.vcontachim.model.Item
 import com.akhbulatov.vcontachim.model.PhotosAlbums
@@ -35,14 +36,14 @@ object Screens {
     fun commentsFr(item: Item) =
         FragmentScreen { PhotoCommentsFragment.createFragment(item) }
 
+    fun videoComments(video: Video.Item) =
+        FragmentScreen { VideoCommentsFragment.createFragment(video) }
+
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
-    fun photoAc(
-        itemPhoto: Item
-    ) = ActivityScreen {
-        PhotoActivity.createFragment(
-            context = it,
-            itemPhoto
-        )
-    }
+    fun photoAc(itemPhoto: Item) =
+        ActivityScreen { PhotoActivity.createFragment(context = it, itemPhoto) }
+
+    fun videoCommAc(video: Video.Item) =
+        ActivityScreen { VideoCommActivity.createFragment(context = it, video) }
 }

@@ -15,7 +15,7 @@ class LaunchActivity : AppCompatActivity(R.layout.activity_launch) {
 
         // Запускает splash экран только в случае если savedInstanceState равен null
         if (savedInstanceState == null) {
-            VcontachimApplication.router.navigateTo(Screens.splashFr())
+            VcontachimApplication.router.replaceScreen(Screens.splashFr())
         }
     }
 
