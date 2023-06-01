@@ -7,19 +7,16 @@ import androidx.lifecycle.lifecycleScope
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.databinding.FragmentSplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashFragment : Fragment(R.layout.fragment_splash) {
-    private var binding:FragmentSplashBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
             delay(3000)
-            binding = FragmentSplashBinding.bind(view)
 
             val authorizedUser = VcontachimApplication.sharedPr.accessToken
             if (authorizedUser == null) {
