@@ -9,7 +9,6 @@ import com.akhbulatov.vcontachim.model.VideoComments
 import com.akhbulatov.vcontachim.model.VideoCommentsUI
 import kotlinx.coroutines.launch
 
-@Suppress("NAME_SHADOWING")
 class VideoCommentsViewModel : ViewModel() {
 
     val errorLiveData = MutableLiveData<String>()

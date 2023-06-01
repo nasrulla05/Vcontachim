@@ -21,7 +21,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             delay(3000)
             binding = FragmentSplashBinding.bind(view)
 
-
             val authorizedUser = VcontachimApplication.sharedPr.accessToken
             if (authorizedUser == null) {
                 VcontachimApplication.router.navigateTo(Screens.loginFr())

@@ -29,7 +29,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
         val videoCommAdapter = VideoCommAdapter()
         binding!!.commentList.adapter = videoCommAdapter
 
-        val arg = arguments?.getSerializable(ARGUMENTS_VIDE0)!!
+        val arg = arguments?.getSerializable(ARGUMENTS_VIDEO)!!
         val video: Video.Item = arg as Video.Item
 
         binding!!.exit.subtitle = video.comments.toString()
@@ -48,24 +48,23 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
         }
 
         viewModel.loadVideoComments(video)
-
-    }
-
-    companion object {
-        const val ARGUMENTS_VIDE0 = "VIDEO"
-
-        fun createFragment(video: Video.Item): Fragment {
-            val fr = VideoCommentsFragment()
-            val bundle = Bundle()
-            bundle.putSerializable(ARGUMENTS_VIDE0, video)
-            fr.arguments = bundle
-
-            return fr
-        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    companion object {
+        private const val ARGUMENTS_VIDEO = "VIDEO"
+
+        fun createFragment(video: Video.Item): Fragment {
+            val fr = VideoCommentsFragment()
+            val bundle = Bundle()
+            bundle.putSerializable(ARGUMENTS_VIDEO, video)
+            fr.arguments = bundle
+
+            return fr
+        }
     }
 }

@@ -19,7 +19,9 @@ class VideoCommActivity : AppCompatActivity(R.layout.activity_video_comm) {
         val videoExtra: Serializable? = intent.getSerializableExtra(ARGUMENTS_VIDEO_COMM)
         val video: Video.Item = videoExtra as Video.Item
 
-        if (savedInstanceState == null) VcontachimApplication.router.replaceScreen(Screens.videoComments(video))
+        if (savedInstanceState == null) {
+            VcontachimApplication.router.replaceScreen(Screens.videoComments(video))
+        }
     }
 
     override fun onResume() {
