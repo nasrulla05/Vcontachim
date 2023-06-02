@@ -122,4 +122,9 @@ interface VcontachimService {
         @Query("owner_id") ownerId: Long,
         @Query("message") message: String,
     ): VideoCommentsUI
+
+    @GET("users.get")
+    suspend fun getInfoProfile(
+        @Query("fields") fields: String = "photo_100,online,career,city,followers_count,friend_status,verified,status"
+    ): Root
 }

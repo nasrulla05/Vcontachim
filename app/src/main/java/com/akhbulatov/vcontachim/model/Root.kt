@@ -5,9 +5,28 @@ import java.io.Serializable
 
 class Root(
     val response: List<User>
-):Serializable
-{
+) : Serializable {
     class User(
+        val id: Long,
+
+        val city: City,
+
+        @SerializedName("status")
+        val status:String,
+
+        @SerializedName("followers_count")
+        val followersCount: Long,
+
+        val career: List<Career>,
+
+        val online: Long,
+
+        @SerializedName("verified")
+        val verified:Long,
+
+        @SerializedName("friend_status")
+        val friendStatus: Long,
+
         @SerializedName("photo_100")
         val avatar: String,
 
@@ -20,5 +39,14 @@ class Root(
         @SerializedName("mobile_phone")
         val mobile_phone: String?
 
-    ): Serializable
+    ) : Serializable
+
+    data class City(
+        val title: String
+    ) : Serializable
+
+    data class Career(
+        @SerializedName("group_id")
+        val groupId:Long
+    ) : Serializable
 }

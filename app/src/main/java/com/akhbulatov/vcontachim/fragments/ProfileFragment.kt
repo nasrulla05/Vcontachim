@@ -28,8 +28,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
 
-        viewModel.profileLiveData.observe(viewLifecycleOwner) {
-            val response: Root.User = it.response[0]
+        viewModel.profileLiveData.observe(viewLifecycleOwner) {user ->
+            val response: Root.User = user.response[0]
 
             Glide.with(this)
                 .load(response.avatar)
@@ -37,6 +37,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
             binding!!.nameSurname.text = "${response.name} ${response.surname}"
             binding!!.mobilePhone.text = response.mobile_phone
+
+            binding!!.infoProfile.setOnClickListener {
+                VcontachimApplication.router.navigateTo(Screens.infoProfile(response))
+            }
         }
 
         viewModel.failureLiveData.observe(viewLifecycleOwner) {

@@ -52,7 +52,7 @@ class VcontachimApplication : Application() {
 
         vcontachimService = retrofit.create()
         sharedPr = SharedPreferencesManager()
-        keyboard = Keyboard()
+        keyboard = Keyboard
     }
 
     companion object {
