@@ -102,5 +102,24 @@ interface VcontachimService {
         @Query("owner_id") ownerId: Long,
         @Query("need_likes") needLikes: Int = 1,
         @Query("extended") extended: Int = 1
-    ):VideoComments
+    ): VideoComments
+
+    @POST("likes.add")
+    suspend fun addLikeCommVideo(
+        @Query("type") type: String = "video_comment",
+        @Query("item_id") itemId: Long,
+    ): LikeComment
+
+    @POST("likes.delete")
+    suspend fun deleteLikeCommVideo(
+        @Query("type") type: String = "video_comment",
+        @Query("item_id") itemId: Long
+    ): LikeComment
+
+    @POST("video.createComment")
+    suspend fun submitVideoComment(
+        @Query("video_id") videoId:Long,
+        @Query("owner_id") ownerId:Long,
+        @Query("message") message:String,
+    ):VideoCommentsUI
 }

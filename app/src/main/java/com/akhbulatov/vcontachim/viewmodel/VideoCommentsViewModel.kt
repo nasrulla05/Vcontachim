@@ -48,4 +48,56 @@ class VideoCommentsViewModel : ViewModel() {
             }
         }
     }
+
+    fun addLike(video: VideoCommentsUI) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.addLikeCommVideo(itemId = video.id)
+                val mutList = videoCommLiveData.value?.toMutableList()
+                val result = video.copy(
+                    userLikes = if (video.userLikes == 1L) 0 else 1
+                )
+                val index = mutList!!.indexOf(video)
+                mutList.set(index, result)
+
+                videoCommLiveData.value = mutList
+
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            }
+        }
+    }
+
+    fun deleteLikeVideoComm(video: VideoCommentsUI) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.deleteLikeCommVideo(itemId = video.id)
+                val mutList = videoCommLiveData.value?.toMutableList()
+                val result = video.copy(
+                    userLikes = if (video.userLikes == 1L) 0 else 1
+                )
+                val index = mutList!!.indexOf(video)
+                mutList[index] = result
+
+                videoCommLiveData.value = mutList
+
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            }
+        }
+    }
+
+    fun createComm(video: Video.Item, message: String) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.submitVideoComment(
+                    videoId = video.itemId.toLong(),
+                    ownerId = video.ownerId.toLong(),
+                    message = message
+                )
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            }
+        }
+    }
 }

@@ -69,9 +69,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 // Вызывается ДО изменения текста
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
                 if (binding!!.leaveAComment.text.isNotEmpty()) {
