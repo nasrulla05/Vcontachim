@@ -1,6 +1,6 @@
 package com.akhbulatov.vcontachim.model
 
-class VideoCommentsUI(
+data class VideoCommentsUI(
     val id: Long,
     val firstName: String,
     val surName: String,

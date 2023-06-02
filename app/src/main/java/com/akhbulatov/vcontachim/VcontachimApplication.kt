@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import com.akhbulatov.vcontachim.network.VcontachimService
 import com.akhbulatov.vcontachim.preferences.SharedPreferencesManager
+import com.akhbulatov.vcontachim.utility.Keyboard
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -51,9 +52,11 @@ class VcontachimApplication : Application() {
 
         vcontachimService = retrofit.create()
         sharedPr = SharedPreferencesManager()
+        keyboard = Keyboard()
     }
 
     companion object {
+        lateinit var keyboard: Keyboard
         lateinit var sharedPr: SharedPreferencesManager
         lateinit var vcontachimService: VcontachimService
 

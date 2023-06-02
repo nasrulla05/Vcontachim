@@ -1,6 +1,8 @@
 package com.akhbulatov.vcontachim.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -10,6 +12,7 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.VideoCommAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentVideoCommentsBinding
 import com.akhbulatov.vcontachim.model.Video
+import com.akhbulatov.vcontachim.model.VideoCommentsUI
 import com.akhbulatov.vcontachim.viewmodel.VideoCommentsViewModel
 
 class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
@@ -26,7 +29,14 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
             VcontachimApplication.router.exit()
         }
 
-        val videoCommAdapter = VideoCommAdapter()
+        val videoCommAdapter = VideoCommAdapter(
+            object : VideoCommAdapter.LikeCommListener {
+                override fun addLikeComm(videoCommentsUI: VideoCommentsUI) {
+                    if (videoCommentsUI.userLikes == 0L) viewModel.addLike(videoCommentsUI)
+                    else viewModel.deleteLikeVideoComm(videoCommentsUI)
+                }
+            }
+        )
         binding!!.commentList.adapter = videoCommAdapter
 
         val arg = arguments?.getSerializable(ARGUMENTS_VIDEO)!!
@@ -48,6 +58,32 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
         }
 
         viewModel.loadVideoComments(video)
+
+        binding!!.leaveAComment.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Вызывается ДО изменения текста
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Вызывается ВО время изменения текста
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding!!.leaveAComment.text.isNotEmpty()) {
+                    binding!!.submitComment.setImageResource(R.drawable.send_28_active)
+                    binding!!.submitComment.setOnClickListener {
+                        viewModel.createComm(video, s!!.toString())
+                        VcontachimApplication.keyboard.hideKeyBoard(view)
+                        s.clear()
+                    }
+
+                } else {
+                    binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
+                }
+            }
+        })
+
+
     }
 
     override fun onDestroyView() {
