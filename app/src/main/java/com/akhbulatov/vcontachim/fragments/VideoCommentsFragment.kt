@@ -73,7 +73,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.createComm(video, s!!.toString())
-                        VcontachimApplication.keyboard.hideKeyBoard()
+                        VcontachimApplication.keyboard.hideKeyBoard(view)
                         s.clear()
                     }
 

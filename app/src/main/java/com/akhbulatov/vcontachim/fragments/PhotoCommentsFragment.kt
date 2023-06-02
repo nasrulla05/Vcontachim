@@ -73,7 +73,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.submitComment(item, s.toString())
-                        VcontachimApplication.keyboard.hideKeyBoard()
+                        VcontachimApplication.keyboard.hideKeyBoard(view)
                         s!!.clear()
 
                         viewModel.leaveCommLiveData.observe(viewLifecycleOwner) {

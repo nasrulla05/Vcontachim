@@ -4,13 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
+import com.akhbulatov.vcontachim.VcontachimApplication
 
+object Keyboard {
 
-class Keyboard : Fragment() {
-
-    fun hideKeyBoard() {
-        activity?.hideKeyBoard(view = requireView())
+    fun hideKeyBoard(view: View) {
+        VcontachimApplication.context.hideKeyBoard(view = view)
     }
 
     private fun Context.hideKeyBoard(view: View) {
