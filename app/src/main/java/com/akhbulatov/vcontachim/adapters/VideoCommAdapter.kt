@@ -13,7 +13,7 @@ import com.akhbulatov.vcontachim.databinding.ItemVideoCommentBinding
 import com.akhbulatov.vcontachim.model.VideoCommentsUI
 import java.text.SimpleDateFormat
 
-class VideoCommAdapter(val like:AddLikeComm) :
+class VideoCommAdapter(val like: LikeCommListener) :
     ListAdapter<VideoCommentsUI, VideoCommAdapter.VideoCommViewHolder>(VideoCommentsDuffCallback) {
     class VideoCommViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemVideoCommentBinding.bind(itemView)
@@ -44,7 +44,7 @@ class VideoCommAdapter(val like:AddLikeComm) :
             this.like.addLikeComm(item)
         }
 
-        if (item.userLikes == 1L){
+        if (item.userLikes == 1L) {
             holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
             holder.binding.like.setColorFilter(
                 ContextCompat.getColor(
@@ -52,13 +52,13 @@ class VideoCommAdapter(val like:AddLikeComm) :
                     R.color.red
                 ), android.graphics.PorterDuff.Mode.MULTIPLY
             )
-        }else{
+        } else {
             holder.binding.like.setImageResource(R.drawable.ic_like21)
         }
 
     }
 
-    interface AddLikeComm{
+    interface LikeCommListener {
         fun addLikeComm(videoCommentsUI: VideoCommentsUI)
     }
 

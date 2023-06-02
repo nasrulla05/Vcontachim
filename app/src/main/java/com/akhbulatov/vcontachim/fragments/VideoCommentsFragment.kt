@@ -1,12 +1,9 @@
 package com.akhbulatov.vcontachim.fragments
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,9 +30,9 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
         }
 
         val videoCommAdapter = VideoCommAdapter(
-            object :VideoCommAdapter.AddLikeComm{
+            object : VideoCommAdapter.LikeCommListener {
                 override fun addLikeComm(videoCommentsUI: VideoCommentsUI) {
-                   if (videoCommentsUI.userLikes == 0L)viewModel.addLike(videoCommentsUI)
+                    if (videoCommentsUI.userLikes == 0L) viewModel.addLike(videoCommentsUI)
                     else viewModel.deleteLikeVideoComm(videoCommentsUI)
                 }
             }
@@ -76,31 +73,17 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.createComm(video, s!!.toString())
-                        hideKeyBoard()
+                        VcontachimApplication.keyboard.hideKeyBoard()
                         s.clear()
                     }
-//
-//                    viewModel.videoCommLiveData.observe(viewLifecycleOwner){
-//
-//                    }
 
-                }else{
+                } else {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
                 }
             }
         })
 
 
-    }
-
-    fun hideKeyBoard(){
-        activity?.hideKeyBoard(requireView())
-    }
-
-    private fun Context.hideKeyBoard(view:View){
-        val inputMethodManager =
-            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken,0)
     }
 
     override fun onDestroyView() {

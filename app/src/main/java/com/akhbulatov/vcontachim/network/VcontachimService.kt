@@ -118,8 +118,8 @@ interface VcontachimService {
 
     @POST("video.createComment")
     suspend fun submitVideoComment(
-        @Query("video_id") videoId:Long,
-        @Query("owner_id") ownerId:Long,
-        @Query("message") message:String,
-    ):VideoCommentsUI
+        @Query("video_id") videoId: Long,
+        @Query("owner_id") ownerId: Long,
+        @Query("message") message: String,
+    ): VideoCommentsUI
 }

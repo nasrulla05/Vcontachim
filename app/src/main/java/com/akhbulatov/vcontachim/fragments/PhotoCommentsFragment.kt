@@ -1,12 +1,9 @@
 package com.akhbulatov.vcontachim.fragments
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -76,7 +73,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.submitComment(item, s.toString())
-                        hideKeyBoard()
+                        VcontachimApplication.keyboard.hideKeyBoard()
                         s!!.clear()
 
                         viewModel.leaveCommLiveData.observe(viewLifecycleOwner) {
@@ -93,16 +90,6 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 }
             }
         })
-    }
-
-    fun hideKeyBoard() {
-        activity?.hideKeyboard(requireView())
-    }
-
-    private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager =
-            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {
