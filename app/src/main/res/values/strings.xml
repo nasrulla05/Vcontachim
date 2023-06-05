@@ -24,6 +24,9 @@
     <string name="comm">Комментарий</string>
     <string name="comm_add">Комментарий добавлен</string>
     <string name="add_friend">Добавить в друзья</string>
+    <string name="subscribe">Подписаться</string>
+    <string name="you_subscribed">Вы подписаны</string>
+    <string name="in_friends">В друзьях</string>
 
     <plurals name="plurals_photo_albums" tools:ignore="MissingQuantity">
         <item quantity="zero"> Фотографий</item>

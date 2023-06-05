@@ -39,7 +39,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/info_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -84,6 +83,8 @@
                         tools:text="+79292295865" />
 
                     <TextView
+                        android:background="?selectableItemBackground"
+                        android:id="@+id/info_profile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"

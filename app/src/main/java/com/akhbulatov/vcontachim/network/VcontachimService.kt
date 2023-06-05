@@ -1,5 +1,6 @@
 package com.akhbulatov.vcontachim.network
 
+import Users
 import com.akhbulatov.vcontachim.model.*
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -127,5 +128,5 @@ interface VcontachimService {
     suspend fun getInfoProfile(
         @Query("user_ids") userIds: Long,
         @Query("fields") fields: String = "photo_100,online,career,city,followers_count,friend_status,verified,status"
-    ): Root
+    ): Users
 }

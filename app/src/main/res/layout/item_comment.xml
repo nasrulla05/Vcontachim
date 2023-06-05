@@ -30,6 +30,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/info_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"

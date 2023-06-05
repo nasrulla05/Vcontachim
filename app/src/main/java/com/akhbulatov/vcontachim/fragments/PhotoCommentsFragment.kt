@@ -36,8 +36,11 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                     if (commentsUi.usersLike == 0L) viewModel.likeComment(commentsUi)
                     else viewModel.likeDelete(commentsUi)
                 }
-            }
-        )
+
+//                override fun router(user: Root.User) {
+//                    VcontachimApplication.router.navigateTo(Screens.infoProfile(user))
+//                }
+            } )
 
         binding!!.commentList.adapter = photoCommAdapter
 
@@ -90,6 +93,8 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 }
             }
         })
+
+
     }
 
     companion object {

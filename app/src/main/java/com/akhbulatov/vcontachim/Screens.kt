@@ -40,7 +40,7 @@ object Screens {
     fun videoComments(video: Video.Item) =
         FragmentScreen { VideoCommentsFragment.createFragment(video) }
 
-    fun infoProfile(user: Root.User) = FragmentScreen { InfoProfileFragment.createFragment(user) }
+    fun infoProfile(users: Root.User) = FragmentScreen { InfoProfileFragment.createFragment(users) }
 
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
