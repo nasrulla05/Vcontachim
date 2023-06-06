@@ -44,6 +44,10 @@ class VideoCommAdapter(val like: LikeCommListener) :
             this.like.addLikeComm(item)
         }
 
+        holder.binding.infoProfile.setOnClickListener {
+            this.like.onClick(item)
+        }
+
         if (item.userLikes == 1L) {
             holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
             holder.binding.like.setColorFilter(
@@ -60,6 +64,7 @@ class VideoCommAdapter(val like: LikeCommListener) :
 
     interface LikeCommListener {
         fun addLikeComm(videoCommentsUI: VideoCommentsUI)
+        fun onClick(videoCommentsUI: VideoCommentsUI)
     }
 
     object VideoCommentsDuffCallback : DiffUtil.ItemCallback<VideoCommentsUI>() {

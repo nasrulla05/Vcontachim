@@ -6,10 +6,7 @@ import com.akhbulatov.vcontachim.activity.MainActivity
 import com.akhbulatov.vcontachim.activity.PhotoActivity
 import com.akhbulatov.vcontachim.activity.VideoCommActivity
 import com.akhbulatov.vcontachim.fragments.*
-import com.akhbulatov.vcontachim.model.Item
-import com.akhbulatov.vcontachim.model.PhotosAlbums
-import com.akhbulatov.vcontachim.model.Root
-import com.akhbulatov.vcontachim.model.Video
+import com.akhbulatov.vcontachim.model.*
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
@@ -41,6 +38,19 @@ object Screens {
         FragmentScreen { VideoCommentsFragment.createFragment(video) }
 
     fun infoProfile(users: Root.User) = FragmentScreen { InfoProfileFragment.createFragment(users) }
+
+    fun infoProfileFr(friends: Friends.Item) =
+        FragmentScreen { InfoProfileFragment.createFragmentFr(friends) }
+
+    fun infoProfileVidComm(ui: VideoCommentsUI) =
+        FragmentScreen { InfoProfileFragment.createFragmentVid(ui) }
+
+    fun infoProfilePhotoComm(ui: PhotoCommentsUi) =
+        FragmentScreen { InfoProfileFragment.createFragmentPhoto(ui) }
+
+    fun infoProfileVidPlayer(player: Video.Item) =
+        FragmentScreen { InfoProfileFragment.createFragmentVidPlayer(player) }
+
 
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }

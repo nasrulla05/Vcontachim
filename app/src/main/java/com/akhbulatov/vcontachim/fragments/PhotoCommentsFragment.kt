@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.PhotoCommentsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
@@ -35,6 +36,10 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 override fun likeComm(commentsUi: PhotoCommentsUi) {
                     if (commentsUi.usersLike == 0L) viewModel.likeComment(commentsUi)
                     else viewModel.likeDelete(commentsUi)
+                }
+
+                override fun onClick(photoUi: PhotoCommentsUi) {
+                    VcontachimApplication.router.navigateTo(Screens.infoProfilePhotoComm(photoUi))
                 }
 
 //                override fun router(user: Root.User) {

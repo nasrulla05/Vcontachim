@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.VideoCommAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentVideoCommentsBinding
@@ -35,8 +36,11 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                     if (videoCommentsUI.userLikes == 0L) viewModel.addLike(videoCommentsUI)
                     else viewModel.deleteLikeVideoComm(videoCommentsUI)
                 }
-            }
-        )
+
+                override fun onClick(videoCommentsUI: VideoCommentsUI) {
+                    VcontachimApplication.router.navigateTo(Screens.infoProfileVidComm(videoCommentsUI))
+                }
+            })
         binding!!.commentList.adapter = videoCommAdapter
 
         val arg = arguments?.getSerializable(ARGUMENTS_VIDEO)!!

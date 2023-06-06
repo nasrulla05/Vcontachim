@@ -28,7 +28,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
 
-        viewModel.profileLiveData.observe(viewLifecycleOwner) {user ->
+        viewModel.profileLiveData.observe(viewLifecycleOwner) { user ->
             val response: Root.User = user.response[0]
 
             Glide.with(this)
