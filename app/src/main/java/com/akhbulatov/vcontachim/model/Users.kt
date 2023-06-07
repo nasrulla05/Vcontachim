@@ -8,6 +8,8 @@ data class Users(
     data class Response(
         val id: Long,
         val city: City,
+        @SerializedName("can_send_friend_request")
+        val canSendFriendRequest:Long,
         val status: String,
         @SerializedName("followers_count")
         val followersCount: Long,
@@ -16,8 +18,6 @@ data class Users(
         val photo100: String,
         val online: Long,
         val verified: Long,
-        @SerializedName("friend_status")
-        val friendStatus: Long,
         @SerializedName("first_name")
         val firstName: String,
         @SerializedName("last_name")
@@ -32,6 +32,8 @@ data class Users(
     data class Career(
         @SerializedName("city_id")
         val cityId: Long,
+        @SerializedName("company")
+        val company: String,
         @SerializedName("country_id")
         val countryId: Long,
         val from: Long,

@@ -38,7 +38,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                 }
 
                 override fun onClick(videoCommentsUI: VideoCommentsUI) {
-                    VcontachimApplication.router.navigateTo(Screens.infoProfileVidComm(videoCommentsUI))
+                    VcontachimApplication.router.navigateTo(Screens.infoProfileVidComm(videoCommentsUI.id))
                 }
             })
         binding!!.commentList.adapter = videoCommAdapter
@@ -86,8 +86,6 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                 }
             }
         })
-
-
     }
 
     override fun onDestroyView() {

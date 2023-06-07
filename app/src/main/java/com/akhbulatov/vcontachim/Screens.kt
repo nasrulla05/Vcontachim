@@ -6,7 +6,9 @@ import com.akhbulatov.vcontachim.activity.MainActivity
 import com.akhbulatov.vcontachim.activity.PhotoActivity
 import com.akhbulatov.vcontachim.activity.VideoCommActivity
 import com.akhbulatov.vcontachim.fragments.*
-import com.akhbulatov.vcontachim.model.*
+import com.akhbulatov.vcontachim.model.Item
+import com.akhbulatov.vcontachim.model.PhotosAlbums
+import com.akhbulatov.vcontachim.model.Video
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
@@ -37,19 +39,19 @@ object Screens {
     fun videoComments(video: Video.Item) =
         FragmentScreen { VideoCommentsFragment.createFragment(video) }
 
-    fun infoProfile(users: Root.User) = FragmentScreen { InfoProfileFragment.createFragment(users) }
+    fun infoProfile(id: Long) = FragmentScreen { InfoProfileFragment.createFragment(id) }
 
-    fun infoProfileFr(friends: Friends.Item) =
-        FragmentScreen { InfoProfileFragment.createFragmentFr(friends) }
+    fun infoProfileFr(id: Long) =
+        FragmentScreen { InfoProfileFragment.createFragment(id) }
 
-    fun infoProfileVidComm(ui: VideoCommentsUI) =
-        FragmentScreen { InfoProfileFragment.createFragmentVid(ui) }
+    fun infoProfileVidComm(id: Long) =
+        FragmentScreen { InfoProfileFragment.createFragment(id) }
 
-    fun infoProfilePhotoComm(ui: PhotoCommentsUi) =
-        FragmentScreen { InfoProfileFragment.createFragmentPhoto(ui) }
+    fun infoProfilePhotoComm(ui: Long) =
+        FragmentScreen { InfoProfileFragment.createFragment(ui) }
 
-    fun infoProfileVidPlayer(player: Video.Item) =
-        FragmentScreen { InfoProfileFragment.createFragmentVidPlayer(player) }
+    fun infoProfileVidPlayer(player: Long) =
+        FragmentScreen { InfoProfileFragment.createFragment(player) }
 
 
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }

@@ -39,13 +39,9 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 }
 
                 override fun onClick(photoUi: PhotoCommentsUi) {
-                    VcontachimApplication.router.navigateTo(Screens.infoProfilePhotoComm(photoUi))
+                    VcontachimApplication.router.navigateTo(Screens.infoProfilePhotoComm(photoUi.id))
                 }
-
-//                override fun router(user: Root.User) {
-//                    VcontachimApplication.router.navigateTo(Screens.infoProfile(user))
-//                }
-            } )
+            })
 
         binding!!.commentList.adapter = photoCommAdapter
 

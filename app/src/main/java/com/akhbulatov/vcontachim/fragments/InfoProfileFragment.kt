@@ -10,10 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentInfoProfileBinding
-import com.akhbulatov.vcontachim.model.*
 import com.akhbulatov.vcontachim.viewmodel.InfoProfileViewModel
 import com.bumptech.glide.Glide
-import java.io.Serializable
 
 class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
     private var binding: FragmentInfoProfileBinding? = null
@@ -26,11 +24,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInfoProfileBinding.bind(view)
 
-//        val user = passingOnArgument(ARGUMENTS_USER) as Root.User
-//        val friends = passingOnArgument(ARGUMENTS_FRIENDS) as Friends.Item
-        val videoComm = passingOnArgument(ARGUMENTS_VIDEO_COMM) as VideoCommentsUI
-//        val photoCommentsUi = passingOnArgument(ARGUMENTS_PHOTO_COMM) as PhotoCommentsUi
-//        val player = passingOnArgument(ARGUMENTS_VIDEO_PLAYER) as Video.Item
+        val id = arguments?.getLong(ARGUMENTS_USER) as Long
 
         binding!!.exit.setOnClickListener {
             VcontachimApplication.router.exit()
@@ -44,9 +38,9 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
             }
 
-//            if (user.id == response.id) binding!!.subscribeOrAddFriend.visibility = View.GONE
+            if (id == it.id) binding!!.subscribeOrAddFriend.visibility = View.GONE
 
-            if (it.verified == 1L) {
+            if (it.canSendFriendRequest == 1L) {
                 binding!!.verified.setImageResource(R.drawable.ic_verified)
                 binding!!.subscribeOrAddFriend.text = R.string.subscribe.toString()
                 binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
@@ -59,13 +53,12 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             } else {
                 binding!!.subscribeOrAddFriend.text = R.string.add_friend.toString()
                 binding!!.subscribeOrAddFriend.setIconResource(R.drawable.user_add_outline_20)
-                if (it.friendStatus == 0L) {
-                    binding!!.subscribeOrAddFriend.setOnClickListener {
-                        binding!!.subscribeOrAddFriend.background = R.color.white.toDrawable()
-                        binding!!.subscribeOrAddFriend.setTextColor(R.color.blue)
-                        binding!!.subscribeOrAddFriend.text = R.string.in_friends.toString()
-                    }
+                binding!!.subscribeOrAddFriend.setOnClickListener {
+                    binding!!.subscribeOrAddFriend.background = R.color.white.toDrawable()
+                    binding!!.subscribeOrAddFriend.setTextColor(R.color.blue)
+                    binding!!.subscribeOrAddFriend.text = R.string.in_friends.toString()
                 }
+
             }
 
             Glide.with(view)
@@ -75,7 +68,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             binding!!.nameSurname.text = "${it.firstName} ${it.lastName}"
             binding!!.status.text = it.status
             binding!!.city.text = it.city.title
-            binding!!.career.text = it.career[0].groupId.toString()
+            binding!!.career.text = it.career[0].company
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
@@ -87,8 +80,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             toast.show()
         }
 
-        viewModel.loadInfoProfile(videoComm.id)
-
+        viewModel.loadInfoProfile(id)
     }
 
     override fun onDestroyView() {
@@ -98,53 +90,16 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
 
     companion object {
 
-        const val ARGUMENTS_FRIENDS = "FRIENDS"
         const val ARGUMENTS_USER = "USER"
-        const val ARGUMENTS_VIDEO_COMM = "VIDEO_COMM"
-        const val ARGUMENTS_PHOTO_COMM = "PHOTO_COMM"
-        const val ARGUMENTS_VIDEO_PLAYER = "PLAYER"
 
-        private val fr = InfoProfileFragment()
-        private val bundle = Bundle()
+        fun createFragment(id: Long): Fragment {
+            val fr = InfoProfileFragment()
+            val bundle = Bundle()
 
-
-        fun createFragment(user: Root.User): Fragment {
-            bundle.putSerializable(ARGUMENTS_USER, user)
+            bundle.putSerializable(ARGUMENTS_USER, id)
 
             fr.arguments = bundle
             return fr
         }
-
-        fun createFragmentFr(friends: Friends.Item): Fragment {
-            bundle.putSerializable(ARGUMENTS_FRIENDS, friends)
-
-            fr.arguments = bundle
-            return fr
-        }
-
-        fun createFragmentVid(ui: VideoCommentsUI): Fragment {
-            bundle.putSerializable(ARGUMENTS_VIDEO_COMM, ui)
-
-            fr.arguments = bundle
-            return fr
-        }
-
-        fun createFragmentPhoto(ui: PhotoCommentsUi): Fragment {
-            bundle.putSerializable(ARGUMENTS_PHOTO_COMM, ui)
-
-            fr.arguments = bundle
-            return fr
-        }
-
-        fun createFragmentVidPlayer(player: Video.Item): Fragment {
-            bundle.putSerializable(ARGUMENTS_VIDEO_PLAYER, player)
-
-            fr.arguments = bundle
-            return fr
-        }
-    }
-
-    private fun passingOnArgument(arg: String): Serializable? {
-        return arguments?.getSerializable(arg)
     }
 }
