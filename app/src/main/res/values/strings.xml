@@ -37,6 +37,14 @@
         <item quantity="other"> Фотографий</item>
     </plurals>
 
+    <plurals name="followers_count">
+        <item quantity="one">подписчик</item>
+        <item quantity="two">подписчика</item>
+        <item quantity="few">подписчика</item>
+        <item quantity="many">подписчиков</item>
+        <item quantity="other">подписчиков</item>
+    </plurals>
+
     <plurals name="plurals_video" tools:ignore="MissingQuantity">
         <item quantity="zero">Просмотров</item>
         <item quantity="one">Просмотр</item>

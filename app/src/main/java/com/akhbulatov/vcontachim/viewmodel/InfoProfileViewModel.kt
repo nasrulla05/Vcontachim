@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class InfoProfileViewModel : ViewModel() {
 
-    val infoProfileLiveData = MutableLiveData<Users.Response>()
+    val infoProfileLiveData = MutableLiveData<Users>()
     val errorLiveData = MutableLiveData<String>()
 
     fun loadInfoProfile(id:Long) {

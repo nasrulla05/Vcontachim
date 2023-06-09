@@ -39,7 +39,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 }
 
                 override fun onClick(photoUi: PhotoCommentsUi) {
-                    VcontachimApplication.router.navigateTo(Screens.infoProfilePhotoComm(photoUi.id))
+                    VcontachimApplication.router.navigateTo(Screens.infoProfilePhotoComm(photoUi.ownerId))
                 }
             })
 

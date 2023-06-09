@@ -1,10 +1,10 @@
 package com.akhbulatov.vcontachim.fragments
 
+import Users
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
@@ -31,44 +31,43 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         }
 
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) {
+            val response: Users.Response = it.response[0]
 
-            if (it.online == 1L) {
+            if (response.online == 1L) {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.online_composite_16)
             } else {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
             }
 
-            if (id == it.id) binding!!.subscribeOrAddFriend.visibility = View.GONE
+            if (id == response.id) binding!!.subscribeOrAddFriend.visibility = View.GONE
 
-            if (it.canSendFriendRequest == 1L) {
+            if (response.verified == 1L) {
                 binding!!.verified.setImageResource(R.drawable.ic_verified)
-                binding!!.subscribeOrAddFriend.text = R.string.subscribe.toString()
-                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
-                binding!!.followersOrFriends.text = it.followersCount.toString()
-                binding!!.subscribeOrAddFriend.setOnClickListener {
-                    binding!!.subscribeOrAddFriend.background = R.color.white.toDrawable()
-                    binding!!.subscribeOrAddFriend.setTextColor(R.color.blue)
-                    binding!!.subscribeOrAddFriend.text = R.string.you_subscribed.toString()
-                }
-            } else {
-                binding!!.subscribeOrAddFriend.text = R.string.add_friend.toString()
-                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.user_add_outline_20)
-                binding!!.subscribeOrAddFriend.setOnClickListener {
-                    binding!!.subscribeOrAddFriend.background = R.color.white.toDrawable()
-                    binding!!.subscribeOrAddFriend.setTextColor(R.color.blue)
-                    binding!!.subscribeOrAddFriend.text = R.string.in_friends.toString()
-                }
+            }
 
+            if (response.canSendFriendRequest == 1L) {
+                binding!!.subscribeOrAddFriend.setText(R.string.subscribe)
+                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
+
+            } else {
+                binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
+                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.user_add_outline_20)
             }
 
             Glide.with(view)
-                .load(it.photo100)
+                .load(response.photo100)
                 .into(binding!!.avatar)
 
-            binding!!.nameSurname.text = "${it.firstName} ${it.lastName}"
-            binding!!.status.text = it.status
-            binding!!.city.text = it.city.title
-            binding!!.career.text = it.career[0].company
+            binding!!.nameSurname.text = "${response.firstName} ${response.lastName}"
+            binding!!.status.text = response.status
+            binding!!.city.text = response.city?.title
+            binding!!.career.text = response.career?.get(0)?.position
+
+            val plurals = VcontachimApplication.context.resources.getQuantityString(
+                R.plurals.followers_count,
+                response.followersCount!!.toInt()
+            )
+            binding!!.followersOrFriends.text = "${response.followersCount} $plurals"
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {

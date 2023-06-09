@@ -57,7 +57,7 @@ object Screens {
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
     fun photoAc(itemPhoto: Item) =
-        ActivityScreen { PhotoActivity.createFragment(context = it, itemPhoto) }
+        ActivityScreen { PhotoActivity.createActivity(context = it, itemPhoto) }
 
     fun videoCommAc(video: Video.Item) =
         ActivityScreen { VideoCommActivity.createFragment(context = it, video) }

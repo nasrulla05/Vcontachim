@@ -128,5 +128,5 @@ interface VcontachimService {
     suspend fun getInfoProfile(
         @Query("user_ids") userIds: Long,
         @Query("fields") fields: String = "photo_100,online,career,city,followers_count,can_send_friend_request,verified,status"
-    ): Users.Response
+    ): Users
 }

@@ -1,5 +1,6 @@
 package com.akhbulatov.vcontachim.fragments
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -19,12 +20,13 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         ViewModelProvider(this)[AuthViewModel::class.java]
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAuthBinding.bind(view)
 
         binding!!.webView.loadUrl(viewModel.authUrl)
-
+        binding!!.webView.settings.javaScriptEnabled = true
         binding!!.webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
                 view: WebView,
