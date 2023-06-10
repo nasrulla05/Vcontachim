@@ -26,9 +26,9 @@ class FriendsFragment : Fragment(R.layout.fragment_friends) {
         binding!!.toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
 
         val friendAdapter = FriendsAdapter(
-            object : FriendsAdapter.ClickOfAvatar {
+            object : FriendsAdapter.ClickOfAvatarListener {
                 override fun click(friends: Friends.Item) {
-                    VcontachimApplication.router.navigateTo(Screens.infoProfileFr(friends.id))
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(friends.id))
                 }
             }
         )

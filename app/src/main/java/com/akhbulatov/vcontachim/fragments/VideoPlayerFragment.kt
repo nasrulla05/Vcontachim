@@ -118,7 +118,7 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         }
 
         binding!!.avatars32.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.infoProfileVidPlayer(item.itemId.toLong()))
+            VcontachimApplication.router.navigateTo(Screens.infoProfile(item.itemId.toLong()))
         }
     }
 

@@ -41,18 +41,6 @@ object Screens {
 
     fun infoProfile(id: Long) = FragmentScreen { InfoProfileFragment.createFragment(id) }
 
-    fun infoProfileFr(id: Long) =
-        FragmentScreen { InfoProfileFragment.createFragment(id) }
-
-    fun infoProfileVidComm(id: Long) =
-        FragmentScreen { InfoProfileFragment.createFragment(id) }
-
-    fun infoProfilePhotoComm(ui: Long) =
-        FragmentScreen { InfoProfileFragment.createFragment(ui) }
-
-    fun infoProfileVidPlayer(player: Long) =
-        FragmentScreen { InfoProfileFragment.createFragment(player) }
-
 
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }

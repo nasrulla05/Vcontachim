@@ -14,6 +14,7 @@ import com.akhbulatov.vcontachim.adapters.VideoCommAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentVideoCommentsBinding
 import com.akhbulatov.vcontachim.model.Video
 import com.akhbulatov.vcontachim.model.VideoCommentsUI
+import com.akhbulatov.vcontachim.utility.Keyboard
 import com.akhbulatov.vcontachim.viewmodel.VideoCommentsViewModel
 
 class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
@@ -38,7 +39,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                 }
 
                 override fun onClick(videoCommentsUI: VideoCommentsUI) {
-                    VcontachimApplication.router.navigateTo(Screens.infoProfileVidComm(videoCommentsUI.id))
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(videoCommentsUI.id))
                 }
             })
         binding!!.commentList.adapter = videoCommAdapter
@@ -77,7 +78,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.createComm(video, s!!.toString())
-                        VcontachimApplication.keyboard.hideKeyBoard(view)
+                        Keyboard.hideKeyBoard(view)
                         s.clear()
                     }
 

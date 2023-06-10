@@ -39,7 +39,9 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
             }
 
-            if (id == response.id) binding!!.subscribeOrAddFriend.visibility = View.GONE
+            if (id == response.id) {
+                binding!!.subscribeOrAddFriend.visibility = View.GONE
+            }
 
             if (response.verified == 1L) {
                 binding!!.verified.setImageResource(R.drawable.ic_verified)
@@ -63,10 +65,13 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             binding!!.city.text = response.city?.title
             binding!!.career.text = response.career?.get(0)?.position
 
-            val plurals = VcontachimApplication.context.resources.getQuantityString(
-                R.plurals.followers_count,
-                response.followersCount!!.toInt()
-            )
+            val plurals = response.followersCount?.toInt()?.let { it1 ->
+                VcontachimApplication.context.resources.getQuantityString(
+                    R.plurals.followers_count,
+                    it1
+                )
+            }
+
             binding!!.followersOrFriends.text = "${response.followersCount} $plurals"
         }
 
@@ -89,7 +94,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
 
     companion object {
 
-        const val ARGUMENTS_USER = "USER"
+       private const val ARGUMENTS_USER = "USER"
 
         fun createFragment(id: Long): Fragment {
             val fr = InfoProfileFragment()

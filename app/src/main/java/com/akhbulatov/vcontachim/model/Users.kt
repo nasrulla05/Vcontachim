@@ -3,13 +3,13 @@ import java.io.Serializable
 
 data class Users(
     val response: List<Response>
-): Serializable {
+) : Serializable {
 
     data class Response(
         val id: Long,
         val city: City?,
         @SerializedName("can_send_friend_request")
-        val canSendFriendRequest:Long,
+        val canSendFriendRequest: Long,
         val status: String?,
         @SerializedName("followers_count")
         val followersCount: Long?,
@@ -22,17 +22,17 @@ data class Users(
         val firstName: String,
         @SerializedName("last_name")
         val lastName: String,
-    ):Serializable
+    ) : Serializable
 
     data class City(
         val id: Long?,
         val title: String?,
-    ):Serializable
+    ) : Serializable
 
     data class Career(
         @SerializedName("position")
-        val position:String?,
+        val position: String?,
         @SerializedName("company")
         val company: String?,
-    ):Serializable
+    ) : Serializable
 }

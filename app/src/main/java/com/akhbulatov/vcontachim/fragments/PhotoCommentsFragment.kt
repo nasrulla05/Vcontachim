@@ -14,6 +14,7 @@ import com.akhbulatov.vcontachim.adapters.PhotoCommentsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
 import com.akhbulatov.vcontachim.model.Item
 import com.akhbulatov.vcontachim.model.PhotoCommentsUi
+import com.akhbulatov.vcontachim.utility.Keyboard
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -39,7 +40,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 }
 
                 override fun onClick(photoUi: PhotoCommentsUi) {
-                    VcontachimApplication.router.navigateTo(Screens.infoProfilePhotoComm(photoUi.ownerId))
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(photoUi.ownerId))
                 }
             })
 
@@ -77,7 +78,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.submitComment(item, s.toString())
-                        VcontachimApplication.keyboard.hideKeyBoard(view)
+                        Keyboard.hideKeyBoard(view)
                         s!!.clear()
 
                         viewModel.leaveCommLiveData.observe(viewLifecycleOwner) {
@@ -94,8 +95,6 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 }
             }
         })
-
-
     }
 
     companion object {
