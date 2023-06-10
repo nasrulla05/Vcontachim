@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.akhbulatov.vcontachim.network.VcontachimService
-import com.akhbulatov.vcontachim.preferences.SharedPreferencesManager
+import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -34,7 +34,7 @@ class VcontachimApplication : Application() {
 
                     request = request
                         .newBuilder()
-                        .addHeader("Authorization", "Bearer ${sharedPr.accessToken}")
+                        .addHeader("Authorization", "Bearer ${SharedPreferencesManager.accessToken}")
                         .url(url)
                         .build()
 
@@ -50,11 +50,9 @@ class VcontachimApplication : Application() {
             .build()
 
         vcontachimService = retrofit.create()
-        sharedPr = SharedPreferencesManager()
     }
 
     companion object {
-        lateinit var sharedPr: SharedPreferencesManager
         lateinit var vcontachimService: VcontachimService
 
         @SuppressLint("StaticFieldLeak")
