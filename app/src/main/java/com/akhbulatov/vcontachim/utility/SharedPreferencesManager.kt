@@ -1,10 +1,10 @@
-package com.akhbulatov.vcontachim.preferences
+package com.akhbulatov.vcontachim.utility
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.akhbulatov.vcontachim.VcontachimApplication
 
-class SharedPreferencesManager() {
+object SharedPreferencesManager {
     private val sharedPreferences: SharedPreferences =
         VcontachimApplication.context.getSharedPreferences(
             "vcontachim_preferences",
@@ -13,8 +13,7 @@ class SharedPreferencesManager() {
     val accessToken: String? = sharedPreferences.getString("access_token", null)
 
     fun saveToken(beforeAccessToken: String) {
-        val editor: SharedPreferences.Editor =
-            VcontachimApplication.sharedPr.sharedPreferences.edit()
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString("access_token", beforeAccessToken)
         editor.apply()
     }

@@ -9,7 +9,7 @@ data class Users(
         val id: Long,
         val city: City?,
         @SerializedName("can_send_friend_request")
-        val canSendFriendRequest: Long,
+        val canSendFriendRequest: Int,
         val status: String?,
         @SerializedName("followers_count")
         val followersCount: Long?,
@@ -18,6 +18,8 @@ data class Users(
         val photo100: String,
         val online: Long,
         val verified: Long?,
+        @SerializedName("is_friend")
+        val isFriend:Int,
         @SerializedName("first_name")
         val firstName: String,
         @SerializedName("last_name")
@@ -35,4 +37,28 @@ data class Users(
         @SerializedName("company")
         val company: String?,
     ) : Serializable
+
+    data class Counters(
+        val albums: Long,
+        val audios: Long,
+        val followers: Long,
+        val friends: Long,
+        val gifts: Long,
+        val groups: Long,
+        @SerializedName("online_friends")
+        val onlineFriends: Long,
+        val pages: Long,
+        val photos: Long,
+        val subscriptions: Long,
+        @SerializedName("user_photos")
+        val userPhotos: Long,
+        val videos: Long,
+        @SerializedName("video_playlists")
+        val videoPlaylists: Long,
+        @SerializedName("mutual_friends")
+        val mutualFriends: Long,
+        @SerializedName("clips_followers")
+        val clipsFollowers: Long,
+    )
+
 }

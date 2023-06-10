@@ -2,9 +2,11 @@ package com.akhbulatov.vcontachim.fragments
 
 import Users
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
@@ -39,21 +41,35 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
             }
 
-            if (id == response.id) {
-                binding!!.subscribeOrAddFriend.visibility = View.GONE
-            }
-
             if (response.verified == 1L) {
                 binding!!.verified.setImageResource(R.drawable.ic_verified)
             }
 
-            if (response.canSendFriendRequest == 1L) {
-                binding!!.subscribeOrAddFriend.setText(R.string.subscribe)
-                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
-
-            } else {
-                binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
-                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.user_add_outline_20)
+            binding!!.subscribeOrAddFriend.setOnClickListener {
+                if (response.isFriend == 1) {
+                    viewModel.addFriend(response.id)
+                    binding!!.subscribeOrAddFriend.setIconResource(R.drawable.ic_verified)
+                    binding!!.subscribeOrAddFriend.setIconTintResource(R.color.blue)
+                    binding!!.subscribeOrAddFriend.setText(R.string.in_friends)
+                    binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#0077FF"))
+                    binding!!.subscribeOrAddFriend.background.setTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
+                    )
+                } else {
+                    viewModel.deleteFriend(response.id)
+                    binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
+                    binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
+                    binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#FFFFFFFF"))
+                    binding!!.subscribeOrAddFriend.background.setTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
+                    )
+                }
             }
 
             Glide.with(view)
@@ -94,7 +110,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
 
     companion object {
 
-       private const val ARGUMENTS_USER = "USER"
+        private const val ARGUMENTS_USER = "USER"
 
         fun createFragment(id: Long): Fragment {
             val fr = InfoProfileFragment()
@@ -106,4 +122,30 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             return fr
         }
     }
+
+//    if (response.friendStatus != 3) {
+//        viewModel.addFriend(response.id)
+//        binding!!.subscribeOrAddFriend.setIconResource(R.drawable.ic_verified)
+//        binding!!.subscribeOrAddFriend.setIconTintResource(R.color.blue)
+//        binding!!.subscribeOrAddFriend.setText(R.string.in_friends)
+//        binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#0077FF"))
+//        binding!!.subscribeOrAddFriend.background.setTint(
+//            ContextCompat.getColor(
+//                requireContext(),
+//                R.color.white
+//            )
+//        )
+//    } else {
+//        viewModel.deleteFriend(response.id)
+//        binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
+//        binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
+//        binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#FFFFFFFF"))
+//        binding!!.subscribeOrAddFriend.background.setTint(
+//            ContextCompat.getColor(
+//                requireContext(),
+//                R.color.blue
+//            )
+//        )
+//
+//    }
 }

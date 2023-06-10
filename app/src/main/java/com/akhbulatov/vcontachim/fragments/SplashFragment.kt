@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
+import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -18,7 +19,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         lifecycleScope.launch {
             delay(3000)
 
-            val authorizedUser = VcontachimApplication.sharedPr.accessToken
+            val authorizedUser = SharedPreferencesManager.accessToken
             if (authorizedUser == null) {
                 VcontachimApplication.router.navigateTo(Screens.loginFr())
             } else {
