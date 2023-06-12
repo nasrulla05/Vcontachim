@@ -41,7 +41,6 @@ object Screens {
 
     fun infoProfile(id: Long) = FragmentScreen { InfoProfileFragment.createFragment(id) }
 
-
     fun launchAc() = ActivityScreen { Intent(it, LaunchActivity::class.java) }
     fun mainAc() = ActivityScreen { Intent(it, MainActivity::class.java) }
     fun photoAc(itemPhoto: Item) =

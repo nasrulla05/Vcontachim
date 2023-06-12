@@ -25,43 +25,43 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInfoProfileBinding.bind(view)
 
-        val id = arguments?.getLong(ARGUMENTS_USER) as Long
+        val id = arguments?.getLong(ARGUMENTS_USER)
 
         binding!!.exit.setOnClickListener {
             VcontachimApplication.router.exit()
         }
 
-        viewModel.infoProfileLiveData.observe(viewLifecycleOwner) {
+        viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
 
-            if (it.online == 1L) {
+            if (user.online == 1L) {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.online_composite_16)
             } else {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
             }
 
-            if (it.verified == 1L) {
+            if (user.verified == 1L) {
                 binding!!.verified.setImageResource(R.drawable.ic_verified)
             }
 
             Glide.with(view)
-                .load(it.photo100)
+                .load(user.photo100)
                 .into(binding!!.avatar)
 
-            binding!!.nameSurname.text = "${it.firstName} ${it.lastName}"
-            binding!!.status.text = it.status
-            binding!!.city.text = it.city?.title
-            binding!!.career.text = it.career?.get(0)?.position
+            binding!!.nameSurname.text = "${user.firstName} ${user.lastName}"
+            binding!!.status.text = user.status
+            binding!!.city.text = user.city?.title
+            binding!!.career.text = user.career?.get(0)?.position
 
-            val plurals = it.followersCount?.toInt()?.let { it1 ->
+            val plurals = user.followersCount?.toInt()?.let {
                 VcontachimApplication.context.resources.getQuantityString(
                     R.plurals.followers_count,
-                    it1
+                    it
                 )
             }
 
-            binding!!.followersOrFriends.text = "${it.followersCount} $plurals"
+            binding!!.followersOrFriends.text = "${user.followersCount} $plurals"
 
-            if (it.isFriend == 0) {
+            if (user.isFriend == 0) {
                 binding!!.subscribeOrAddFriend.setIconResource(R.drawable.ic_verified)
                 binding!!.subscribeOrAddFriend.setIconTintResource(R.color.blue)
                 binding!!.subscribeOrAddFriend.setText(R.string.in_friends)
@@ -73,7 +73,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                     )
                 )
                 binding!!.subscribeOrAddFriend.setOnClickListener {
-                    viewModel.deleteFriend(id)
+                    viewModel.deleteFriend(id!!)
                 }
             } else {
                 binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
@@ -86,7 +86,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                     )
                 )
                 binding!!.subscribeOrAddFriend.setOnClickListener {
-                    viewModel.addFriend(id)
+                    viewModel.addFriend(id!!)
                 }
             }
         }
@@ -100,7 +100,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             toast.show()
         }
 
-        viewModel.loadInfoProfile(id)
+        viewModel.loadInfoProfile(id!!)
     }
 
     override fun onDestroyView() {
