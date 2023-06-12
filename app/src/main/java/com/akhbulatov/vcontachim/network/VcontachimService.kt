@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.network
 
-import Users
 import com.akhbulatov.vcontachim.model.*
 import retrofit2.http.GET
 import retrofit2.http.POST
