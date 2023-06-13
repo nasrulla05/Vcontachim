@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.VideoCommAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentVideoCommentsBinding
 import com.akhbulatov.vcontachim.model.Video
 import com.akhbulatov.vcontachim.model.VideoCommentsUI
+import com.akhbulatov.vcontachim.utility.Keyboard
 import com.akhbulatov.vcontachim.viewmodel.VideoCommentsViewModel
 
 class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
@@ -35,8 +37,11 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                     if (videoCommentsUI.userLikes == 0L) viewModel.addLike(videoCommentsUI)
                     else viewModel.deleteLikeVideoComm(videoCommentsUI)
                 }
-            }
-        )
+
+                override fun onClick(videoCommentsUI: VideoCommentsUI) {
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(videoCommentsUI.id))
+                }
+            })
         binding!!.commentList.adapter = videoCommAdapter
 
         val arg = arguments?.getSerializable(ARGUMENTS_VIDEO)!!
@@ -73,7 +78,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.createComm(video, s!!.toString())
-                        VcontachimApplication.keyboard.hideKeyBoard(view)
+                        Keyboard.hideKeyBoard(view)
                         s.clear()
                     }
 
@@ -82,8 +87,6 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                 }
             }
         })
-
-
     }
 
     override fun onDestroyView() {

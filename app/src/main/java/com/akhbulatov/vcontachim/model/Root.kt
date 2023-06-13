@@ -5,9 +5,10 @@ import java.io.Serializable
 
 class Root(
     val response: List<User>
-):Serializable
-{
+) : Serializable {
     class User(
+        val id: Long,
+
         @SerializedName("photo_100")
         val avatar: String,
 
@@ -20,5 +21,5 @@ class Root(
         @SerializedName("mobile_phone")
         val mobile_phone: String?
 
-    ): Serializable
+    ) : Serializable
 }

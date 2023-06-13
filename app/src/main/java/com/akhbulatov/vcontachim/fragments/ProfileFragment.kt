@@ -37,6 +37,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
             binding!!.nameSurname.text = "${response.name} ${response.surname}"
             binding!!.mobilePhone.text = response.mobile_phone
+
+            binding!!.infoProfile.setOnClickListener {
+                VcontachimApplication.router.navigateTo(Screens.infoProfile(response.id))
+            }
         }
 
         viewModel.failureLiveData.observe(viewLifecycleOwner) {

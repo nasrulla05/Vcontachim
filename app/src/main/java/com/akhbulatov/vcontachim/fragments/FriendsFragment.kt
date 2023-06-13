@@ -5,9 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.FriendsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentFriendsBinding
+import com.akhbulatov.vcontachim.model.Friends
 import com.akhbulatov.vcontachim.viewmodel.FriendsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -23,7 +25,14 @@ class FriendsFragment : Fragment(R.layout.fragment_friends) {
 
         binding!!.toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
 
-        val friendAdapter = FriendsAdapter()
+        val friendAdapter = FriendsAdapter(
+            object : FriendsAdapter.ClickOfAvatarListener {
+                override fun click(friends: Friends.Item) {
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(friends.id))
+                }
+            }
+        )
+
         binding!!.friendsList.adapter = friendAdapter
 
         viewModel.friendsLiveData.observe(viewLifecycleOwner) {

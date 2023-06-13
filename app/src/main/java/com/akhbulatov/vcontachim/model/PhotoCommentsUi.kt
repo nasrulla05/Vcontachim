@@ -1,5 +1,7 @@
 package com.akhbulatov.vcontachim.model
 
+import java.io.Serializable
+
 data class PhotoCommentsUi(
     val id: Long,
     val count: Long,
@@ -11,4 +13,4 @@ data class PhotoCommentsUi(
     val online: Int,
     val usersLike:Long,
     val ownerId:Long
-)
+): Serializable

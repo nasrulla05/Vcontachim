@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.PhotoCommentsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
 import com.akhbulatov.vcontachim.model.Item
 import com.akhbulatov.vcontachim.model.PhotoCommentsUi
+import com.akhbulatov.vcontachim.utility.Keyboard
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,8 +38,11 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                     if (commentsUi.usersLike == 0L) viewModel.likeComment(commentsUi)
                     else viewModel.likeDelete(commentsUi)
                 }
-            }
-        )
+
+                override fun onClick(photoUi: PhotoCommentsUi) {
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(photoUi.ownerId))
+                }
+            })
 
         binding!!.commentList.adapter = photoCommAdapter
 
@@ -73,7 +78,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
                         viewModel.submitComment(item, s.toString())
-                        VcontachimApplication.keyboard.hideKeyBoard(view)
+                        Keyboard.hideKeyBoard(view)
                         s!!.clear()
 
                         viewModel.leaveCommLiveData.observe(viewLifecycleOwner) {

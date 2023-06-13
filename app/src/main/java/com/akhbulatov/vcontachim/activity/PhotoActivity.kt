@@ -38,7 +38,7 @@ class PhotoActivity : AppCompatActivity(R.layout.activity_photo) {
     companion object {
         const val ARGUMENTS_PHOTO = "PHOTO"
 
-        fun createFragment(context: Context,itemPhoto: Item): Intent {
+        fun createActivity(context: Context, itemPhoto: Item): Intent {
             val intent = Intent(context, PhotoActivity::class.java)
             intent.putExtra(ARGUMENTS_PHOTO, itemPhoto)
             return intent

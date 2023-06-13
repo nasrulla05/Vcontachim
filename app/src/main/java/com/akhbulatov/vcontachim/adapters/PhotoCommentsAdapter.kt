@@ -65,6 +65,10 @@ class PhotoCommentsAdapter(private val likeComment: OnClick) :
             this.likeComment.likeComm(textComm)
         }
 
+        holder.binding.infoProfile.setOnClickListener {
+            this.likeComment.onClick(textComm)
+        }
+
         if (textComm.usersLike == 1L) {
             holder.binding.like.setImageResource(R.drawable.like_filled_red_28)
             holder.binding.like.setColorFilter(
@@ -81,6 +85,7 @@ class PhotoCommentsAdapter(private val likeComment: OnClick) :
 
     interface OnClick {
         fun likeComm(commentsUi: PhotoCommentsUi)
+        fun onClick(photoUi: PhotoCommentsUi)
     }
 
     object PhotoCommentsDiffCallback :

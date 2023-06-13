@@ -12,7 +12,7 @@ import com.akhbulatov.vcontachim.databinding.ItemFriendBinding
 import com.akhbulatov.vcontachim.model.Friends
 import com.bumptech.glide.Glide
 
-class FriendsAdapter :
+class FriendsAdapter(val photo:ClickOfAvatarListener) :
     ListAdapter<Friends.Item, FriendsAdapter.FriendsViewHolder>(FriendsDiffCallback) {
 
     class FriendsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,6 +40,14 @@ class FriendsAdapter :
 
         holder.binding.nameLastName.text =
             "${friend.firstName} ${friend.lastName}"
+
+        holder.binding.avatar48.setOnClickListener {
+            this.photo.click(friend)
+        }
+    }
+
+    interface ClickOfAvatarListener{
+        fun click(friends: Friends.Item)
     }
 
     object FriendsDiffCallback : DiffUtil.ItemCallback<Friends.Item>() {
