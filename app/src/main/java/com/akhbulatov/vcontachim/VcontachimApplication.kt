@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import com.akhbulatov.vcontachim.network.VcontachimService
 import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
-import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
@@ -47,14 +46,7 @@ class VcontachimApplication : Application() {
                 }
             })
 
-            .addInterceptor(
-                ChuckerInterceptor.Builder(context)
-                    .collector(ChuckerCollector(context))
-                    .maxContentLength(250000L)
-                    .redactHeaders(emptySet())
-                    .alwaysReadResponseBody(false)
-                    .build()
-            )
+            .addInterceptor(ChuckerInterceptor(context))
             .build()
 
         val retrofit: Retrofit = Retrofit.Builder()
