@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.Context
 import com.akhbulatov.vcontachim.network.VcontachimService
 import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -34,13 +36,25 @@ class VcontachimApplication : Application() {
 
                     request = request
                         .newBuilder()
-                        .addHeader("Authorization", "Bearer ${SharedPreferencesManager.accessToken}")
+                        .addHeader(
+                            "Authorization",
+                            "Bearer ${SharedPreferencesManager.accessToken}"
+                        )
                         .url(url)
                         .build()
 
                     return chain.proceed(request)
                 }
             })
+
+            .addInterceptor(
+                ChuckerInterceptor.Builder(context)
+                    .collector(ChuckerCollector(context))
+                    .maxContentLength(250000L)
+                    .redactHeaders(emptySet())
+                    .alwaysReadResponseBody(false)
+                    .build()
+            )
             .build()
 
         val retrofit: Retrofit = Retrofit.Builder()
