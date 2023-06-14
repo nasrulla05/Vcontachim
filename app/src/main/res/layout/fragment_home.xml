@@ -2,14 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/time_video"
-        android:text="Главная"
-        android:textSize="100sp" />
+    <androidx.appcompat.widget.Toolbar
+        app:title="@string/home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.tabs.TabLayout
+
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="#818C99"
+        app:tabIndicatorColor="@color/blue"
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_weight="1"
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
 </LinearLayout>

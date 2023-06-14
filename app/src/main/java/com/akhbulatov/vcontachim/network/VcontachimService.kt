@@ -138,4 +138,10 @@ interface VcontachimService {
     suspend fun deleteFriend(
         @Query("user_id") userIds: Long
     )
+
+    @GET("newsfeed.get")
+    suspend fun loadNews(
+        @Query("filters") filters:String = "post",
+        @Query("max_photos") maxPhotos:Int = 1
+    ):News
 }
