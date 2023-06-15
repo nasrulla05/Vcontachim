@@ -30,7 +30,7 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         return NewsViewHolder(itemView = itemView)
     }
 
-    @SuppressLint("SimpleDateFormat")
+    @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult")
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsUI = getItem(position)
 
@@ -38,20 +38,30 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
             .load(news.photo200)
             .into(holder.binding.avatar32DP)
 
-        holder.binding.title.text = news.text
 
         val formatter = SimpleDateFormat("d MMM в k:mm")
-        val date = formatter.format(news.date * 1000L)
+        val date = formatter.format(news.date?.times(1000L) ?: "")
         holder.binding.date.text = date
 
-        Glide.with(holder.itemView)
-            .load(news.postUrl)
-            .into(holder.binding.photo)
+        if (true) {
+            holder.binding.title.text = news.text
+            Glide.with(holder.itemView)
+                .load(news.postUrl)
+                .into(holder.binding.photo)
 
-        holder.binding.countLike.text = news.countLike.toString()
-        holder.binding.countComm.text = news.countComm.toString()
-        holder.binding.countReposts.text = news.repostsCount.toString()
+//        } else {
+//            Glide.with(holder.itemView)
+//                .load(news.photo100)
+//                .into(holder.binding.avatar32DP)
+//            holder.binding.title.text = "${news.firstName} ${news.lastName}"
+//
+//        }
 
+            holder.binding.countLike.text = news.countLike.toString()
+            holder.binding.countComm.text = news.countComm.toString()
+            holder.binding.countReposts.text = news.repostsCount.toString()
+
+        }
     }
 
     object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
@@ -60,6 +70,7 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
             return oldItem == newItem
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
             return oldItem == newItem
         }

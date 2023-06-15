@@ -8,7 +8,8 @@ data class News(
 
     data class Response(
         val items: List<Item>,
-        val groups: List<Group>
+        val groups: List<Group>,
+        val profile: List<Profile>
     )
 
     data class Item(
@@ -17,7 +18,7 @@ data class News(
         val sourceId: Long,
         val date: Long,
         @SerializedName("copy_history")
-        val copyHistory: List<CopyHistory>,
+        val copyHistory: List<CopyHistory>?,
         val comments: Comments,
         val attachments: List<Any?>,
         val id: Long,
@@ -30,7 +31,17 @@ data class News(
         val postType: String,
         val reposts: Reposts,
         val text: String,
-        val views:Views
+        val views: Views
+    )
+
+    data class Profile(
+        val id: Long,
+        @SerializedName("photo_100")
+        val photo100: String?,
+        @SerializedName("first_name")
+        val firstName: String?,
+        @SerializedName("last_name")
+        val lastName: String?
     )
 
     data class CopyHistory(
@@ -43,7 +54,6 @@ data class News(
     )
 
     data class Attachment(
-        val type: String,
         val photo: Photo?
     )
 
@@ -51,18 +61,15 @@ data class News(
         val id: Long,
         val postId: Long,
         val sizes: List<Size>,
-        val text: String
+        val text: String?
     )
 
     data class Size(
-        val height: Long,
-        val type: String,
-        val width: Long,
-        val url: String,
+        val url: String?
     )
 
     data class Comments(
-        val count: Long
+        val count: Long?
     )
 
     data class Likes(
@@ -80,12 +87,11 @@ data class News(
     data class Group(
         val id: Long,
         val name: String,
-        val type: String,
         @SerializedName("photo_200")
         val photo200: String?,
     )
 
     data class Views(
-        val count: Long,
+        val count: Long
     )
 }

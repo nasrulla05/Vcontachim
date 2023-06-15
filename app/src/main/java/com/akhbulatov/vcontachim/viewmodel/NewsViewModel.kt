@@ -7,6 +7,7 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.model.News
 import com.akhbulatov.vcontachim.model.NewsUI
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 class NewsViewModel : ViewModel() {
     val newsLiveData = MutableLiveData<List<NewsUI>>()
@@ -16,25 +17,33 @@ class NewsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val news = VcontachimApplication.vcontachimService.loadNews()
-                val newsUI = news.response.items.map {
+                val newsUI: List<NewsUI> = news.response.items.map {
                     val groups: List<News.Group> = news.response.groups
+                    val profile: List<News.Profile> = news.response.profile
+                    val sourceID = abs(it.sourceId)
+                    val itemGroup =
+                        groups.first { group -> if (group.id == sourceID) true else false }
+//                    val itemProfile =
+//                        profile.first { prof -> if (prof.id == sourceID) true else false }
 
-                    val item = groups.first { groups ->
-                        if (groups.id == it.id) true else false
-                    }
+                    val url = it.copyHistory?.get(0)?.attachments?.get(0)?.photo?.sizes?.get(0)?.url
 
-                    val url = it.copyHistory[0].attachments[0].photo?.sizes?.get(0)?.url
+                    val ui =
+                        NewsUI(
+                            photo200 = itemGroup.photo200,
+                            postUrl = url,
+                            text = it.text,
+                            date = it.copyHistory?.get(0)?.date,
+                            countComm = it.comments.count,
+                            countLike = it.likes.count,
+                            repostsCount = it.reposts.count,
+                            view = it.views.count,
+//                            firstName = itemProfile.firstName,
+//                            lastName = itemProfile.lastName,
+//                            photo100 = itemProfile.photo100,
+//                            id = itemProfile.id
+                        )
 
-                    val ui = NewsUI(
-                        photo200 = item.photo200,
-                        postUrl = url,
-                        text = it.text,
-                        date = it.date,
-                        countComm = it.comments.count,
-                        countLike = it.likes.count,
-                        repostsCount = it.reposts.count,
-                        view = it.views.count
-                    )
                     ui
                 }
 
