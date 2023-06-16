@@ -20,7 +20,6 @@ data class News(
         @SerializedName("copy_history")
         val copyHistory: List<CopyHistory>?,
         val comments: Comments,
-        val attachments: List<Any?>,
         val id: Long,
         val likes: Likes,
         @SerializedName("owner_id")
@@ -54,17 +53,35 @@ data class News(
     )
 
     data class Attachment(
-        val photo: Photo?
+        val type:String,
+        val photo: Photo?,
+        val video:Video?
     )
 
     data class Photo(
+        @SerializedName("owner_id")
+        val ownerId: Long,
         val id: Long,
         val postId: Long,
         val sizes: List<Size>,
         val text: String?
     )
 
+    data class Video(
+        @SerializedName("first_frame")
+        val firstFrame: List<FirstFrame>?,
+        val width: Long,
+        val height: Long,
+        val id: Long,
+        @SerializedName("owner_id")
+        val ownerId: Long,
+        val title: String
+    )
     data class Size(
+        val url: String?
+    )
+
+    data class FirstFrame(
         val url: String?
     )
 

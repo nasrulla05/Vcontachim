@@ -43,11 +43,11 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         val date = formatter.format(news.date?.times(1000L) ?: "")
         holder.binding.date.text = date
 
-        if (true) {
-            holder.binding.title.text = news.text
-            Glide.with(holder.itemView)
-                .load(news.postUrl)
-                .into(holder.binding.photo)
+//        if (true) {
+//            holder.binding.title.text = news.text
+//            Glide.with(holder.itemView)
+//                .load(news.postUrl)
+//                .into(holder.binding.photo)
 
 //        } else {
 //            Glide.with(holder.itemView)
@@ -57,23 +57,24 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
 //
 //        }
 
-            holder.binding.countLike.text = news.countLike.toString()
-            holder.binding.countComm.text = news.countComm.toString()
-            holder.binding.countReposts.text = news.repostsCount.toString()
-
-        }
-    }
-
-    object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
-
-        override fun areItemsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
-            return oldItem == newItem
-        }
-
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
-            return oldItem == newItem
-        }
+        holder.binding.countLike.text = news.countLike?.toString()
+        holder.binding.countComm.text = news.countComm?.toString()
+        holder.binding.countReposts.text = news.repostsCount?.toString()
+        holder.binding.countViews.text = news.view?.toString()
 
     }
 }
+
+object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
+
+    override fun areItemsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+        return oldItem == newItem
+    }
+
+    @SuppressLint("DiffUtilEquals")
+    override fun areContentsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+        return oldItem == newItem
+    }
+
+}
+

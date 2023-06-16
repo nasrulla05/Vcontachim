@@ -25,14 +25,19 @@ class NewsViewModel : ViewModel() {
                         groups.first { group -> if (group.id == sourceID) true else false }
 //                    val itemProfile =
 //                        profile.first { prof -> if (prof.id == sourceID) true else false }
-
-                    val url = it.copyHistory?.get(0)?.attachments?.get(0)?.photo?.sizes?.get(0)?.url
+                    val itemVideo = news.response.items[0].copyHistory?.get(0)?.attachments?.get(0)?.video?.firstFrame?.get(0)
+                    val url =
+                        if (itemVideo?.url == "photo"
+                        ){
+                            it.copyHistory?.get(0)?.attachments?.get(0)?.photo?.sizes?.get(0)?.url
+                        } else {
+                            it.copyHistory?.get(0)?.attachments?.get(0)?.video?.firstFrame?.get(0)?.url
+                        }
 
                     val ui =
                         NewsUI(
                             photo200 = itemGroup.photo200,
-                            postUrl = url,
-                            text = it.text,
+//                            postUrl = url,
                             date = it.copyHistory?.get(0)?.date,
                             countComm = it.comments.count,
                             countLike = it.likes.count,
@@ -41,7 +46,7 @@ class NewsViewModel : ViewModel() {
 //                            firstName = itemProfile.firstName,
 //                            lastName = itemProfile.lastName,
 //                            photo100 = itemProfile.photo100,
-//                            id = itemProfile.id
+//                            id = itemProfile.id,
                         )
 
                     ui

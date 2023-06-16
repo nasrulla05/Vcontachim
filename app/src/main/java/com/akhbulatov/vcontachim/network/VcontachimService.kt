@@ -131,7 +131,7 @@ interface VcontachimService {
 
     @POST("friends.add")
     suspend fun addFriend(
-        @Query("user_id") userId:Long
+        @Query("user_id") userId: Long
     )
 
     @POST("friends.delete")
@@ -141,7 +141,7 @@ interface VcontachimService {
 
     @GET("newsfeed.get")
     suspend fun loadNews(
-        @Query("filters") filters:String = "post",
-        @Query("max_photos") maxPhotos:Int = 1
-    ):News
+        @Query("filters") filters: String = "post",
+        @Query("count") count: Int = 1
+    ): News
 }
