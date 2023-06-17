@@ -38,6 +38,8 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
             .load(news.photo200)
             .into(holder.binding.avatar32DP)
 
+        holder.binding.title.text = news.name
+
 
         val formatter = SimpleDateFormat("d MMM в k:mm")
         val date = formatter.format(news.date?.times(1000L) ?: "")

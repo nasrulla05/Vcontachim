@@ -9,28 +9,27 @@ data class News(
     data class Response(
         val items: List<Item>,
         val groups: List<Group>,
-        val profile: List<Profile>
+        val profiles: List<Profile>?
     )
 
     data class Item(
         val type: String,
         @SerializedName("source_id")
         val sourceId: Long,
-        val date: Long,
-        @SerializedName("copy_history")
-        val copyHistory: List<CopyHistory>?,
-        val comments: Comments,
+        val date: Long?,
+        val attachments: List<Attachment>?,
+        val comments: Comments?,
         val id: Long,
-        val likes: Likes,
+        val likes: Likes?,
         @SerializedName("owner_id")
         val ownerId: Long,
         @SerializedName("post_id")
         val postId: Long,
         @SerializedName("post_type")
         val postType: String,
-        val reposts: Reposts,
+        val reposts: Reposts?,
         val text: String,
-        val views: Views
+        val views: Views?
     )
 
     data class Profile(
@@ -41,15 +40,6 @@ data class News(
         val firstName: String?,
         @SerializedName("last_name")
         val lastName: String?
-    )
-
-    data class CopyHistory(
-        val type: String,
-        val attachments: List<Attachment>,
-        val date: Long,
-        @SerializedName("post_type")
-        val postType: String,
-        val text: String,
     )
 
     data class Attachment(
@@ -63,7 +53,7 @@ data class News(
         val ownerId: Long,
         val id: Long,
         val postId: Long,
-        val sizes: List<Size>,
+        val sizes: List<Size>?,
         val text: String?
     )
 
@@ -76,25 +66,25 @@ data class News(
     )
 
     data class Likes(
-        val count: Long,
+        val count: Long?,
         @SerializedName("user_likes")
-        val userLikes: Long
+        val userLikes: Long?
     )
 
     data class Reposts(
-        val count: Long,
+        val count: Long?,
         @SerializedName("user_reposted")
-        val userReposted: Long,
+        val userReposted: Long?,
     )
 
     data class Group(
         val id: Long,
-        val name: String,
+        val name: String?,
         @SerializedName("photo_200")
         val photo200: String?,
     )
 
     data class Views(
-        val count: Long
+        val count: Long?
     )
 }

@@ -17,32 +17,35 @@ class NewsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val news = VcontachimApplication.vcontachimService.loadNews()
-                val itemPhoto = news.response.items[0].copyHistory?.get(0)
 
                 val newsList = news.response.items.filter {
-                    itemPhoto?.type == "photo"
+                    it.attachments?.getOrNull(0)?.type == "photo"
                 }
+
                 val newsUI: List<NewsUI> = newsList.map {
                     val groups: List<News.Group> = news.response.groups
+                    val profiles: List<News.Profile>? = news.response.profiles
                     val sourceID = abs(it.sourceId)
-                    val itemGroup =
-                        groups.first { group -> if (group.id == sourceID) true else false }
+                    val itemGroup: News.Group? =
+                        groups.firstOrNull { group -> group.id == sourceID }
+
+                    var itemProfile: News.Profile? = null
+                    if (itemGroup == null) {
+                        itemProfile = profiles?.firstOrNull { profile ->
+                            profile.id == sourceID
+                        }
+                    }
 
                     val ui =
                         NewsUI(
-                            photo200 = itemGroup.photo200,
-                            postUrl = it.copyHistory?.get(0)?.attachments?.get(0)?.photo?.sizes?.get(
-                                0
-                            )?.url,
-                            date = it.copyHistory?.get(0)?.date,
-                            countComm = it.comments.count,
-                            countLike = it.likes.count,
-                            repostsCount = it.reposts.count,
-                            view = it.views.count,
-//                            firstName = itemProfile.firstName,
-//                            lastName = itemProfile.lastName,
-//                            photo100 = itemProfile.photo100,
-//                            id = itemProfile.id,
+                            photo200 = if (itemGroup != null) itemGroup.photo200 else itemProfile?.photo100,
+                            postUrl = it.attachments?.getOrNull(0)?.photo?.sizes?.getOrNull(0)?.url,
+                            date = it.date,
+                            countComm = it.comments?.count,
+                            countLike = it.likes?.count,
+                            repostsCount = it.reposts?.count,
+                            view = it.views?.count,
+                            name = if (itemGroup != null) itemGroup.name else "${itemProfile?.firstName} ${itemProfile?.lastName}"
                         )
 
                     ui

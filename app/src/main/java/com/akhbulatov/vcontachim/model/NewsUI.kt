@@ -8,8 +8,5 @@ class NewsUI(
     val postUrl: String?,
     val view: Long?,
     val repostsCount: Long?,
-//    val photo100: String?,
-//    val firstName: String?,
-//    val lastName: String?,
-//    val id:Long
+    val name:String?
 )

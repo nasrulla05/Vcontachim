@@ -141,7 +141,6 @@ interface VcontachimService {
 
     @GET("newsfeed.get")
     suspend fun loadNews(
-        @Query("filters") filters: String = "post",
-        @Query("count") count: Int = 1
+        @Query("filters") filters: String = "post"
     ): News
 }
