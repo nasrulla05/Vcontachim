@@ -67,21 +67,7 @@ data class News(
         val text: String?
     )
 
-    data class Video(
-        @SerializedName("first_frame")
-        val firstFrame: List<FirstFrame>?,
-        val width: Long,
-        val height: Long,
-        val id: Long,
-        @SerializedName("owner_id")
-        val ownerId: Long,
-        val title: String
-    )
     data class Size(
-        val url: String?
-    )
-
-    data class FirstFrame(
         val url: String?
     )
 

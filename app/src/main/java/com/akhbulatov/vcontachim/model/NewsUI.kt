@@ -5,7 +5,7 @@ class NewsUI(
     val photo200: String?,
     val countComm: Long?,
     val countLike: Long?,
-//    val postUrl: String?,
+    val postUrl: String?,
     val view: Long?,
     val repostsCount: Long?,
 //    val photo100: String?,

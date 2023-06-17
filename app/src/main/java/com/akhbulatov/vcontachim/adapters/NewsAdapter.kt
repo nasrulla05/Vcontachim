@@ -43,19 +43,9 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         val date = formatter.format(news.date?.times(1000L) ?: "")
         holder.binding.date.text = date
 
-//        if (true) {
-//            holder.binding.title.text = news.text
-//            Glide.with(holder.itemView)
-//                .load(news.postUrl)
-//                .into(holder.binding.photo)
-
-//        } else {
-//            Glide.with(holder.itemView)
-//                .load(news.photo100)
-//                .into(holder.binding.avatar32DP)
-//            holder.binding.title.text = "${news.firstName} ${news.lastName}"
-//
-//        }
+        Glide.with(holder.itemView)
+            .load(news.postUrl)
+            .into(holder.binding.photo)
 
         holder.binding.countLike.text = news.countLike?.toString()
         holder.binding.countComm.text = news.countComm?.toString()
@@ -63,18 +53,18 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         holder.binding.countViews.text = news.view?.toString()
 
     }
-}
 
-object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
+    object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
 
-    override fun areItemsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
-        return oldItem == newItem
+        override fun areItemsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+            return oldItem == newItem
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+            return oldItem == newItem
+        }
+
     }
-
-    @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
-        return oldItem == newItem
-    }
-
 }
 
