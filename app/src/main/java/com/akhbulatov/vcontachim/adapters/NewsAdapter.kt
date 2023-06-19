@@ -59,7 +59,7 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
     object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
 
         override fun areItemsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
-            return oldItem == newItem
+            return oldItem.name == newItem.name
         }
 
         @SuppressLint("DiffUtilEquals")

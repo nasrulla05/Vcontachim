@@ -101,7 +101,6 @@
                     android:layout_marginStart="7dp"
                     tools:text="207" />
 
-
             </LinearLayout>
 
             <LinearLayout
