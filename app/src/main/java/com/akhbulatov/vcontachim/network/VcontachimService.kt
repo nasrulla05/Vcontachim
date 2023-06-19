@@ -131,11 +131,16 @@ interface VcontachimService {
 
     @POST("friends.add")
     suspend fun addFriend(
-        @Query("user_id") userId:Long
+        @Query("user_id") userId: Long
     )
 
     @POST("friends.delete")
     suspend fun deleteFriend(
         @Query("user_id") userIds: Long
     )
+
+    @GET("newsfeed.get")
+    suspend fun loadNews(
+        @Query("filters") filters: String = "post"
+    ): News
 }
