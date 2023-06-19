@@ -12,6 +12,7 @@ import kotlin.math.abs
 class NewsViewModel : ViewModel() {
     val newsLiveData = MutableLiveData<List<NewsUI>>()
     val errorLiveData = MutableLiveData<String>()
+    val progressBarLiveData = MutableLiveData<Boolean>()
 
     fun loadNews() {
         viewModelScope.launch {
@@ -51,9 +52,14 @@ class NewsViewModel : ViewModel() {
                     ui
                 }
 
+                progressBarLiveData.value = true
+
                 newsLiveData.value = newsUI
 
+                progressBarLiveData.value = false
+
             } catch (e: Exception) {
+                progressBarLiveData.value = false
                 errorLiveData.value = e.message
             }
         }

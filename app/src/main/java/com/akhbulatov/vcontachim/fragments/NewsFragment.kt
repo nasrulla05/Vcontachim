@@ -23,6 +23,11 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         val newsAdapter = NewsAdapter()
         binding!!.listNews.adapter = newsAdapter
 
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it == true) binding!!.progressBar.visibility = View.VISIBLE
+            else binding!!.progressBar.visibility = View.GONE
+        }
+
         viewModel.newsLiveData.observe(viewLifecycleOwner) {
             newsAdapter.submitList(it)
         }
