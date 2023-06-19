@@ -13,8 +13,8 @@ import com.akhbulatov.vcontachim.model.NewsUI
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
-
+class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
+    ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemNewsBinding = ItemNewsBinding.bind(itemView)
     }
@@ -30,7 +30,7 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         return NewsViewHolder(itemView = itemView)
     }
 
-    @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult")
+    @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult", "ResourceAsColor")
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsUI = getItem(position)
 
@@ -54,6 +54,21 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         holder.binding.countReposts.text = news.repostsCount?.toString()
         holder.binding.countViews.text = news.view?.toString()
 
+        holder.binding.clickLike.setOnClickListener {
+            this.addDeleteLike.addDeleteLikePostClick(news)
+        }
+
+        if (news.userLikes == 1) {
+            holder.binding.like.setImageResource(R.drawable.group_16)
+            holder.binding.countLike.setTextColor(R.color.pink)
+        } else {
+
+            holder.binding.like.setImageResource(R.drawable.ic_like21)
+        }
+    }
+
+    interface LikeDeletePostListener {
+        fun addDeleteLikePostClick(news: NewsUI)
     }
 
     object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {

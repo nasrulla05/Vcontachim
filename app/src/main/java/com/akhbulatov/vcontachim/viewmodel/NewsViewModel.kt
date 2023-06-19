@@ -43,10 +43,13 @@ class NewsViewModel : ViewModel() {
                             postUrl = it.attachments?.getOrNull(0)?.photo?.sizes?.getOrNull(0)?.url,
                             date = it.date,
                             countComm = it.comments?.count,
-                            countLike = it.likes?.count,
+                            countLike = it.likes.count,
                             repostsCount = it.reposts?.count,
                             view = it.views?.count,
-                            name = if (itemGroup != null) itemGroup.name else "${itemProfile?.firstName} ${itemProfile?.lastName}"
+                            name = if (itemGroup != null) itemGroup.name else "${itemProfile?.firstName} ${itemProfile?.lastName}",
+                            postID = it.postId,
+                            ownerID = it.ownerId,
+                            userLikes = it.likes.userLikes
                         )
 
                     ui
@@ -60,6 +63,52 @@ class NewsViewModel : ViewModel() {
 
             } catch (e: Exception) {
                 progressBarLiveData.value = false
+                errorLiveData.value = e.message
+            }
+        }
+    }
+
+    fun addLike(newsUI: NewsUI) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.addLikePost(
+                    postID = newsUI.postID,
+                    ownerID = newsUI.ownerID
+                )
+
+                val mutList = newsLiveData.value?.toMutableList()
+                val result = newsUI.copy(
+                    userLikes = if (newsUI.userLikes == 1) 0 else 1,
+                    countLike = newsUI.countLike?.plus(1)
+                )
+                val index = mutList!!.indexOf(newsUI)
+                mutList[index] = result
+
+                newsLiveData.value = mutList
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            }
+        }
+    }
+
+    fun deleteLike(newsUI: NewsUI) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.deleteLikePost(
+                    postId = newsUI.postID,
+                    ownerId = newsUI.ownerID
+                )
+
+                val mutList = newsLiveData.value?.toMutableList()
+                val result = newsUI.copy(
+                    userLikes = if (newsUI.userLikes == 1) 0 else 1,
+                    countLike = newsUI.countLike?.minus(1)
+                )
+                val index = mutList!!.indexOf(newsUI)
+                mutList[index] = result
+
+                newsLiveData.value = mutList
+            } catch (e: Exception) {
                 errorLiveData.value = e.message
             }
         }
