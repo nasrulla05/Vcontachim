@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.model.News
 import com.akhbulatov.vcontachim.model.NewsUi
+import com.akhbulatov.vcontachim.model.TypeNews
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -14,10 +15,12 @@ class NewsViewModel : ViewModel() {
     val errorLiveData = MutableLiveData<String>()
     val progressBarLiveData = MutableLiveData<Boolean>()
 
-    fun loadNews() {
+    fun loadNews(type: TypeNews) {
         viewModelScope.launch {
             try {
-                val news = VcontachimApplication.vcontachimService.loadNews()
+                val news: News =
+                    if (type == TypeNews.NEWS) VcontachimApplication.vcontachimService.loadNews()
+                    else VcontachimApplication.vcontachimService.loadNewsRecommended()
 
                 val newsList = news.response.items.filter {
                     it.attachments?.getOrNull(0)?.type == "photo"

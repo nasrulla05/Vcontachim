@@ -157,4 +157,9 @@ interface VcontachimService {
         @Query("item_id") postId: Int,
         @Query("owner_id") ownerId: Int
     )
+
+    @GET("newsfeed.getRecommended")
+    suspend fun loadNewsRecommended(
+        @Query("fields") fields: String = "photo_200"
+    ): News
 }
