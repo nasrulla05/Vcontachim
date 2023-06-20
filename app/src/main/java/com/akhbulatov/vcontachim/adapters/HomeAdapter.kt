@@ -13,9 +13,9 @@ class HomeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> NewsFragment(TypeNews.NEWS)
+            0 -> NewsFragment.createFragment(TypeNews.NEWS)
             else -> {
-                NewsFragment(TypeNews.RECOMMENDED)
+                NewsFragment.createFragment(TypeNews.RECOMMENDED)
             }
         }
     }

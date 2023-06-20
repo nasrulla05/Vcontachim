@@ -8,7 +8,7 @@ import com.akhbulatov.vcontachim.adapters.HomeAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-open class HomeFragment : Fragment(R.layout.fragment_home) {
+ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var binding: FragmentHomeBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

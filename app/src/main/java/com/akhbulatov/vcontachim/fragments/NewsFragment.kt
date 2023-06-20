@@ -12,7 +12,7 @@ import com.akhbulatov.vcontachim.model.TypeNews
 import com.akhbulatov.vcontachim.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class NewsFragment(private val enum: TypeNews) : Fragment(R.layout.fragment_news) {
+class NewsFragment : Fragment(R.layout.fragment_news) {
     private var binding: FragmentNewsBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[NewsViewModel::class.java]
@@ -50,8 +50,21 @@ class NewsFragment(private val enum: TypeNews) : Fragment(R.layout.fragment_news
             snackbar.show()
         }
 
-        if (enum == TypeNews.NEWS) viewModel.loadNews()
-        else viewModel.loadNewsRecommended()
+        val type = arguments?.getSerializable(ARGUMENTS_TYPE) as TypeNews
+        viewModel.loadNews(type)
+    }
+
+    companion object {
+        private const val ARGUMENTS_TYPE = "arg"
+
+        fun createFragment(type: TypeNews): Fragment {
+            val fr = NewsFragment()
+            val bundle = Bundle()
+            bundle.putSerializable(ARGUMENTS_TYPE, type)
+
+            fr.arguments = bundle
+            return fr
+        }
     }
 
     override fun onDestroyView() {
