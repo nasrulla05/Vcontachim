@@ -3,6 +3,7 @@ package com.akhbulatov.vcontachim.adapters
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.akhbulatov.vcontachim.fragments.NewsFragment
+import com.akhbulatov.vcontachim.model.TypeNews
 
 class HomeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
@@ -12,9 +13,9 @@ class HomeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> NewsFragment()
+            0 -> NewsFragment(TypeNews.NEWS)
             else -> {
-               NewsFragment()
+                NewsFragment(TypeNews.RECOMMENDED)
             }
         }
     }

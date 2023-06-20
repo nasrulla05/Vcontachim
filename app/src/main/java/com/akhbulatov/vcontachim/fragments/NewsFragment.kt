@@ -8,10 +8,11 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.adapters.NewsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentNewsBinding
 import com.akhbulatov.vcontachim.model.NewsUi
+import com.akhbulatov.vcontachim.model.TypeNews
 import com.akhbulatov.vcontachim.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class NewsFragment : Fragment(R.layout.fragment_news) {
+class NewsFragment(private val enum: TypeNews) : Fragment(R.layout.fragment_news) {
     private var binding: FragmentNewsBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[NewsViewModel::class.java]
@@ -49,7 +50,8 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             snackbar.show()
         }
 
-        viewModel.loadNews()
+        if (enum == TypeNews.NEWS) viewModel.loadNews()
+        else viewModel.loadNewsRecommended()
     }
 
     override fun onDestroyView() {
