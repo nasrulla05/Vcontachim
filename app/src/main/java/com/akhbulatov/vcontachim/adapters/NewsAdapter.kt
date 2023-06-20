@@ -1,6 +1,7 @@
 package com.akhbulatov.vcontachim.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.akhbulatov.vcontachim.model.NewsUI
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
+class NewsAdapter(val addDeleteLike: LikeDeletePostListener) :
     ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemNewsBinding = ItemNewsBinding.bind(itemView)
@@ -59,11 +60,9 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         }
 
         if (news.userLikes == 1) {
+            holder.binding.clickLike.setBackgroundResource(R.drawable.like)
             holder.binding.like.setImageResource(R.drawable.group_16)
-            holder.binding.countLike.setTextColor(R.color.pink)
-        } else {
-
-            holder.binding.like.setImageResource(R.drawable.ic_like21)
+            holder.binding.countLike.setTextColor(Color.parseColor("#E6457A"))
         }
     }
 
@@ -84,4 +83,5 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
 
     }
 }
+
 
