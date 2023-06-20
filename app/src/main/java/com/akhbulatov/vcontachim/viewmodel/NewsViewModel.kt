@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.model.News
-import com.akhbulatov.vcontachim.model.NewsUI
+import com.akhbulatov.vcontachim.model.NewsUi
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 class NewsViewModel : ViewModel() {
-    val newsLiveData = MutableLiveData<List<NewsUI>>()
+    val newsLiveData = MutableLiveData<List<NewsUi>>()
     val errorLiveData = MutableLiveData<String>()
     val progressBarLiveData = MutableLiveData<Boolean>()
 
@@ -23,7 +23,7 @@ class NewsViewModel : ViewModel() {
                     it.attachments?.getOrNull(0)?.type == "photo"
                 }
 
-                val newsUI: List<NewsUI> = newsList.map {
+                val newsUI: List<NewsUi> = newsList.map {
                     val groups: List<News.Group> = news.response.groups
                     val profiles: List<News.Profile>? = news.response.profiles
                     val sourceID = abs(it.sourceId)
@@ -38,7 +38,7 @@ class NewsViewModel : ViewModel() {
                     }
 
                     val ui =
-                        NewsUI(
+                        NewsUi(
                             photo200 = if (itemGroup != null) itemGroup.photo200 else itemProfile?.photo100,
                             postUrl = it.attachments?.getOrNull(0)?.photo?.sizes?.getOrNull(0)?.url,
                             date = it.date,
@@ -47,8 +47,8 @@ class NewsViewModel : ViewModel() {
                             repostsCount = it.reposts?.count,
                             view = it.views?.count,
                             name = if (itemGroup != null) itemGroup.name else "${itemProfile?.firstName} ${itemProfile?.lastName}",
-                            postID = it.postId,
-                            ownerID = it.ownerId,
+                            postId = it.postId,
+                            ownerId = it.ownerId,
                             userLikes = it.likes.userLikes
                         )
 
@@ -68,12 +68,12 @@ class NewsViewModel : ViewModel() {
         }
     }
 
-    fun addLike(newsUI: NewsUI) {
+    fun addLike(newsUI: NewsUi) {
         viewModelScope.launch {
             try {
                 VcontachimApplication.vcontachimService.addLikePost(
-                    postID = newsUI.postID,
-                    ownerID = newsUI.ownerID
+                    postID = newsUI.postId,
+                    ownerID = newsUI.ownerId
                 )
 
                 val mutList = newsLiveData.value?.toMutableList()
@@ -91,12 +91,12 @@ class NewsViewModel : ViewModel() {
         }
     }
 
-    fun deleteLike(newsUI: NewsUI) {
+    fun deleteLike(newsUI: NewsUi) {
         viewModelScope.launch {
             try {
                 VcontachimApplication.vcontachimService.deleteLikePost(
-                    postId = newsUI.postID,
-                    ownerId = newsUI.ownerID
+                    postId = newsUI.postId,
+                    ownerId = newsUI.ownerId
                 )
 
                 val mutList = newsLiveData.value?.toMutableList()

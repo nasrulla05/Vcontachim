@@ -1,6 +1,6 @@
 package com.akhbulatov.vcontachim.model
 
-data class NewsUI(
+data class NewsUi(
     val date: Long?,
     val photo200: String?,
     val countComm: Long?,
@@ -8,8 +8,8 @@ data class NewsUI(
     val postUrl: String?,
     val view: Long?,
     val repostsCount: Long?,
-    val name:String?,
-    val postID:Int,
-    val ownerID:Int,
-    val userLikes:Int
+    val name: String?,
+    val postId: Int,
+    val ownerId: Int,
+    val userLikes: Int
 )

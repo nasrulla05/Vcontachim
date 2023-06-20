@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.adapters.NewsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentNewsBinding
-import com.akhbulatov.vcontachim.model.NewsUI
+import com.akhbulatov.vcontachim.model.NewsUi
 import com.akhbulatov.vcontachim.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -23,7 +23,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
         val newsAdapter = NewsAdapter(
             object : NewsAdapter.LikeDeletePostListener {
-                override fun addDeleteLikePostClick(news: NewsUI) {
+                override fun addDeleteLikePostClick(news: NewsUi) {
                     if (news.userLikes == 0) viewModel.addLike(news)
                     else viewModel.deleteLike(news)
                 }

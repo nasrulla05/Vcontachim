@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemNewsBinding
-import com.akhbulatov.vcontachim.model.NewsUI
+import com.akhbulatov.vcontachim.model.NewsUi
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class NewsAdapter(val addDeleteLike: LikeDeletePostListener) :
-    ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
+class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
+    ListAdapter<NewsUi, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemNewsBinding = ItemNewsBinding.bind(itemView)
     }
@@ -33,7 +33,7 @@ class NewsAdapter(val addDeleteLike: LikeDeletePostListener) :
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult", "ResourceAsColor")
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val news: NewsUI = getItem(position)
+        val news: NewsUi = getItem(position)
 
         Glide.with(holder.itemView)
             .load(news.photo200)
@@ -71,21 +71,19 @@ class NewsAdapter(val addDeleteLike: LikeDeletePostListener) :
     }
 
     interface LikeDeletePostListener {
-        fun addDeleteLikePostClick(news: NewsUI)
+        fun addDeleteLikePostClick(news: NewsUi)
     }
 
-    object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
+    object NewsDuffCallback : DiffUtil.ItemCallback<NewsUi>() {
 
-        override fun areItemsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+        override fun areItemsTheSame(oldItem: NewsUi, newItem: NewsUi): Boolean {
             return oldItem.name == newItem.name
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+        override fun areContentsTheSame(oldItem: NewsUi, newItem: NewsUi): Boolean {
             return oldItem == newItem
         }
 
     }
 }
-
-
