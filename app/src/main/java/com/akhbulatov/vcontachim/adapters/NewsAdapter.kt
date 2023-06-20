@@ -63,6 +63,10 @@ class NewsAdapter(val addDeleteLike: LikeDeletePostListener) :
             holder.binding.clickLike.setBackgroundResource(R.drawable.like)
             holder.binding.like.setImageResource(R.drawable.group_16)
             holder.binding.countLike.setTextColor(Color.parseColor("#E6457A"))
+        } else {
+            holder.binding.clickLike.setBackgroundResource(R.drawable.count_likes_comments_reposts)
+            holder.binding.like.setImageResource(R.drawable.like_outline_24)
+            holder.binding.countLike.setTextColor(Color.parseColor("#818C99"))
         }
     }
 
