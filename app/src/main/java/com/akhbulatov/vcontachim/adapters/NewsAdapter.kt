@@ -1,6 +1,7 @@
 package com.akhbulatov.vcontachim.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +10,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemNewsBinding
-import com.akhbulatov.vcontachim.model.NewsUI
+import com.akhbulatov.vcontachim.model.NewsUi
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
-class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
-
+class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
+    ListAdapter<NewsUi, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemNewsBinding = ItemNewsBinding.bind(itemView)
     }
@@ -30,9 +31,9 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         return NewsViewHolder(itemView = itemView)
     }
 
-    @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult")
+    @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult", "ResourceAsColor")
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val news: NewsUI = getItem(position)
+        val news: NewsUi = getItem(position)
 
         Glide.with(holder.itemView)
             .load(news.photo200)
@@ -54,19 +55,35 @@ class NewsAdapter : ListAdapter<NewsUI, NewsAdapter.NewsViewHolder>(NewsDuffCall
         holder.binding.countReposts.text = news.repostsCount?.toString()
         holder.binding.countViews.text = news.view?.toString()
 
+        holder.binding.clickLike.setOnClickListener {
+            this.addDeleteLike.addDeleteLikePostClick(news)
+        }
+
+        if (news.userLikes == 1) {
+            holder.binding.clickLike.setBackgroundResource(R.drawable.like)
+            holder.binding.like.setImageResource(R.drawable.group_16)
+            holder.binding.countLike.setTextColor(Color.parseColor("#E6457A"))
+        } else {
+            holder.binding.clickLike.setBackgroundResource(R.drawable.count_likes_comments_reposts)
+            holder.binding.like.setImageResource(R.drawable.like_outline_24)
+            holder.binding.countLike.setTextColor(Color.parseColor("#818C99"))
+        }
     }
 
-    object NewsDuffCallback : DiffUtil.ItemCallback<NewsUI>() {
+    interface LikeDeletePostListener {
+        fun addDeleteLikePostClick(news: NewsUi)
+    }
 
-        override fun areItemsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+    object NewsDuffCallback : DiffUtil.ItemCallback<NewsUi>() {
+
+        override fun areItemsTheSame(oldItem: NewsUi, newItem: NewsUi): Boolean {
             return oldItem.name == newItem.name
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: NewsUI, newItem: NewsUI): Boolean {
+        override fun areContentsTheSame(oldItem: NewsUi, newItem: NewsUi): Boolean {
             return oldItem == newItem
         }
 
     }
 }
-

@@ -20,11 +20,11 @@ data class News(
         val attachments: List<Attachment>?,
         val comments: Comments?,
         val id: Long,
-        val likes: Likes?,
+        val likes: Likes,
         @SerializedName("owner_id")
-        val ownerId: Long,
+        val ownerId: Int,
         @SerializedName("post_id")
-        val postId: Long,
+        val postId: Int,
         @SerializedName("post_type")
         val postType: String,
         val reposts: Reposts?,
@@ -68,7 +68,7 @@ data class News(
     data class Likes(
         val count: Long?,
         @SerializedName("user_likes")
-        val userLikes: Long?
+        val userLikes: Int
     )
 
     data class Reposts(

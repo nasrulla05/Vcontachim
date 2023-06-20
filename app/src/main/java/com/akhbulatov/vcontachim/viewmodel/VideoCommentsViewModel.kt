@@ -24,8 +24,8 @@ class VideoCommentsViewModel : ViewModel() {
                     )
 
                 val videoCommUI = videoComm.response.items.map {
-                    val profile: List<VideoComments.Profile> = videoComm.response.profiles
-                    val item: VideoComments.Profile = profile.first { profile ->
+                    val profiles: List<VideoComments.Profile> = videoComm.response.profiles
+                    val item: VideoComments.Profile = profiles.first { profile ->
                         profile.id == it.fromId
                     }
 
@@ -58,7 +58,7 @@ class VideoCommentsViewModel : ViewModel() {
                     userLikes = if (video.userLikes == 1L) 0 else 1
                 )
                 val index = mutList!!.indexOf(video)
-                mutList.set(index, result)
+                mutList[index] = result
 
                 videoCommLiveData.value = mutList
 
