@@ -42,7 +42,7 @@ class NewsViewModel : ViewModel() {
 
                     val ui =
                         NewsUi(
-                            photo200 = if (itemGroup != null) itemGroup.photo200 else itemProfile?.photo100,
+                            photo = if (itemGroup != null) itemGroup.photo200 else itemProfile?.photo100,
                             postUrl = it.attachments?.getOrNull(0)?.photo?.sizes?.getOrNull(0)?.url,
                             date = it.date,
                             countComm = it.comments?.count,
@@ -52,7 +52,8 @@ class NewsViewModel : ViewModel() {
                             name = if (itemGroup != null) itemGroup.name else "${itemProfile?.firstName} ${itemProfile?.lastName}",
                             postId = it.postId,
                             ownerId = it.ownerId,
-                            userLikes = it.likes.userLikes
+                            userLikes = it.likes.userLikes,
+                            photoList = it.attachments
                         )
 
                     ui
@@ -71,7 +72,7 @@ class NewsViewModel : ViewModel() {
         }
     }
 
-    fun addLike(newsUI: NewsUi) {
+    fun addLike(newsUI:NewsUi) {
         viewModelScope.launch {
             try {
                 VcontachimApplication.vcontachimService.addLikePost(
@@ -94,7 +95,7 @@ class NewsViewModel : ViewModel() {
         }
     }
 
-    fun deleteLike(newsUI: NewsUi) {
+    fun deleteLike(newsUI:NewsUi) {
         viewModelScope.launch {
             try {
                 VcontachimApplication.vcontachimService.deleteLikePost(

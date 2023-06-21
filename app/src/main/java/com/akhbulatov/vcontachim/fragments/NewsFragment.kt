@@ -24,13 +24,14 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
         val newsAdapter = NewsAdapter(
             object : NewsAdapter.LikeDeletePostListener {
-                override fun addDeleteLikePostClick(news: NewsUi) {
+                override fun addDeleteLikePostClick(news:NewsUi) {
                     if (news.userLikes == 0) viewModel.addLike(news)
                     else viewModel.deleteLike(news)
                 }
             }
         )
         binding!!.listNews.adapter = newsAdapter
+
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
             if (it == true) binding!!.progressBar.visibility = View.VISIBLE
