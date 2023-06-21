@@ -33,7 +33,7 @@ class FlippingImagesAdapter :
         val flippingImages: News.Attachment = getItem(position)
 
         Glide.with(holder.itemView)
-            .load(flippingImages.photo)
+            .load(flippingImages.photo.sizes?.getOrNull(0)?.url)
             .into(holder.binding.image)
     }
 
