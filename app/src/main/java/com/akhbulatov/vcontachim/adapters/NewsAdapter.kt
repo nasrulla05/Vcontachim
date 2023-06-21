@@ -18,6 +18,10 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
     ListAdapter<NewsUi, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemNewsBinding = ItemNewsBinding.bind(itemView)
+        val adapter = FlippingImagesAdapter()
+        init {
+            binding.viewPager2.adapter = adapter
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -33,10 +37,12 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult", "ResourceAsColor")
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val news: NewsUi = getItem(position)
+        val news:NewsUi = getItem(position)
+
+        holder.adapter.submitList(news.photoList)
 
         Glide.with(holder.itemView)
-            .load(news.photo200)
+            .load(news.photo)
             .into(holder.binding.avatar32DP)
 
         holder.binding.title.text = news.name
@@ -45,10 +51,6 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         val formatter = SimpleDateFormat("d MMM в k:mm")
         val date = formatter.format(news.date?.times(1000L) ?: "")
         holder.binding.date.text = date
-
-        Glide.with(holder.itemView)
-            .load(news.postUrl)
-            .into(holder.binding.photo)
 
         holder.binding.countLike.text = news.countLike?.toString()
         holder.binding.countComm.text = news.countComm?.toString()

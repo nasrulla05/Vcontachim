@@ -37,14 +37,14 @@ data class News(
         @SerializedName("photo_100")
         val photo100: String?,
         @SerializedName("first_name")
-        val firstName: String?,
+        val firstName: String,
         @SerializedName("last_name")
-        val lastName: String?
+        val lastName: String
     )
 
     data class Attachment(
         val type:String,
-        val photo: Photo?,
+        val photo: Photo,
         val video:Video?
     )
 
@@ -79,7 +79,7 @@ data class News(
 
     data class Group(
         val id: Long,
-        val name: String?,
+        val name: String,
         @SerializedName("photo_200")
         val photo200: String?,
     )
