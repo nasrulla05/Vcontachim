@@ -44,7 +44,7 @@ data class News(
 
     data class Attachment(
         val type:String,
-        val photo: Photo,
+        val photo: Photo?,
         val video:Video?
     )
 
