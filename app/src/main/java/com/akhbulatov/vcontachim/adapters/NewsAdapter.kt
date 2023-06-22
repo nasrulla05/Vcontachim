@@ -39,8 +39,6 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news:NewsUi = getItem(position)
 
-        holder.adapter.submitList(news.photoList)
-
         Glide.with(holder.itemView)
             .load(news.photo)
             .into(holder.binding.avatar32DP)
@@ -56,6 +54,7 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         holder.binding.countComm.text = news.countComm?.toString()
         holder.binding.countReposts.text = news.repostsCount?.toString()
         holder.binding.countViews.text = news.view?.toString()
+        holder.adapter.submitList(news.photoList)
 
         holder.binding.clickLike.setOnClickListener {
             this.addDeleteLike.addDeleteLikePostClick(news)

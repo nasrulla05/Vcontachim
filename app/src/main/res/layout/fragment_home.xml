@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        app:title="@string/home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:title="@string/home" />
 
     <com.google.android.material.tabs.TabLayout
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="#818C99"
-        app:tabIndicatorColor="@color/blue"
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/blue"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
+        app:tabTextColor="#818C99" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:layout_marginBottom="16dp"
-        android:layout_weight="1"
         android:id="@+id/view_pager2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
