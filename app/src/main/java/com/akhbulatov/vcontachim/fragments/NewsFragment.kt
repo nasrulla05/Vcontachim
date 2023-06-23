@@ -32,7 +32,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         )
         binding!!.listNews.adapter = newsAdapter
 
-
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
             if (it == true) binding!!.progressBar.visibility = View.VISIBLE
             else binding!!.progressBar.visibility = View.GONE
@@ -55,6 +54,11 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         viewModel.loadNews(type)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     companion object {
         private const val ARGUMENTS_TYPE = "arg"
 
@@ -66,10 +70,5 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             fr.arguments = bundle
             return fr
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }

@@ -37,7 +37,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         binding!!.comments.text = photo.comments.count.toString()
         binding!!.reposts.text = photo.reposts.count.toString()
         Glide.with(view)
-            .load(photo.sizes[0].photo)
+            .load(photo.sizes.lastOrNull()?.photo)
             .into(binding!!.photo)
 
         if (photo.likes.userLikes >= 1) {
@@ -67,7 +67,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             )
             binding!!.like.text = "${photo.likes.count}"
 
-            if (photo.likes.userLikes < 1) {
+            if (photo.likes.userLikes == 1) {
                 binding!!.likes.setImageResource(R.drawable.like_filled_red_28)
 
             } else {
@@ -87,6 +87,11 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         binding!!.commentsClick.setOnClickListener {
             VcontachimApplication.router.navigateTo(Screens.commentsFr(photo))
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     companion object {

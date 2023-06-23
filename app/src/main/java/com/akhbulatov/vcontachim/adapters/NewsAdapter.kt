@@ -12,6 +12,8 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemNewsBinding
 import com.akhbulatov.vcontachim.model.NewsUi
 import com.bumptech.glide.Glide
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
 import java.text.SimpleDateFormat
 
 class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
@@ -23,6 +25,11 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         init {
             binding.viewPager2.adapter = adapter
 
+            binding.indicator.apply {
+                setSliderColor(normalColor = R.color.normal, selectedColor = R.color.blue)
+                setSlideMode(IndicatorSlideMode.WORM)
+                setIndicatorStyle(IndicatorStyle.CIRCLE)
+            }
         }
     }
 
@@ -37,9 +44,9 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         return NewsViewHolder(itemView = itemView)
     }
 
-    @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult", "ResourceAsColor")
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val news:NewsUi = getItem(position)
+        val news: NewsUi = getItem(position)
 
         Glide.with(holder.itemView)
             .load(news.photo)
@@ -56,7 +63,9 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         holder.binding.countComm.text = news.countComm?.toString()
         holder.binding.countReposts.text = news.repostsCount?.toString()
         holder.binding.countViews.text = news.view?.toString()
+
         holder.adapter.submitList(news.photoList)
+        holder.binding.indicator.setupWithViewPager(holder.binding.viewPager2)
 
         holder.binding.clickLike.setOnClickListener {
             this.addDeleteLike.addDeleteLikePostClick(news)

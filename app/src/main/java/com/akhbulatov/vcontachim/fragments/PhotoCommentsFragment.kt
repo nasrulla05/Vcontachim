@@ -97,6 +97,11 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     companion object {
         private const val ARGUMENTS_ITEM = "ITEM"
 
@@ -108,10 +113,5 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
 
             return photoCommentsFragments
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }
