@@ -7,9 +7,7 @@ import com.akhbulatov.vcontachim.model.TypeNews
 
 class HomeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int {
-        return 2
-    }
+    override fun getItemCount() = 2
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {

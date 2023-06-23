@@ -19,8 +19,10 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemNewsBinding = ItemNewsBinding.bind(itemView)
         val adapter = FlippingImagesAdapter()
+
         init {
             binding.viewPager2.adapter = adapter
+
         }
     }
 

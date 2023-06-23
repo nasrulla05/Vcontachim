@@ -12,7 +12,9 @@ import com.akhbulatov.vcontachim.model.News
 import com.bumptech.glide.Glide
 
 class FlippingImagesAdapter :
-    ListAdapter<News.Attachment, FlippingImagesAdapter.FlippingImagesViewHolder>(FlippingImagesDuffCallback) {
+    ListAdapter<News.Attachment, FlippingImagesAdapter.FlippingImagesViewHolder>(
+        FlippingImagesDuffCallback
+    ) {
 
     class FlippingImagesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemFlippingImagesBinding.bind(itemView)
@@ -33,7 +35,7 @@ class FlippingImagesAdapter :
         val flippingImages: News.Attachment = getItem(position)
 
         Glide.with(holder.itemView)
-            .load(flippingImages.photo?.sizes?.getOrNull(7)?.url)
+            .load(flippingImages.photo?.sizes?.lastOrNull()?.url)
             .into(holder.binding.image)
     }
 
@@ -43,7 +45,10 @@ class FlippingImagesAdapter :
             return oldItem.photo == newItem.photo
         }
 
-        override fun areContentsTheSame(oldItem: News.Attachment, newItem: News.Attachment): Boolean {
+        override fun areContentsTheSame(
+            oldItem: News.Attachment,
+            newItem: News.Attachment
+        ): Boolean {
             return oldItem == newItem
         }
     }

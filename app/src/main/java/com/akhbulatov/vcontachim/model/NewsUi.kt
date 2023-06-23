@@ -2,7 +2,6 @@ package com.akhbulatov.vcontachim.model
 
 data class NewsUi(
     val photo: String?,
-    val postUrl: String?,
     val date: Long?,
     val countComm: Long?,
     val countLike: Long?,
