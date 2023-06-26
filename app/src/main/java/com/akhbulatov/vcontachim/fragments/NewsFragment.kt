@@ -24,7 +24,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
         val newsAdapter = NewsAdapter(
             object : NewsAdapter.LikeDeletePostListener {
-                override fun addDeleteLikePostClick(news: NewsUi) {
+                override fun addDeleteLikePostClick(news:NewsUi) {
                     if (news.userLikes == 0) viewModel.addLike(news)
                     else viewModel.deleteLike(news)
                 }
@@ -54,6 +54,11 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         viewModel.loadNews(type)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     companion object {
         private const val ARGUMENTS_TYPE = "arg"
 
@@ -65,10 +70,5 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             fr.arguments = bundle
             return fr
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }

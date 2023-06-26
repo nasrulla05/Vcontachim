@@ -70,6 +70,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     private fun showExitDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.logout)

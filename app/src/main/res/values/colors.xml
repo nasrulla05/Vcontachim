@@ -11,4 +11,6 @@
     <color name="red">#FF3347</color>
     <color name="blue">#0077FF</color>
     <color name="pink">#FFC0CB</color>
+    <color name="noActive">#818C99</color>
+    <color name="normal">#D9D9D9</color>
 </resources>

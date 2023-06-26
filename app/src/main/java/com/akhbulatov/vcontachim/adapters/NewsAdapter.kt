@@ -12,12 +12,25 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.databinding.ItemNewsBinding
 import com.akhbulatov.vcontachim.model.NewsUi
 import com.bumptech.glide.Glide
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
 import java.text.SimpleDateFormat
 
 class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
     ListAdapter<NewsUi, NewsAdapter.NewsViewHolder>(NewsDuffCallback) {
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemNewsBinding = ItemNewsBinding.bind(itemView)
+        val adapter = FlippingImagesAdapter()
+
+        init {
+            binding.viewPager2.adapter = adapter
+
+            binding.indicator.apply {
+                setSliderColor(normalColor = R.color.normal, selectedColor = R.color.blue)
+                setSlideMode(IndicatorSlideMode.WORM)
+                setIndicatorStyle(IndicatorStyle.CIRCLE)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -31,12 +44,12 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         return NewsViewHolder(itemView = itemView)
     }
 
-    @SuppressLint("SimpleDateFormat", "SetTextI18n", "CheckResult", "ResourceAsColor")
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsUi = getItem(position)
 
         Glide.with(holder.itemView)
-            .load(news.photo200)
+            .load(news.photo)
             .into(holder.binding.avatar32DP)
 
         holder.binding.title.text = news.name
@@ -46,14 +59,13 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         val date = formatter.format(news.date?.times(1000L) ?: "")
         holder.binding.date.text = date
 
-        Glide.with(holder.itemView)
-            .load(news.postUrl)
-            .into(holder.binding.photo)
-
         holder.binding.countLike.text = news.countLike?.toString()
         holder.binding.countComm.text = news.countComm?.toString()
         holder.binding.countReposts.text = news.repostsCount?.toString()
         holder.binding.countViews.text = news.view?.toString()
+
+        holder.adapter.submitList(news.photoList)
+        holder.binding.indicator.setupWithViewPager(holder.binding.viewPager2)
 
         holder.binding.clickLike.setOnClickListener {
             this.addDeleteLike.addDeleteLikePostClick(news)

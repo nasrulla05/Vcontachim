@@ -22,6 +22,7 @@ class NewsViewModel : ViewModel() {
                     if (type == TypeNews.NEWS) VcontachimApplication.vcontachimService.loadNews()
                     else VcontachimApplication.vcontachimService.loadNewsRecommended()
 
+                //Фильтрую посты по фотографиям
                 val newsList = news.response.items.filter {
                     it.attachments?.getOrNull(0)?.type == "photo"
                 }
@@ -42,8 +43,7 @@ class NewsViewModel : ViewModel() {
 
                     val ui =
                         NewsUi(
-                            photo200 = if (itemGroup != null) itemGroup.photo200 else itemProfile?.photo100,
-                            postUrl = it.attachments?.getOrNull(0)?.photo?.sizes?.getOrNull(0)?.url,
+                            photo = if (itemGroup != null) itemGroup.photo200 else itemProfile?.photo100,
                             date = it.date,
                             countComm = it.comments?.count,
                             countLike = it.likes.count,
@@ -52,7 +52,9 @@ class NewsViewModel : ViewModel() {
                             name = if (itemGroup != null) itemGroup.name else "${itemProfile?.firstName} ${itemProfile?.lastName}",
                             postId = it.postId,
                             ownerId = it.ownerId,
-                            userLikes = it.likes.userLikes
+                            userLikes = it.likes.userLikes,
+                            // Фильтрация закрепленных объектов
+                            photoList = it.attachments?.filter { photo -> photo.type == "photo" }
                         )
 
                     ui

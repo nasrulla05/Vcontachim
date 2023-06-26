@@ -64,6 +64,11 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     companion object {
         private const val ARGUMENTS_ID = "id"
         private const val ARGUMENTS_SIZE_PHOTO = "sizePhoto"

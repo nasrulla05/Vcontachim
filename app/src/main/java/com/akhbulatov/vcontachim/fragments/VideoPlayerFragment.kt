@@ -151,6 +151,11 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         releasePlayer()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     companion object {
         const val ARGUMENTS_ITEM = "ITEM"
 
@@ -164,10 +169,5 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
 
             return videoPlayer
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }
