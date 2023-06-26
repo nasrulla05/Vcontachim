@@ -31,6 +31,8 @@
     <string name="home">Главная</string>
     <string name="news">Новости</string>
     <string name="recommended">Рекомендации</string>
+    <string name="search">Поиск</string>
+    <string name="global_search">ГЛОБАЛЬНЫЙ ПОИСК (ЛЮДИ)</string>
 
     <plurals name="plurals_photo_albums" tools:ignore="MissingQuantity">
         <item quantity="zero"> Фотографий</item>
