@@ -64,6 +64,18 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Расцветали яблони и груши Расцветали яблони и груши Рацветали яблони и груши и один индюк их сорвал." />
+
         <com.akhbulatov.vcontachim.utility.NestedScrollableHost
             android:layout_width="match_parent"
             android:layout_height="216dp">
@@ -76,10 +88,10 @@
                 tools:src="@tools:sample/avatars" />
 
             <com.zhpan.indicator.IndicatorView
-                android:layout_gravity="bottom|center"
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center" />
 
         </com.akhbulatov.vcontachim.utility.NestedScrollableHost>
 
