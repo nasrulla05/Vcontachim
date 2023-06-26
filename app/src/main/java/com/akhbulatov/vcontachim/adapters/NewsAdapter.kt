@@ -63,6 +63,7 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         holder.binding.countComm.text = news.countComm?.toString()
         holder.binding.countReposts.text = news.repostsCount?.toString()
         holder.binding.countViews.text = news.view?.toString()
+        holder.binding.text.text = news.text
 
         holder.adapter.submitList(news.photoList)
         holder.binding.indicator.setupWithViewPager(holder.binding.viewPager2)

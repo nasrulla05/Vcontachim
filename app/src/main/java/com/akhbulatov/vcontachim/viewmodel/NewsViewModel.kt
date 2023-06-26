@@ -54,7 +54,8 @@ class NewsViewModel : ViewModel() {
                             ownerId = it.ownerId,
                             userLikes = it.likes.userLikes,
                             // Фильтрация закрепленных объектов
-                            photoList = it.attachments?.filter { photo -> photo.type == "photo" }
+                            photoList = it.attachments?.filter { photo -> photo.type == "photo" },
+                            text = it.text
                         )
 
                     ui
