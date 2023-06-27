@@ -71,6 +71,7 @@
             tools:listitem="@layout/item_user_search" />
 
         <ProgressBar
+            android:visibility="gone"
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

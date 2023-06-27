@@ -25,6 +25,10 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserSearchBinding.bind(view)
 
+        binding!!.exit.setOnClickListener {
+            Keyboard.hideKeyBoard(view)
+        }
+
         val adapter = UserSearchAdapter()
         binding!!.listUsers.adapter = adapter
 
@@ -57,13 +61,11 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 
             override fun afterTextChanged(s: Editable?) {
 
-                binding!!.exit.setOnClickListener {
-                    Keyboard.hideKeyBoard(view)
-                }
-
                 binding!!.removeText.setOnClickListener {
-                    s!!.clear()
+                    viewModel.clearList()
+
                 }
+                binding!!.search.text.clear()
 
                 viewModel.searchUser(s!!.toString())
             }

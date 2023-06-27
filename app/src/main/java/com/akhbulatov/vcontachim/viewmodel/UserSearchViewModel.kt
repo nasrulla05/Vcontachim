@@ -15,18 +15,25 @@ class UserSearchViewModel : ViewModel() {
     fun searchUser(requestText: String) {
         viewModelScope.launch {
             try {
+                progressBarLiveData.value = true
+
                 val usSearch =
                     VcontachimApplication.vcontachimService.searchUsers(requestText = requestText)
                 val profile = usSearch.response.items.filter { item -> item.type == "profile" }
 
-                progressBarLiveData.value = true
                 usersLiveData.value = profile
-                progressBarLiveData.value = false
 
             } catch (e: Exception) {
-                progressBarLiveData.value = false
                 errorLiveData.value = e.message
+
+            } finally {
+                progressBarLiveData.value = false
             }
         }
+    }
+
+    fun clearList() {
+        val list = emptyList<UsersSearch.Item>()
+        usersLiveData.value = list
     }
 }
