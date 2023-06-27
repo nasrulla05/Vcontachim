@@ -28,6 +28,8 @@ data class UsersSearch(
         val online:Int,
         @SerializedName("verified")
         val verified: Int,
+        @SerializedName("friend_status")
+        val friendStatus:Int,
         @SerializedName("first_name")
         val firstName: String,
         @SerializedName("last_name")

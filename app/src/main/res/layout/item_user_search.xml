@@ -48,6 +48,7 @@
                 tools:text="Марина Антоненко" />
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/verified16"
                 android:layout_marginStart="4dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -77,7 +78,7 @@
         android:id="@+id/addFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/user_add_outline_56__2_" />
+        android:src="@drawable/user_add_outline_56__3_" />
 
 
 </LinearLayout>

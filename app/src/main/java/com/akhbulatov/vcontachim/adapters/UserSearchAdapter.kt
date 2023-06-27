@@ -40,7 +40,14 @@ class UserSearchAdapter :
         if (item.profile?.online == 1) holder.binding.onlineOrOffline.setImageResource(R.drawable.online_composite_16)
         else holder.binding.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
 
+        if (item.profile?.verified == 1) holder.binding.verified16.setImageResource(R.drawable.ic_verified)
+        else holder.binding.verified16.setImageResource(R.drawable.ic_android_black_24dp)
+
+        if (item.profile?.friendStatus == 3) holder.binding.addFriend.setImageResource(R.drawable.done_24__1_)
+        else holder.binding.addFriend.setImageResource(R.drawable.user_add_outline_56__3_)
+
         holder.binding.nameSurname.text = "${item.profile?.firstName} ${item.profile?.lastName}"
+        holder.binding.description.text = item.description
     }
 
     object UserSearchDuffCallback : DiffUtil.ItemCallback<UsersSearch.Item>() {

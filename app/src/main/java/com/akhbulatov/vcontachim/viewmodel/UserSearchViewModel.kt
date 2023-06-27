@@ -21,7 +21,6 @@ class UserSearchViewModel : ViewModel() {
 
                 progressBarLiveData.value = true
                 usersLiveData.value = profile
-
                 progressBarLiveData.value = false
 
             } catch (e: Exception) {
