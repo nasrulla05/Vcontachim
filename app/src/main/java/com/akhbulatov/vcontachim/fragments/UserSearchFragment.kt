@@ -63,9 +63,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 
                 binding!!.removeText.setOnClickListener {
                     viewModel.clearList()
-
+                    binding!!.search.text.clear()
                 }
-                binding!!.search.text.clear()
 
                 viewModel.searchUser(s!!.toString())
             }
