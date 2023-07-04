@@ -41,6 +41,11 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             adapter.submitList(it)
         }
 
+        binding!!.removeText.setOnClickListener {
+            viewModel.clearList()
+            binding!!.search.text.clear()
+        }
+
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             val snackbar = Snackbar.make(
                 requireView(),
@@ -60,12 +65,6 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
-                binding!!.removeText.setOnClickListener {
-                    viewModel.clearList()
-                    binding!!.search.text.clear()
-                }
-
                 viewModel.searchUser(s!!.toString())
             }
         })
