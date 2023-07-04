@@ -17,20 +17,20 @@ data class UsersSearch(
     )
 
     data class Profile(
-            val id: Int,
-            @SerializedName("photo_200")
+        val id: Int,
+        @SerializedName("photo_200")
         val photo200: String,
-            @SerializedName("is_friend")
+        @SerializedName("is_friend")
         val friend: Int,
-            @SerializedName("online")
-        val online:Int,
-            @SerializedName("verified")
+        @SerializedName("online")
+        val online: Int,
+        @SerializedName("verified")
         val verified: Int,
-            @SerializedName("friend_status")
-        val friendStatus:Int,
-            @SerializedName("first_name")
+        @SerializedName("friend_status")
+        val friendStatus: Int,
+        @SerializedName("first_name")
         val firstName: String,
-            @SerializedName("last_name")
+        @SerializedName("last_name")
         val lastName: String,
     )
 }

@@ -31,12 +31,12 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
         }
 
         val adapter = UserSearchAdapter(
-                object : UserSearchAdapter.FriendListener {
-                    override fun searchFriend(item: UsersSearch.Item) {
-                        if (item.profile?.friendStatus != 3) viewModel.addFriend(item.profile?.id!!)
-                        else viewModel.deleteFriend(item)
-                    }
+            object : UserSearchAdapter.FriendListener {
+                override fun searchFriend(item: UsersSearch.Item) {
+                    if (item.profile?.friendStatus != 3) viewModel.addFriend(item.profile?.id!!)
+                    else viewModel.deleteFriend(item)
                 }
+            }
         )
         binding!!.listUsers.adapter = adapter
 
@@ -51,9 +51,9 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             val snackbar = Snackbar.make(
-                    requireView(),
-                    it,
-                    Snackbar.LENGTH_LONG
+                requireView(),
+                it,
+                Snackbar.LENGTH_LONG
             )
             snackbar.show()
         }

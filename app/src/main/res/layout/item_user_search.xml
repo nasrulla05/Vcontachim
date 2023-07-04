@@ -2,65 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginBottom="14dp">
+    android:layout_marginBottom="14dp"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/avatar_48"
-            android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_width="48dp"
             app:shapeAppearanceOverlay="@style/CircleAvatars"
             tools:src="@tools:sample/avatars" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/onlineOrOffline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:src="@drawable/online_composite_16" />
 
     </FrameLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:layout_width="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/nameSurname"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 tools:text="Марина Антоненко" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/verified16"
-                android:layout_marginStart="4dp"
                 android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:layout_width="wrap_content"
-                android:src="@drawable/ic_verified"
-                android:layout_height="wrap_content"/>
+                android:src="@drawable/ic_verified" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:textColor="#818C99"
             android:textSize="13sp"
             tools:text="21 год, Хасавюрт" />
@@ -68,16 +68,16 @@
     </LinearLayout>
 
     <Space
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_width="0dp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:background="?selectableItemBackgroundBorderless"
-        android:layout_gravity="center"
         android:id="@+id/addFriend"
-        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:src="@drawable/user_add_outline_56__3_" />
 
 </LinearLayout>
