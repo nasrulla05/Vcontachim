@@ -162,4 +162,10 @@ interface VcontachimService {
     suspend fun loadNewsRecommended(
         @Query("fields") fields: String = "photo_200"
     ): News
+
+    @GET("search.getHints")
+    suspend fun searchUsers(
+        @Query("fields") fields: String = "photo_200,is_friend,verified,online,friend_status",
+        @Query("q") requestText: String
+    ): UsersSearch
 }

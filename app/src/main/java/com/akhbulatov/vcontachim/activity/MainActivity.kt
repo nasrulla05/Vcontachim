@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         binding!!.bottomNavigation.setOnItemSelectedListener { item ->
-            if (item.itemId == R.id.home) {
-                VcontachimApplication.router.replaceScreen(Screens.homeFr())
-            } else {
-                VcontachimApplication.router.replaceScreen(Screens.profileFr())
+            when (item.itemId) {
+                R.id.home -> VcontachimApplication.router.replaceScreen(Screens.homeFr())
+                R.id.searchMenu -> VcontachimApplication.router.replaceScreen(Screens.searchFf())
+                R.id.profile -> VcontachimApplication.router.replaceScreen(Screens.profileFr())
             }
             true
         }
