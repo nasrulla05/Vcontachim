@@ -17,7 +17,7 @@ data class UsersSearch(
     )
 
     data class Profile(
-            val id: Long,
+            val id: Int,
             @SerializedName("photo_200")
         val photo200: String,
             @SerializedName("is_friend")

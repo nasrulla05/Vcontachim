@@ -18,7 +18,7 @@ class UserSearchViewModel : ViewModel() {
                 progressBarLiveData.value = true
 
                 val usSearch =
-                    VcontachimApplication.vcontachimService.searchUsers(requestText = requestText)
+                        VcontachimApplication.vcontachimService.searchUsers(requestText = requestText)
                 val profile = usSearch.response.items.filter { item -> item.type == "profile" }
 
                 usersLiveData.value = profile
@@ -35,5 +35,30 @@ class UserSearchViewModel : ViewModel() {
     fun clearList() {
         val list = emptyList<UsersSearch.Item>()
         usersLiveData.value = list
+    }
+
+    fun addFriend(id: Int) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.addSearchFriend(userId = id)
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            } finally {
+                progressBarLiveData.value = false
+            }
+        }
+    }
+
+    fun deleteFriend(id: UsersSearch.Item) {
+        viewModelScope.launch {
+            try {
+                VcontachimApplication.vcontachimService.deleteSearchFriend(id.profile?.id!!)
+
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            } finally {
+                progressBarLiveData.value = false
+            }
+        }
     }
 }

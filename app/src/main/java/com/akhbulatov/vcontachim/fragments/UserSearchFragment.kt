@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
+import com.akhbulatov.vcontachim.model.UsersSearch
 import com.akhbulatov.vcontachim.utility.Keyboard
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -29,7 +30,14 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             Keyboard.hideKeyBoard(view)
         }
 
-        val adapter = UserSearchAdapter()
+        val adapter = UserSearchAdapter(
+                object : UserSearchAdapter.FriendListener {
+                    override fun searchFriend(item: UsersSearch.Item) {
+                        if (item.profile?.friendStatus != 3) viewModel.addFriend(item.profile?.id!!)
+                        else viewModel.deleteFriend(item)
+                    }
+                }
+        )
         binding!!.listUsers.adapter = adapter
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
@@ -41,16 +49,11 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             adapter.submitList(it)
         }
 
-        binding!!.removeText.setOnClickListener {
-            viewModel.clearList()
-            binding!!.search.text.clear()
-        }
-
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             val snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
+                    requireView(),
+                    it,
+                    Snackbar.LENGTH_LONG
             )
             snackbar.show()
         }
@@ -68,6 +71,11 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 viewModel.searchUser(s!!.toString())
             }
         })
+
+        binding!!.removeText.setOnClickListener {
+            viewModel.clearList()
+            binding!!.search.text.clear()
+        }
     }
 
     override fun onDestroyView() {
