@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.model.UsersSearch
+import com.akhbulatov.vcontachim.model.UserSearchUi
 import kotlinx.coroutines.launch
 
 class UserSearchViewModel : ViewModel() {
-    val usersLiveData = MutableLiveData<List<UsersSearch.Item>>()
+    val usersLiveData = MutableLiveData<List<UserSearchUi>>()
     val progressBarLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
 
@@ -19,9 +19,26 @@ class UserSearchViewModel : ViewModel() {
 
                 val usSearch =
                     VcontachimApplication.vcontachimService.searchUsers(requestText = requestText)
-                val profile = usSearch.response.items.filter { item -> item.type == "profile" }
+                val filterList = usSearch.response.items.filter { item -> item.type == "profile" }
 
-                usersLiveData.value = profile
+                val userList = filterList.map {
+
+                    val ui =
+                        UserSearchUi(
+                            id = it.profile?.id!!,
+                            description = it.description,
+                            type = it.type,
+                            photo200 = it.profile.photo200,
+                            isFriend = it.profile.friend,
+                            online = it.profile.online,
+                            verified = it.profile.verified,
+                            friendStatus = it.profile.friendStatus,
+                            firstName = it.profile.firstName,
+                            lastName = it.profile.lastName
+                        )
+                    ui
+                }
+                usersLiveData.value = userList
 
             } catch (e: Exception) {
                 errorLiveData.value = e.message
@@ -33,14 +50,23 @@ class UserSearchViewModel : ViewModel() {
     }
 
     fun clearList() {
-        val list = emptyList<UsersSearch.Item>()
+        val list = emptyList<UserSearchUi>()
         usersLiveData.value = list
     }
 
-    fun addFriend(id: Int) {
+    fun addFriend(userUi: UserSearchUi) {
         viewModelScope.launch {
             try {
-                VcontachimApplication.vcontachimService.addSearchFriend(userId = id)
+                VcontachimApplication.vcontachimService.addFriend(userId = userUi.id.toLong())
+
+                val list = usersLiveData.value!!.toMutableList()
+                val result: UserSearchUi = userUi.copy(
+                    isFriend = if (userUi.isFriend == 1) 0 else 1
+                )
+              val index = list.indexOf(userUi)
+                list.set(index,result)
+
+                usersLiveData.value = list
             } catch (e: Exception) {
                 errorLiveData.value = e.message
             } finally {
@@ -49,10 +75,19 @@ class UserSearchViewModel : ViewModel() {
         }
     }
 
-    fun deleteFriend(id: UsersSearch.Item) {
+    fun deleteFriend(userUi: UserSearchUi) {
         viewModelScope.launch {
             try {
-                VcontachimApplication.vcontachimService.deleteSearchFriend(id.profile?.id!!)
+                VcontachimApplication.vcontachimService.deleteFriend(userUi.id.toLong())
+
+                val list = usersLiveData.value!!.toMutableList()
+                val result = userUi.copy(
+                    isFriend = if (userUi.isFriend == 1) 0 else 1
+                )
+                val index = list.indexOf(userUi)
+                list[index] = result
+
+                usersLiveData.value = list
             } catch (e: Exception) {
                 errorLiveData.value = e.message
             } finally {

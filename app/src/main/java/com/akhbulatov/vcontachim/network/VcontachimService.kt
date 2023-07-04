@@ -168,14 +168,4 @@ interface VcontachimService {
         @Query("fields") fields: String = "photo_200,is_friend,verified,online,friend_status",
         @Query("q") requestText: String
     ): UsersSearch
-
-    @POST("friends.add")
-    suspend fun addSearchFriend(
-        @Query("user_id") userId: Int
-    )
-
-    @POST("friends.delete")
-    suspend fun deleteSearchFriend(
-        @Query("user_id") userId: Int
-    )
 }

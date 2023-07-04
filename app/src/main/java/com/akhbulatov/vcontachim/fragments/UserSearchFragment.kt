@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
-import com.akhbulatov.vcontachim.model.UsersSearch
+import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.akhbulatov.vcontachim.utility.Keyboard
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -32,8 +32,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 
         val adapter = UserSearchAdapter(
             object : UserSearchAdapter.FriendListener {
-                override fun searchFriend(item: UsersSearch.Item) {
-                    if (item.profile?.friendStatus != 3) viewModel.addFriend(item.profile?.id!!)
+                override fun searchFriend(item: UserSearchUi) {
+                    if (item.isFriend != 1) viewModel.addFriend(item)
                     else viewModel.deleteFriend(item)
                 }
             }
