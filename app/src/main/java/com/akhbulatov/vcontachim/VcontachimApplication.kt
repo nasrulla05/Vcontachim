@@ -28,7 +28,7 @@ class VcontachimApplication : Application() {
                 override fun intercept(chain: Interceptor.Chain): Response {
                     var request: Request = chain.request()
                     val url: HttpUrl = request
-                        .url()
+                        .url
                         .newBuilder()
                         .addQueryParameter("v", "5.131")
                         .build()
