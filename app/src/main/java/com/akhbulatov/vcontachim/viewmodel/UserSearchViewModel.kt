@@ -1,5 +1,6 @@
 package com.akhbulatov.vcontachim.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -54,6 +55,7 @@ class UserSearchViewModel : ViewModel() {
         usersLiveData.value = list
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun addFriend(userUi: UserSearchUi) {
         viewModelScope.launch {
             try {
