@@ -22,7 +22,6 @@ class VcontachimApplication : Application() {
         router = cicerone.router
         navigateHolder = cicerone.getNavigatorHolder()
 
-
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(object : Interceptor {
                 override fun intercept(chain: Interceptor.Chain): Response {
