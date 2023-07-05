@@ -1,6 +1,5 @@
 package com.akhbulatov.vcontachim.viewmodel
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -55,20 +54,19 @@ class UserSearchViewModel : ViewModel() {
         usersLiveData.value = list
     }
 
-    @SuppressLint("SuspiciousIndentation")
     fun addFriend(userUi: UserSearchUi) {
         viewModelScope.launch {
             try {
                 VcontachimApplication.vcontachimService.addFriend(userId = userUi.id.toLong())
 
-                val list = usersLiveData.value!!.toMutableList()
+                val mutableList = usersLiveData.value!!.toMutableList()
                 val result: UserSearchUi = userUi.copy(
                     isFriend = if (userUi.isFriend == 1) 0 else 1
                 )
-              val index = list.indexOf(userUi)
-                list.set(index,result)
+                val index = mutableList.indexOf(userUi)
+                mutableList.set(index, result)
 
-                usersLiveData.value = list
+                usersLiveData.value = mutableList
             } catch (e: Exception) {
                 errorLiveData.value = e.message
             } finally {
@@ -82,14 +80,14 @@ class UserSearchViewModel : ViewModel() {
             try {
                 VcontachimApplication.vcontachimService.deleteFriend(userUi.id.toLong())
 
-                val list = usersLiveData.value!!.toMutableList()
+                val mutableList = usersLiveData.value!!.toMutableList()
                 val result = userUi.copy(
                     isFriend = if (userUi.isFriend == 1) 0 else 1
                 )
-                val index = list.indexOf(userUi)
-                list[index] = result
+                val index = mutableList.indexOf(userUi)
+                mutableList[index] = result
 
-                usersLiveData.value = list
+                usersLiveData.value = mutableList
             } catch (e: Exception) {
                 errorLiveData.value = e.message
             } finally {

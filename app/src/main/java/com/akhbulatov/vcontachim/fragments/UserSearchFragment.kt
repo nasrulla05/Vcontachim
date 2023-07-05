@@ -31,32 +31,14 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
         }
 
         val adapter = UserSearchAdapter(
-            object : UserSearchAdapter.FriendListener {
-                override fun searchFriend(item: UserSearchUi) {
+            object : UserSearchAdapter.SearchFriendListener {
+                override fun searchFriendClick(item: UserSearchUi) {
                     if (item.isFriend != 1) viewModel.addFriend(item)
                     else viewModel.deleteFriend(item)
                 }
             }
         )
         binding!!.listUsers.adapter = adapter
-
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
-            if (it) binding!!.progressBar.visibility = View.VISIBLE
-            else binding!!.progressBar.visibility = View.GONE
-        }
-
-        viewModel.usersLiveData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
-        }
 
         binding!!.search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -75,6 +57,24 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
         binding!!.removeText.setOnClickListener {
             viewModel.clearList()
             binding!!.search.text.clear()
+        }
+
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it) binding!!.progressBar.visibility = View.VISIBLE
+            else binding!!.progressBar.visibility = View.GONE
+        }
+
+        viewModel.usersLiveData.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            val snackbar = Snackbar.make(
+                requireView(),
+                it,
+                Snackbar.LENGTH_LONG
+            )
+            snackbar.show()
         }
     }
 

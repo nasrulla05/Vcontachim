@@ -12,7 +12,7 @@ import com.akhbulatov.vcontachim.databinding.ItemUserSearchBinding
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.bumptech.glide.Glide
 
-class UserSearchAdapter(private val friend: FriendListener) :
+class UserSearchAdapter(private val searchFriends: SearchFriendListener) :
     ListAdapter<UserSearchUi, UserSearchAdapter.UserSearchViewHolder>(UserSearchDuffCallback) {
 
     class UserSearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -50,12 +50,12 @@ class UserSearchAdapter(private val friend: FriendListener) :
         holder.binding.description.text = item.description
 
         holder.binding.addFriend.setOnClickListener {
-            this.friend.searchFriend(item)
+            this.searchFriends.searchFriendClick(item)
         }
     }
 
-    interface FriendListener {
-        fun searchFriend(item: UserSearchUi)
+    interface SearchFriendListener {
+        fun searchFriendClick(item: UserSearchUi)
     }
 
     object UserSearchDuffCallback : DiffUtil.ItemCallback<UserSearchUi>() {
