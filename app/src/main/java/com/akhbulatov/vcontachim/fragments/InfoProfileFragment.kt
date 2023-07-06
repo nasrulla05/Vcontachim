@@ -61,6 +61,12 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
 
             binding!!.followersOrFriends.text = "${user.followersCount} $plurals"
 
+
+            binding!!.subscribeOrAddFriend.setOnClickListener {
+                if (user.isFriend != 1) viewModel.addFriend(user.id)
+                else viewModel.deleteFriend(user.id)
+            }
+
             if (user.isFriend == 1) {
                 binding!!.subscribeOrAddFriend.setIconResource(R.drawable.ic_verified)
                 binding!!.subscribeOrAddFriend.setIconTintResource(R.color.blue)
@@ -72,10 +78,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                         R.color.white
                     )
                 )
-
-                binding!!.subscribeOrAddFriend.setOnClickListener {
-                    viewModel.deleteFriend(id!!)
-                }
             } else {
                 binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
                 binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
@@ -86,7 +88,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                         R.color.blue
                     )
                 )
-                binding!!.subscribeOrAddFriend.setOnClickListener { viewModel.addFriend(id!!) }
             }
         }
 
