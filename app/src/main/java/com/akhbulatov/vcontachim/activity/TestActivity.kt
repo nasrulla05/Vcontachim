@@ -18,7 +18,7 @@ class TestActivity : AppCompatActivity() {
 
         val view = View(context)
         val button = findViewById<Button>(R.id.button)
-        button.text = "Hi"
+        button.text = "Hello"
         val text = "Че там ?"
         Snackbar.make(view,text,Snackbar.LENGTH_LONG)
             .setAction("Тема есть!"){
