@@ -6,25 +6,24 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.akhbulatov.vcontachim.R
-import com.akhbulatov.vcontachim.VcontachimApplication.Companion.context
+import com.akhbulatov.vcontachim.VcontachimApplication
+import com.akhbulatov.vcontachim.databinding.ActivityTestBinding
 import com.google.android.material.snackbar.Snackbar
 
-class TestActivity : AppCompatActivity() {
+class TestActivity : AppCompatActivity(R.layout.activity_test) {
+    lateinit var binding:ActivityTestBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        binding = ActivityTestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d("MyLogMAct", "onCreate")
         Log.d("MyLogMAct", "onCreate2")
 
-        val view = View(context)
-        val button = findViewById<Button>(R.id.button)
-        button.text = "Hello"
-        val text = "Че там ?"
-        Snackbar.make(view,text,Snackbar.LENGTH_LONG)
-            .setAction("Тема есть!"){
+        binding.button.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
                 // Какой-то код //
             }
-            .show()
+        })
         val b: Byte = 76//Byte: хранит целое число от -128 до 127 и занимает 1 байт
         val c: Short = 23 //Short: хранит целое число от -32,768  до 32,767 и занимает 2 байт
         val d: Int =
@@ -41,11 +40,11 @@ class TestActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d("MyLogMAct", "onStart")
-
     }
 
     override fun onResume() {
         super.onResume()
+
         Log.d("MyLogMAct", "onResume")
 
     }
@@ -53,6 +52,16 @@ class TestActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         Log.d("MyLogMAct", "onPause")
+
+        val view = View(VcontachimApplication.context)
+        val button = findViewById<Button>(R.id.button)
+        button.text = "Hello"
+        val text = "Че там ?"
+        Snackbar.make(view,text, Snackbar.LENGTH_LONG)
+            .setAction("Тема есть!"){
+                // Какой-то код //
+            }
+            .show()
 
     }
 
