@@ -63,11 +63,21 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
 
 
             binding!!.subscribeOrAddFriend.setOnClickListener {
-                if (user.isFriend != 1) viewModel.addFriend(user.id)
+                if (user.isFriend == 0) viewModel.addFriend(user.id)
                 else viewModel.deleteFriend(user.id)
             }
 
-            if (user.isFriend == 1) {
+            if (user.isFriend == 0) {
+                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
+                binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
+                binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#FFFFFFFF"))
+                binding!!.subscribeOrAddFriend.background.setTint(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.blue
+                    )
+                )
+            } else {
                 binding!!.subscribeOrAddFriend.setIconResource(R.drawable.ic_verified)
                 binding!!.subscribeOrAddFriend.setIconTintResource(R.color.blue)
                 binding!!.subscribeOrAddFriend.setText(R.string.in_friends)
@@ -76,16 +86,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.white
-                    )
-                )
-            } else {
-                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
-                binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
-                binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#FFFFFFFF"))
-                binding!!.subscribeOrAddFriend.background.setTint(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.blue
                     )
                 )
             }

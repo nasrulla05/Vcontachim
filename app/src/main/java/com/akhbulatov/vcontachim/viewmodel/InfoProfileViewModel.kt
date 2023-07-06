@@ -30,6 +30,7 @@ class InfoProfileViewModel : ViewModel() {
 
                 val infoProf = infoProfileLiveData.value!!
                 val modifiedInfoProfile =
+                    // is Friend yes == 1 no == 0
                     infoProf.copy(isFriend = if (infoProf.isFriend == 1) 0 else 1)
 
                 infoProfileLiveData.value = modifiedInfoProfile
