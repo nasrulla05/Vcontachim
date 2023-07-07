@@ -20,7 +20,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         ViewModelProvider(this)[InfoProfileViewModel::class.java]
     }
 
-    @SuppressLint("SetTextI18n", "ResourceAsColor")
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInfoProfileBinding.bind(view)
@@ -68,26 +68,32 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             }
 
             if (user.isFriend == 0) {
-                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.add_square_outline_16)
-                binding!!.subscribeOrAddFriend.setText(R.string.add_friend)
-                binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#FFFFFFFF"))
-                binding!!.subscribeOrAddFriend.background.setTint(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.blue
+                binding!!.subscribeOrAddFriend.apply {
+                    setIconResource(R.drawable.add_square_outline_16)
+                    setIconTintResource(R.color.blue)
+                    setText(R.string.add_friend)
+                    setTextColor(Color.parseColor("#FFFFFFFF"))
+                    background.setTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
                     )
-                )
+
+                }
             } else {
-                binding!!.subscribeOrAddFriend.setIconResource(R.drawable.ic_verified)
-                binding!!.subscribeOrAddFriend.setIconTintResource(R.color.blue)
-                binding!!.subscribeOrAddFriend.setText(R.string.in_friends)
-                binding!!.subscribeOrAddFriend.setTextColor(Color.parseColor("#0077FF"))
-                binding!!.subscribeOrAddFriend.background.setTint(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.white
+                binding!!.subscribeOrAddFriend.apply {
+                    setIconResource(R.drawable.ic_verified)
+                    setIconTintResource(R.color.blue)
+                    setText(R.string.in_friends)
+                    setTextColor(Color.parseColor("#0077FF"))
+                    background.setTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
                     )
-                )
+                }
             }
         }
 
