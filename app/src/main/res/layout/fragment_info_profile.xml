@@ -173,7 +173,7 @@
                     android:text="@string/add_friend"
                     android:textAllCaps="false"
                     app:cornerRadius="8dp"
-                    app:icon="@drawable/add_square_outline_16"
+                    app:icon="@drawable/user_add_outline_20"
                     app:iconGravity="textStart" />
 
             </LinearLayout>

@@ -15,7 +15,7 @@ class InfoProfileViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 infoProfileLiveData.value =
-                    VcontachimApplication.vcontachimService.getInfoProfile(userIds = id).response[0]
+                    VcontachimApplication.vcontachimService.getInfoProfile(userIds = id).response.lastOrNull()
 
             } catch (e: Exception) {
                 errorLiveData.value = e.message

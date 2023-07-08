@@ -34,7 +34,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
 
             if (user.online == 1L) {
-                binding!!.onlineOrOffline.setImageResource(R.drawable.online_composite_16)
+                binding!!.onlineOrOffline.setImageResource(R.drawable.group_11)
             } else {
                 binding!!.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
             }
@@ -50,51 +50,48 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             binding!!.nameSurname.text = "${user.firstName} ${user.lastName}"
             binding!!.status.text = user.status
             binding!!.city.text = user.city?.title
-            binding!!.career.text = user.career?.get(0)?.position
-
-            val plurals = user.followersCount?.toInt()?.let {
-                VcontachimApplication.context.resources.getQuantityString(
-                    R.plurals.followers_count,
-                    it
-                )
-            }
-
-            binding!!.followersOrFriends.text = "${user.followersCount} $plurals"
-
+            binding!!.career.text = user.career?.lastOrNull()?.position
 
             binding!!.subscribeOrAddFriend.setOnClickListener {
                 if (user.isFriend == 0) viewModel.addFriend(user.id)
                 else viewModel.deleteFriend(user.id)
             }
 
-            if (user.isFriend == 0) {
-                binding!!.subscribeOrAddFriend.apply {
-                    setIconResource(R.drawable.add_square_outline_16)
-                    setIconTintResource(R.color.blue)
-                    setText(R.string.add_friend)
-                    setTextColor(Color.parseColor("#FFFFFFFF"))
-                    background.setTint(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.blue
+                if (user.isFriend == 0) {
+                    binding!!.subscribeOrAddFriend.apply {
+                        setIconResource(R.drawable.user_add_outline_20)
+                        setIconTintResource(R.color.blue)
+                        setText(R.string.add_friend)
+                        setTextColor(Color.parseColor("#FFFFFFFF"))
+                        background.setTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.blue
+                            )
                         )
-                    )
 
-                }
-            } else {
-                binding!!.subscribeOrAddFriend.apply {
-                    setIconResource(R.drawable.ic_verified)
-                    setIconTintResource(R.color.blue)
-                    setText(R.string.in_friends)
-                    setTextColor(Color.parseColor("#0077FF"))
-                    background.setTint(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
+                    }
+                } else {
+                    binding!!.subscribeOrAddFriend.apply {
+                        setIconResource(R.drawable.ic_verified)
+                        setIconTintResource(R.color.blue)
+                        setText(R.string.in_friends)
+                        setTextColor(Color.parseColor("#0077FF"))
+                        background.setTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
                         )
-                    )
+                    }
                 }
-            }
+
+                val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
+                    R.plurals.friends_count,
+                    user.counters.friends
+                )
+
+                binding!!.followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {

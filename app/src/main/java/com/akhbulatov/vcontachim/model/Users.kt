@@ -16,6 +16,7 @@ data class Users(
         @SerializedName("followers_count")
         val followersCount: Long?,
         val career: List<Career>?,
+        val counters:Counters,
         @SerializedName("photo_100")
         val photo100: String,
         val online: Long,
@@ -29,8 +30,7 @@ data class Users(
     ) : Serializable
 
     data class City(
-        val id: Long?,
-        val title: String?,
+        val title: String?
     ) : Serializable
 
     data class Career(
@@ -41,12 +41,8 @@ data class Users(
     ) : Serializable
 
     data class Counters(
-        val albums: Long,
-        val audios: Long,
-        val followers: Long,
-        val friends: Long,
-        val gifts: Long,
-        val groups: Long,
+        val followers: Int,
+        val friends: Int,
         @SerializedName("online_friends")
         val onlineFriends: Long,
         val pages: Long,
