@@ -57,41 +57,44 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                 else viewModel.deleteFriend(user.id)
             }
 
-                if (user.isFriend == 0) {
-                    binding!!.subscribeOrAddFriend.apply {
-                        setIconResource(R.drawable.user_add_outline_20)
-                        setIconTintResource(R.color.blue)
-                        setText(R.string.add_friend)
-                        setTextColor(Color.parseColor("#FFFFFFFF"))
-                        background.setTint(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.blue
-                            )
-                        )
+            if (user.city?.title == null) binding!!.city.setText(R.string.not_indicated)
+            if (user.career?.lastOrNull()?.position == null) binding!!.career.setText(R.string.not_indicated)
 
-                    }
-                } else {
-                    binding!!.subscribeOrAddFriend.apply {
-                        setIconResource(R.drawable.ic_verified)
-                        setIconTintResource(R.color.blue)
-                        setText(R.string.in_friends)
-                        setTextColor(Color.parseColor("#0077FF"))
-                        background.setTint(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.white
-                            )
+            if (user.isFriend == 0) {
+                binding!!.subscribeOrAddFriend.apply {
+                    setIconResource(R.drawable.user_add_outline_20)
+                    setIconTintResource(R.color.blue)
+                    setText(R.string.add_friend)
+                    setTextColor(Color.parseColor("#FFFFFFFF"))
+                    background.setTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
                         )
-                    }
+                    )
+
                 }
+            } else {
+                binding!!.subscribeOrAddFriend.apply {
+                    setIconResource(R.drawable.ic_verified)
+                    setIconTintResource(R.color.blue)
+                    setText(R.string.in_friends)
+                    setTextColor(Color.parseColor("#0077FF"))
+                    background.setTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
+                    )
+                }
+            }
 
-                val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
-                    R.plurals.friends_count,
-                    user.counters.friends
-                )
+            val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
+                R.plurals.friends_count,
+                user.counters.friends
+            )
 
-                binding!!.followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
+            binding!!.followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
