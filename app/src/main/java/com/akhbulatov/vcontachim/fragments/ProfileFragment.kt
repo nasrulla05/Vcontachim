@@ -23,7 +23,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         ViewModelProvider(this)[ProfileViewModel::class.java]
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
@@ -38,8 +38,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             binding!!.nameSurname.text = "${response.name} ${response.surname}"
             binding!!.mobilePhone.text = response.mobile_phone
 
-            binding!!.infoProfile.setOnClickListener {
-                VcontachimApplication.router.navigateTo(Screens.infoProfile(response.id))
+            binding!!.infoProfile.apply {
+                setOnClickListener {
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(response.id))
+                }
             }
         }
 
