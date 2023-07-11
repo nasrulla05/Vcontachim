@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentInfoProfileBinding
 import com.akhbulatov.vcontachim.viewmodel.InfoProfileViewModel
@@ -47,54 +48,64 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                 .load(user.photo100)
                 .into(binding!!.avatar)
 
+            binding!!.avatar.setOnClickListener {
+                VcontachimApplication.router.navigateTo(Screens.infoProfile(user.id))
+            }
+
             binding!!.nameSurname.text = "${user.firstName} ${user.lastName}"
             binding!!.status.text = user.status
             binding!!.city.text = user.city?.title
-            binding!!.career.text = user.career?.lastOrNull()?.position
+
+            val career = if (user.career?.lastOrNull()?.position == null) {
+                user.career?.lastOrNull()?.company
+            } else {
+                user.career.lastOrNull()?.position
+            }
+
+            binding!!.career.text = career
 
             binding!!.subscribeOrAddFriend.setOnClickListener {
                 if (user.isFriend == 0) viewModel.addFriend(user.id)
                 else viewModel.deleteFriend(user.id)
             }
 
-            if (user.city?.title == null) binding!!.city.setText(R.string.not_indicated)
-            if (user.career?.lastOrNull()?.position == null) binding!!.career.setText(R.string.not_indicated)
+//            if (user.city?.title == null) binding!!.city.setText(R.string.not_indicated)
+//            if (user.career?.lastOrNull()?.position == null) binding!!.career.setText(R.string.not_indicated)
 
-            if (user.isFriend == 0) {
-                binding!!.subscribeOrAddFriend.apply {
-                    setIconResource(R.drawable.user_add_outline_20)
-                    setIconTintResource(R.color.blue)
-                    setText(R.string.add_friend)
-                    setTextColor(Color.parseColor("#FFFFFFFF"))
-                    background.setTint(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.blue
+                if (user.isFriend == 0) {
+                    binding!!.subscribeOrAddFriend.apply {
+                        setIconResource(R.drawable.user_add_outline_20)
+                        setIconTintResource(R.color.white)
+                        setText(R.string.add_friend)
+                        setTextColor(Color.parseColor("#FFFFFFFF"))
+                        background.setTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.blue
+                            )
                         )
-                    )
 
-                }
-            } else {
-                binding!!.subscribeOrAddFriend.apply {
-                    setIconResource(R.drawable.ic_verified)
-                    setIconTintResource(R.color.blue)
-                    setText(R.string.in_friends)
-                    setTextColor(Color.parseColor("#0077FF"))
-                    background.setTint(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
+                    }
+                } else {
+                    binding!!.subscribeOrAddFriend.apply {
+                        setIconResource(R.drawable.ic_verified)
+                        setIconTintResource(R.color.blue)
+                        setText(R.string.in_friends)
+                        setTextColor(Color.parseColor("#0077FF"))
+                        background.setTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
                         )
-                    )
+                    }
                 }
-            }
 
-            val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
-                R.plurals.friends_count,
-                user.counters.friends
-            )
-
-            binding!!.followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
+                val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
+                    R.plurals.friends_count,
+                    user.counters.friends
+                )
+                binding!!.followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
