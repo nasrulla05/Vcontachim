@@ -69,9 +69,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                 else viewModel.deleteFriend(user.id)
             }
 
-//            if (user.city?.title == null) binding!!.city.setText(R.string.not_indicated)
-//            if (user.career?.lastOrNull()?.position == null) binding!!.career.setText(R.string.not_indicated)
-
                 if (user.isFriend == 0) {
                     binding!!.subscribeOrAddFriend.apply {
                         setIconResource(R.drawable.user_add_outline_20)
@@ -86,7 +83,8 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                         )
 
                     }
-                } else {
+                }
+                else {
                     binding!!.subscribeOrAddFriend.apply {
                         setIconResource(R.drawable.ic_verified)
                         setIconTintResource(R.color.blue)
