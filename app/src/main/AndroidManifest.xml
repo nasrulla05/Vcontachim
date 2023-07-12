@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".VcontachimApplication"
         android:allowBackup="true"
@@ -22,10 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.PhotoActivity" />
-        <activity android:name=".activity.VideoCommActivity"/>
+        <activity android:name=".activity.VideoCommActivity" />
     </application>
 
 </manifest>

@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.Screens
+import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.ItemUserSearchBinding
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.bumptech.glide.Glide
@@ -46,6 +48,9 @@ class UserSearchAdapter(private val searchFriendListener: SearchFriendListener) 
         if (item.isFriend == 1) holder.binding.addFriend.setImageResource(R.drawable.done_24__1_)
         else holder.binding.addFriend.setImageResource(R.drawable.user_add_outline_56__3_)
 
+        holder.binding.avatar48.setOnClickListener {
+            VcontachimApplication.router.navigateTo(Screens.infoProfile(item.id.toLong()))
+        }
         holder.binding.nameSurname.text = "${item.firstName} ${item.lastName}"
         holder.binding.description.text = item.description
 

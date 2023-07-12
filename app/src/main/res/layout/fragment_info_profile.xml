@@ -122,27 +122,37 @@
                     tools:text="Мой тг канал - с нюдсами заходи к нам и смотри, мой номер телефона в сообще..." />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="6dp"
                         android:src="@drawable/place_outline_20" />
 
                     <TextView
                         android:id="@+id/city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
                         android:layout_marginEnd="15dp"
-                        android:text="@string/not_indicated"
                         android:textColor="#6D7885"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:text="@string/not_indicated" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="wrap_content"
@@ -155,14 +165,18 @@
                         android:id="@+id/career"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/not_indicated"
                         android:textColor="#6D7885"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:text="@string/not_indicated" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:textColor="@color/white"
                     android:id="@+id/subscribeOrAddFriend"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -172,8 +186,9 @@
                     android:backgroundTint="@color/blue"
                     android:text="@string/add_friend"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     app:cornerRadius="8dp"
-                    app:icon="@drawable/add_square_outline_16"
+                    app:icon="@drawable/user_add_outline_20"
                     app:iconGravity="textStart" />
 
             </LinearLayout>

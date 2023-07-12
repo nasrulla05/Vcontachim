@@ -83,11 +83,11 @@
                         tools:text="+79292295865" />
 
                     <TextView
+                        android:background="?selectableItemBackground"
                         android:id="@+id/info_profile"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:background="?selectableItemBackground"
                         android:text="@string/complete_info"
                         android:textColor="#2688EB" />
 
@@ -117,6 +117,7 @@
                     android:src="@drawable/user_outline" />
 
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -140,6 +141,7 @@
                     android:src="@drawable/notification_outline" />
 
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -160,6 +162,7 @@
                     android:src="@drawable/settings_outline" />
 
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -182,6 +185,7 @@
                     android:src="@drawable/privacy_outline" />
 
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -203,6 +207,7 @@
                     android:src="@drawable/music_outline" />
 
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

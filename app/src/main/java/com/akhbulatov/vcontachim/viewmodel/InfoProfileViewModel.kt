@@ -15,7 +15,7 @@ class InfoProfileViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 infoProfileLiveData.value =
-                    VcontachimApplication.vcontachimService.getInfoProfile(userIds = id).response[0]
+                    VcontachimApplication.vcontachimService.getInfoProfile(userIds = id).response.lastOrNull()
 
             } catch (e: Exception) {
                 errorLiveData.value = e.message
@@ -30,6 +30,7 @@ class InfoProfileViewModel : ViewModel() {
 
                 val infoProf = infoProfileLiveData.value!!
                 val modifiedInfoProfile =
+                    // is Friend yes == 1 no == 0
                     infoProf.copy(isFriend = if (infoProf.isFriend == 1) 0 else 1)
 
                 infoProfileLiveData.value = modifiedInfoProfile
