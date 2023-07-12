@@ -59,7 +59,6 @@
         <item quantity="other">друзей</item>
     </plurals>
 
-
     <plurals name="plurals_video" tools:ignore="MissingQuantity">
         <item quantity="zero">Просмотров</item>
         <item quantity="one">Просмотр</item>
@@ -68,6 +67,5 @@
         <item quantity="many">Просмотров</item>
         <item quantity="other">Просмотров</item>
     </plurals>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
