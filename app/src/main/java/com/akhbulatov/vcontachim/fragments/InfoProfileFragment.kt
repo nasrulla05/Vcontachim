@@ -34,12 +34,10 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
 
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
 
-            if (user.online == 1L) {
-                binding!!.onlineOrOffline.setImageResource(R.drawable.group_11)
-            } else {
-                binding!!.onlineOrOffline.setImageResource(R.drawable.ic_android_black_24dp)
+            binding!!.onlineOrOffline.apply {
+                if (user.online == 1L) setImageResource(R.drawable.group_11)
+                else setImageResource(R.drawable.ic_android_black_24dp)
             }
-
             if (user.verified == 1L) {
                 binding!!.verified.setImageResource(R.drawable.ic_verified)
             }
