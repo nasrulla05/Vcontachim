@@ -76,6 +76,9 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
             holder.binding.like.setImageResource(R.drawable.like_outline_24)
             holder.binding.countLike.setTextColor(Color.parseColor("#818C99"))
         }
+
+        if (news.verified == 1) holder.binding.verified16.visibility = View.VISIBLE
+        else holder.binding.verified16.visibility = View.GONE
     }
 
     interface LikeDeletePostListener {

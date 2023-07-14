@@ -12,5 +12,6 @@ data class NewsUi(
     val ownerId: Int,
     val userLikes: Int,
     val photoList:List<News.Attachment>?,
-    val text:String
+    val text:String,
+    val verified: Int?
 )

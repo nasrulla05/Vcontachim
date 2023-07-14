@@ -144,7 +144,8 @@ interface VcontachimService {
 
     @GET("newsfeed.get")
     suspend fun loadNews(
-        @Query("filters") filters: String = "post"
+        @Query("filters") filters: String = "post",
+        @Query("fields") fields:String = "verified"
     ): News
 
     @POST("likes.add")
