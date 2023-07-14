@@ -64,9 +64,6 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
             this.addDeleteLike.addDeleteLikePostClick(news)
         }
 
-        if (news.photoList?.size!! > 1)
-            holder.binding.indicator.setupWithViewPager(holder.binding.viewPager2)
-
         if (news.userLikes == 1) {
             holder.binding.clickLike.setBackgroundResource(R.drawable.like)
             holder.binding.like.setImageResource(R.drawable.group_16)
