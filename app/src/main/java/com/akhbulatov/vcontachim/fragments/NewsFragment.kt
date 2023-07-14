@@ -33,7 +33,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         binding!!.listNews.adapter = newsAdapter
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
-            if (it == true) binding!!.progressBar.visibility = View.VISIBLE
+            if (it) binding!!.progressBar.visibility = View.VISIBLE
             else binding!!.progressBar.visibility = View.GONE
         }
 

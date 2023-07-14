@@ -49,13 +49,14 @@ class NewsViewModel : ViewModel() {
                             countLike = it.likes.count,
                             repostsCount = it.reposts?.count,
                             view = it.views?.count,
-                            name = if (itemGroup != null) itemGroup.name else "${itemProfile?.firstName} ${itemProfile?.lastName}",
+                            name = itemGroup?.name ?: "${itemProfile?.firstName} ${itemProfile?.lastName}",
                             postId = it.postId,
                             ownerId = it.ownerId,
                             userLikes = it.likes.userLikes,
                             // Фильтрация закрепленных объектов
                             photoList = it.attachments?.filter { photo -> photo.type == "photo" },
-                            text = it.text
+                            text = it.text,
+                            verified = itemProfile?.verified ?: itemGroup?.verified
                         )
 
                     ui

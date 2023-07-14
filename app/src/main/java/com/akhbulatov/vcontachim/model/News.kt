@@ -34,6 +34,8 @@ data class News(
 
     data class Profile(
         val id: Long,
+        @SerializedName("verified")
+        val verified:Int,
         @SerializedName("photo_100")
         val photo100: String?,
         @SerializedName("first_name")
@@ -81,6 +83,8 @@ data class News(
         val name: String,
         @SerializedName("photo_200")
         val photo200: String?,
+        @SerializedName("verified")
+        val verified:Int,
     )
 
     data class Views(

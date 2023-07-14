@@ -22,13 +22,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             VcontachimApplication.router.replaceScreen(Screens.homeFr())
         }
 
-        binding!!.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.home -> VcontachimApplication.router.replaceScreen(Screens.homeFr())
-                R.id.searchMenu -> VcontachimApplication.router.replaceScreen(Screens.searchFf())
-                R.id.profile -> VcontachimApplication.router.replaceScreen(Screens.profileFr())
+        binding!!.bottomNavigation.apply {
+            setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.homeFr -> VcontachimApplication.router.replaceScreen(Screens.homeFr())
+                    R.id.searchMenu -> VcontachimApplication.router.replaceScreen(Screens.searchFf())
+                    R.id.profile -> VcontachimApplication.router.replaceScreen(Screens.profileFr())
+                }
+                true
             }
-            true
         }
     }
 
