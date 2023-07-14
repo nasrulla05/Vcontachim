@@ -50,8 +50,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (s!!.toString().length > 2)
-                viewModel.searchUser(s.toString())
+                val text = s!!.toString()
+                if (text.length > 2) viewModel.searchUser(text)
             }
         })
 
