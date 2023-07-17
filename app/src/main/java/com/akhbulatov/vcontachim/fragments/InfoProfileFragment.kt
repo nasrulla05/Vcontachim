@@ -26,13 +26,12 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInfoProfileBinding.bind(view)
 
-        val id = arguments?.getLong(ARGUMENTS_USER)
-
         binding!!.exit.setOnClickListener {
             VcontachimApplication.router.exit()
         }
 
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
+            val careerLast = user.career?.lastOrNull()
 
             binding!!.onlineOrOffline.apply {
                 if (user.online == 1L) setImageResource(R.drawable.group_11)
@@ -55,12 +54,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             binding!!.status.text = user.status
             binding!!.city.text = user.city?.title
 
-            val career = if (user.career?.lastOrNull()?.position == null) {
-                user.career?.lastOrNull()?.company
-            } else {
-                user.career.lastOrNull()?.position
-            }
-
+            val career = careerLast?.company ?: careerLast?.position
             binding!!.career.text = career
 
             binding!!.subscribeOrAddFriend.setOnClickListener {
@@ -113,6 +107,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             toast.show()
         }
 
+        val id = arguments?.getLong(ARGUMENTS_USER)
         viewModel.loadInfoProfile(id!!)
     }
 
