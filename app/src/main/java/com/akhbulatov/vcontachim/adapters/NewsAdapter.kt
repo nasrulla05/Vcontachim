@@ -60,6 +60,10 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
         holder.adapter.submitList(news.photoList)
         holder.binding.indicator.setupWithViewPager(holder.binding.viewPager2)
 
+        if (news.photoList?.lastOrNull()?.photo?.sizes?.size == 0)
+            holder.binding.background.visibility = View.GONE
+        else holder.binding.background.visibility = View.VISIBLE
+
         holder.binding.clickLike.setOnClickListener {
             this.addDeleteLike.addDeleteLikePostClick(news)
         }
