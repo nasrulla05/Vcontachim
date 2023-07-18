@@ -21,7 +21,9 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCommunitiesBinding.bind(view)
 
-        binding!!.toolbar.setNavigationOnClickListener { VcontachimApplication.router.exit() }
+        binding!!.toolbar.setNavigationOnClickListener {
+            VcontachimApplication.router.exit()
+        }
 
         val communityAdapter = CommunityAdapter()
         binding!!.communityList.adapter = communityAdapter
@@ -31,11 +33,8 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
         }
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                binding!!.progressBar.visibility = View.VISIBLE
-            } else {
-                binding!!.progressBar.visibility = View.GONE
-            }
+            if (it) binding!!.progressBar.visibility = View.VISIBLE
+             else binding!!.progressBar.visibility = View.GONE
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {

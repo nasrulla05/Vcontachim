@@ -33,69 +33,73 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
             val careerLast = user.career?.lastOrNull()
 
-            binding!!.onlineOrOffline.apply {
-                if (user.online == 1L) setImageResource(R.drawable.group_11)
-                else setImageResource(R.drawable.ic_android_black_24dp)
-            }
+            binding!!.apply {
 
-            if (user.verified == 1L) {
-                binding!!.verified.setImageResource(R.drawable.ic_verified)
-            }
-
-            Glide.with(view)
-                .load(user.photo100)
-                .into(binding!!.avatar)
-
-            binding!!.avatar.setOnClickListener {
-                VcontachimApplication.router.navigateTo(Screens.infoProfile(user.id))
-            }
-
-            binding!!.nameSurname.text = "${user.firstName} ${user.lastName}"
-            binding!!.status.text = user.status
-            binding!!.city.text = user.city?.title
-
-            val career = careerLast?.company ?: careerLast?.position
-            binding!!.career.text = career
-
-            binding!!.subscribeOrAddFriend.setOnClickListener {
-                if (user.isFriend == 0) viewModel.addFriend(user.id)
-                else viewModel.deleteFriend(user.id)
-            }
-
-            if (user.isFriend == 0) {
-                binding!!.subscribeOrAddFriend.apply {
-                    setIconResource(R.drawable.user_add_outline_20)
-                    setIconTintResource(R.color.white)
-                    setText(R.string.add_friend)
-                    setTextColor(Color.parseColor("#FFFFFFFF"))
-                    background.setTint(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.blue
-                        )
-                    )
-
+                onlineOrOffline.apply {
+                    if (user.online == 1L) setImageResource(R.drawable.group_11)
+                    else setImageResource(R.drawable.ic_android_black_24dp)
                 }
-            } else {
-                binding!!.subscribeOrAddFriend.apply {
-                    setIconResource(R.drawable.ic_verified)
-                    setIconTintResource(R.color.blue)
-                    setText(R.string.in_friends)
-                    setTextColor(Color.parseColor("#0077FF"))
-                    background.setTint(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
-                        )
-                    )
+
+                if (user.verified == 1L) verified.setImageResource(R.drawable.ic_verified)
+
+                Glide.with(view)
+                    .load(user.photo100)
+                    .into(avatar)
+
+                avatar.setOnClickListener {
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(user.id))
                 }
+
+                nameSurname.text = "${user.firstName} ${user.lastName}"
+                status.text = user.status
+                city.text = user.city?.title
+
+                val career2 = careerLast?.company ?: careerLast?.position
+                career.text = career2
+
+                subscribeOrAddFriend.setOnClickListener {
+                    if (user.isFriend == 0) viewModel.addFriend(user.id)
+                    else viewModel.deleteFriend(user.id)
+                }
+
+                if (user.isFriend == 0) {
+                    subscribeOrAddFriend.apply {
+                        setIconResource(R.drawable.user_add_outline_20)
+                        setIconTintResource(R.color.white)
+                        setText(R.string.add_friend)
+                        setTextColor(Color.parseColor("#FFFFFFFF"))
+                        background.setTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.blue
+                            )
+                        )
+
+                    }
+                } else {
+                    subscribeOrAddFriend.apply {
+                        setIconResource(R.drawable.ic_verified)
+                        setIconTintResource(R.color.blue)
+                        setText(R.string.in_friends)
+                        setTextColor(Color.parseColor("#0077FF"))
+                        background.setTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
+                        )
+                    }
+                }
+
+                val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
+                    R.plurals.friends_count,
+                    user.counters.friends
+                )
+                followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
+
+
             }
 
-            val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
-                R.plurals.friends_count,
-                user.counters.friends
-            )
-            binding!!.followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {

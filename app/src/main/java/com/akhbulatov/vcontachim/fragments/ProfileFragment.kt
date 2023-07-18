@@ -29,7 +29,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding = FragmentProfileBinding.bind(view)
 
         viewModel.profileLiveData.observe(viewLifecycleOwner) {
-            val response: Root.User = it.response[0]
+            val response: Root.User = it.response.last()
 
             Glide.with(this)
                 .load(response.avatar)
@@ -55,20 +55,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
         viewModel.getProfileInfo()
 
-        binding!!.friendsLayout.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.friendsFr())
-        }
-        binding!!.community.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.communitiesFr())
-        }
-        binding!!.photoFragment.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.photoAlbumsFr())
-        }
-        binding!!.video.setOnClickListener {
-            VcontachimApplication.router.navigateTo(Screens.videoFr())
-        }
-        binding!!.exit.setOnClickListener {
-            showExitDialog()
+        binding!!.apply {
+
+            friendsLayout.setOnClickListener { VcontachimApplication.router.navigateTo(Screens.friendsFr()) }
+
+            community.setOnClickListener { VcontachimApplication.router.navigateTo(Screens.communitiesFr()) }
+
+            photoFragment.setOnClickListener { VcontachimApplication.router.navigateTo(Screens.photoAlbumsFr()) }
+
+            video.setOnClickListener { VcontachimApplication.router.navigateTo(Screens.videoFr()) }
+
+            exit.setOnClickListener { showExitDialog() }
         }
     }
 

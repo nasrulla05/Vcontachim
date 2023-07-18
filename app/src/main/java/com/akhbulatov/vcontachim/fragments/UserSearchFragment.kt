@@ -26,10 +26,6 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserSearchBinding.bind(view)
 
-        binding!!.exit.setOnClickListener {
-            Keyboard.hideKeyBoard(view)
-        }
-
         val adapter = UserSearchAdapter(
             object : UserSearchAdapter.SearchFriendListener {
                 override fun searchFriendClick(item: UserSearchUi) {
@@ -38,31 +34,37 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 }
             }
         )
-        binding!!.listUsers.adapter = adapter
 
-        binding!!.search.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Вызывается ДО изменения текста
+        binding!!.apply {
+
+            exit.setOnClickListener { Keyboard.hideKeyBoard(view) }
+
+            listUsers.adapter = adapter
+
+            search.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // Вызывается ДО изменения текста
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Вызывается ВО время изменения текста
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val text = s!!.toString()
+                    if (text.length > 2) viewModel.searchUser(text)
+                }
+            })
+
+            removeText.setOnClickListener {
+                viewModel.clearList()
+                binding!!.search.text.clear()
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Вызывается ВО время изменения текста
+            viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+                if (it) progressBar.visibility = View.VISIBLE
+                else progressBar.visibility = View.GONE
             }
-
-            override fun afterTextChanged(s: Editable?) {
-                val text = s!!.toString()
-                if (text.length > 2) viewModel.searchUser(text)
-            }
-        })
-
-        binding!!.removeText.setOnClickListener {
-            viewModel.clearList()
-            binding!!.search.text.clear()
-        }
-
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
-            if (it) binding!!.progressBar.visibility = View.VISIBLE
-            else binding!!.progressBar.visibility = View.GONE
         }
 
         viewModel.usersLiveData.observe(viewLifecycleOwner) {

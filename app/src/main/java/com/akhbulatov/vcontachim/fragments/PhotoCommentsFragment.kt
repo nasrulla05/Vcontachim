@@ -48,7 +48,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
 
         viewModel.commentsLiveData.observe(viewLifecycleOwner) {
             photoCommAdapter.submitList(it)
-            binding!!.exit.subtitle = it[0].count.toString()
+            binding!!.exit.subtitle = it.lastOrNull()?.count.toString()
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
