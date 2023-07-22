@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -79,14 +80,34 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 }
             })
 
+            search.setOnKeyListener(object :View.OnKeyListener{
+                override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event?.action == KeyEvent.ACTION_UP){
+
+
+
+                        return true
+                    }
+                    return false
+                }
+
+            })
+
             removeText.setOnClickListener {
                 viewModel.clearList()
                 binding!!.search.text.clear()
+                history.visibility = View.VISIBLE
+                listUsers.visibility = View.GONE
+                human.setText(R.string.search_history)
+                clearListButton.visibility = View.VISIBLE
             }
 
             clearListButton.setOnClickListener {
                 viewModelHistory.clearList()
                 history.visibility = View.GONE
+                clearListButton.visibility = View.GONE
+                human.setText(R.string.global_search)
+                listUsers.visibility = View.VISIBLE
             }
 
 
