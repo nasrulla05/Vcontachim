@@ -8,10 +8,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.adapters.HistoryAdapter
 import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
+import com.akhbulatov.vcontachim.model.HistoryUser
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.akhbulatov.vcontachim.utility.Keyboard
+import com.akhbulatov.vcontachim.viewmodel.HistoryViewModel
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -19,6 +22,9 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
     private var binding: FragmentUserSearchBinding? = null
     private val viewModel by lazy {
         ViewModelProvider(this)[UserSearchViewModel::class.java]
+    }
+    private val viewModelHistory by lazy {
+        ViewModelProvider(this)[HistoryViewModel::class.java]
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -35,14 +41,28 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             }
         )
 
+        val adapterHistory = HistoryAdapter(
+            object : HistoryAdapter.ClearListener {
+                override fun clearUser(user: HistoryUser) {
+                    viewModelHistory.deleteElement(user)
+                }
+            }
+        )
+
         binding!!.apply {
 
             exit.setOnClickListener { Keyboard.hideKeyBoard(view) }
 
             listUsers.adapter = adapter
+            history.adapter = adapterHistory
 
             search.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                     // Вызывается ДО изменения текста
                 }
 
@@ -53,6 +73,9 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 override fun afterTextChanged(s: Editable?) {
                     val text = s!!.toString()
                     if (text.length > 2) viewModel.searchUser(text)
+
+                    human.setText(R.string.global_search)
+                    clearListButton.visibility = View.GONE
                 }
             })
 
@@ -61,14 +84,20 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 binding!!.search.text.clear()
             }
 
+            clearListButton.setOnClickListener {
+                viewModelHistory.clearList()
+                history.visibility = View.GONE
+            }
+
+
             viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
                 if (it) progressBar.visibility = View.VISIBLE
                 else progressBar.visibility = View.GONE
             }
-        }
 
-        viewModel.usersLiveData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            viewModel.usersLiveData.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
@@ -78,6 +107,10 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 Snackbar.LENGTH_LONG
             )
             snackbar.show()
+        }
+
+        viewModelHistory.historyLiveData.observe(viewLifecycleOwner){
+            adapterHistory.submitList(it)
         }
     }
 
