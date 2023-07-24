@@ -23,6 +23,7 @@
             android:layout_height="match_parent">
 
             <EditText
+                android:inputType="text"
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -31,7 +32,7 @@
                 android:drawableStart="@drawable/search_outline_16"
                 android:drawablePadding="8dp"
                 android:hint="@string/search"
-                android:imeOptions="actionSearch"
+                android:imeOptions="actionSend"
                 android:paddingStart="12dp"
                 android:textSize="16sp"
                 tools:ignore="RtlSymmetry" />

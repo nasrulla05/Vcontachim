@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,24 +32,64 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserSearchBinding.bind(view)
 
-        val adapter = UserSearchAdapter(
-            object : UserSearchAdapter.SearchFriendListener {
-                override fun searchFriendClick(item: UserSearchUi) {
-                    if (item.isFriend != 1) viewModel.addFriend(item)
-                    else viewModel.deleteFriend(item)
-                }
-            }
-        )
-
-        val adapterHistory = HistoryAdapter(
-            object : HistoryAdapter.ClearListener {
-                override fun clearUser(user: HistoryUser) {
-                    viewModelHistory.deleteElement(user)
-                }
-            }
-        )
-
         binding!!.apply {
+
+            val adapter = UserSearchAdapter(
+                object : UserSearchAdapter.SearchFriendListener {
+                    override fun searchFriendClick(item: UserSearchUi) {
+                        if (item.isFriend != 1) viewModel.addFriend(item)
+                        else viewModel.deleteFriend(item)
+                    }
+                }
+            )
+
+            val adapterHistory = HistoryAdapter(
+                object : HistoryAdapter.ClearListener {
+                    override fun clearUser(user: HistoryUser) {
+                        viewModelHistory.deleteElement(user)
+                    }
+                },
+                object : HistoryAdapter.AddUserListener {
+                    override fun addUser(user: HistoryUser) {
+
+//                    search.setOnKeyListener(object : View.OnKeyListener {
+//                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+//                            if ((event?.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                                viewModelHistory.addElement(user)
+//
+//                                return true
+//                            }
+//                            return false
+//                        }
+//                    })
+
+//                        search.setOnEditorActionListener(object :TextView.OnEditorActionListener{
+//                            override fun onEditorAction(
+//                                v: TextView?,
+//                                actionId: Int,
+//                                event: KeyEvent?
+//                            ): Boolean {
+//                                if ( actionId == EditorInfo.IME_NULL && event?.action == KeyEvent.ACTION_DOWN){
+//                                    viewModelHistory.addElement(user)
+//                                }
+//                                return true
+//                            }
+//                        })
+
+//                        search.setOnEditorActionListener(object :OnEditorActionListener{
+//                            override fun onEditorAction(
+//                                v: TextView?,
+//                                actionId: Int,
+//                                event: KeyEvent?
+//                            ): Boolean {
+//                                if (actionId == EditorInfo.IME_ACTION_SEND){
+//                                    viewModelHistory.addElement(user)
+//                                }
+//                                return true
+//                            }
+//                        })
+                    }
+                })
 
             exit.setOnClickListener { Keyboard.hideKeyBoard(view) }
 
@@ -80,19 +119,6 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 }
             })
 
-            search.setOnKeyListener(object :View.OnKeyListener{
-                override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER && event?.action == KeyEvent.ACTION_UP){
-
-
-
-                        return true
-                    }
-                    return false
-                }
-
-            })
-
             removeText.setOnClickListener {
                 viewModel.clearList()
                 binding!!.search.text.clear()
@@ -119,19 +145,20 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             viewModel.usersLiveData.observe(viewLifecycleOwner) {
                 adapter.submitList(it)
             }
-        }
 
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
-        }
+            viewModel.errorLiveData.observe(viewLifecycleOwner) {
+                val snackbar = Snackbar.make(
+                    requireView(),
+                    it,
+                    Snackbar.LENGTH_LONG
+                )
+                snackbar.show()
+            }
 
-        viewModelHistory.historyLiveData.observe(viewLifecycleOwner){
-            adapterHistory.submitList(it)
+            viewModelHistory.historyLiveData.observe(viewLifecycleOwner) {
+                adapterHistory.submitList(it)
+                viewModelHistory.removeElement()
+            }
         }
     }
 
