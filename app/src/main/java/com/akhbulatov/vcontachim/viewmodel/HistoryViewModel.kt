@@ -6,7 +6,7 @@ import com.akhbulatov.vcontachim.model.HistoryUser
 import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
 
 class HistoryViewModel : ViewModel() {
-     val historyLiveData = MutableLiveData<List<HistoryUser>>()
+    val historyLiveData = MutableLiveData<List<HistoryUser>>()
 
     fun addElement(element: HistoryUser) {
         val list = mutableListOf<HistoryUser>()
@@ -20,18 +20,17 @@ class HistoryViewModel : ViewModel() {
         historyLiveData.value = list
     }
 
-    fun clearList(){
+    fun clearList() {
         val list = emptyList<HistoryUser>()
         historyLiveData.value = list
     }
 
-    fun removeElement(){
+    fun maxLengthHistory() {
         val list = historyLiveData.value!!
         val mutList = list.toMutableList()
-         if (list.size > 6){
-             mutList.removeAt(0)
-         }
-
-        SharedPreferencesManager
+        if (list.size > 6) {
+            mutList.removeAt(6)
+        }
+        SharedPreferencesManager.saveHistory(mutList)
     }
 }

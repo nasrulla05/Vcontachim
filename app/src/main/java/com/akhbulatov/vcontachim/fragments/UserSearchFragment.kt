@@ -146,6 +146,11 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 adapter.submitList(it)
             }
 
+            viewModelHistory.historyLiveData.observe(viewLifecycleOwner) {
+                adapterHistory.submitList(it)
+                viewModelHistory.maxLengthHistory()
+            }
+
             viewModel.errorLiveData.observe(viewLifecycleOwner) {
                 val snackbar = Snackbar.make(
                     requireView(),
@@ -153,11 +158,6 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                     Snackbar.LENGTH_LONG
                 )
                 snackbar.show()
-            }
-
-            viewModelHistory.historyLiveData.observe(viewLifecycleOwner) {
-                adapterHistory.submitList(it)
-                viewModelHistory.removeElement()
             }
         }
     }
