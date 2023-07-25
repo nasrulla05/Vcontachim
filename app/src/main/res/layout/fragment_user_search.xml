@@ -32,10 +32,9 @@
                 android:drawableStart="@drawable/search_outline_16"
                 android:drawablePadding="8dp"
                 android:hint="@string/search"
-                android:imeOptions="actionSend"
+                android:imeOptions="actionDone"
                 android:paddingStart="12dp"
-                android:textSize="16sp"
-                tools:ignore="RtlSymmetry" />
+                android:textSize="16sp"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/removeText"
