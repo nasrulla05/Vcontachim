@@ -14,8 +14,8 @@ object SharedPreferencesManager {
             Context.MODE_PRIVATE
         )
     private const val TOKEN = "access_token"
-    private val editor: SharedPreferences.Editor = sharedPreferences.edit()
     private const val HISTORY = "HISTORY"
+    private val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
     val accessToken: String? = sharedPreferences.getString(TOKEN, null)
 

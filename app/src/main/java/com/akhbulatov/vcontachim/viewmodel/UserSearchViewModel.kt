@@ -4,11 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
+import com.akhbulatov.vcontachim.model.HistoryUser
 import com.akhbulatov.vcontachim.model.UserSearchUi
+import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
 import kotlinx.coroutines.launch
 
 class UserSearchViewModel : ViewModel() {
     val usersLiveData = MutableLiveData<List<UserSearchUi>>()
+    val historyLiveData = MutableLiveData<List<HistoryUser>>()
     val progressBarLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
 
@@ -94,5 +97,31 @@ class UserSearchViewModel : ViewModel() {
                 progressBarLiveData.value = false
             }
         }
+    }
+
+    fun addElement(element: HistoryUser) {
+        val list = historyLiveData.value!!.toMutableList()
+        list.add(element)
+        historyLiveData.value = list
+    }
+
+    fun deleteElement(element: HistoryUser) {
+        val list = mutableListOf<HistoryUser>()
+        list.remove(element)
+        historyLiveData.value = list
+    }
+
+    fun clearListHistory() {
+        val list = emptyList<HistoryUser>()
+        historyLiveData.value = list
+    }
+
+    fun maxLengthHistory() {
+        val list = historyLiveData.value!!
+        val mutList = list.toMutableList()
+        if (list.size > 6) {
+            mutList.removeAt(6)
+        }
+        SharedPreferencesManager.saveHistory(mutList)
     }
 }

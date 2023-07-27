@@ -14,7 +14,6 @@ import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
 import com.akhbulatov.vcontachim.model.HistoryUser
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.akhbulatov.vcontachim.utility.Keyboard
-import com.akhbulatov.vcontachim.viewmodel.HistoryViewModel
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -23,15 +22,11 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
     private val viewModel by lazy {
         ViewModelProvider(this)[UserSearchViewModel::class.java]
     }
-    private val viewModelHistory by lazy {
-        ViewModelProvider(this)[HistoryViewModel::class.java]
-    }
 
     @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserSearchBinding.bind(view)
-
         binding!!.apply {
 
             val adapter = UserSearchAdapter(
@@ -46,7 +41,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             val adapterHistory = HistoryAdapter(
                 object : HistoryAdapter.ClearListener {
                     override fun clearUser(user: HistoryUser) {
-                        viewModelHistory.deleteElement(user)
+                        viewModel.deleteElement(user)
                     }
                 },
                 object : HistoryAdapter.AddUserListener {
@@ -129,7 +124,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             }
 
             clearListButton.setOnClickListener {
-                viewModelHistory.clearList()
+                viewModel.clearListHistory()
                 history.visibility = View.GONE
                 clearListButton.visibility = View.GONE
                 human.setText(R.string.global_search)
@@ -146,9 +141,9 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 adapter.submitList(it)
             }
 
-            viewModelHistory.historyLiveData.observe(viewLifecycleOwner) {
+            viewModel.historyLiveData.observe(viewLifecycleOwner) {
                 adapterHistory.submitList(it)
-                viewModelHistory.maxLengthHistory()
+                viewModel.maxLengthHistory()
             }
 
             viewModel.errorLiveData.observe(viewLifecycleOwner) {
