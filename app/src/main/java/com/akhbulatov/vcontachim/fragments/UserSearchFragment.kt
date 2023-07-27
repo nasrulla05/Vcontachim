@@ -13,7 +13,6 @@ import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
 import com.akhbulatov.vcontachim.model.HistoryUser
 import com.akhbulatov.vcontachim.model.UserSearchUi
-import com.akhbulatov.vcontachim.utility.Keyboard
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -85,8 +84,6 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 //                        })
                     }
                 })
-
-            exit.setOnClickListener { Keyboard.hideKeyBoard(view) }
 
             listUsers.adapter = adapter
             history.adapter = adapterHistory

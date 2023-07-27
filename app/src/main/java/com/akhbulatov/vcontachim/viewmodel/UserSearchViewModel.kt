@@ -106,7 +106,7 @@ class UserSearchViewModel : ViewModel() {
     }
 
     fun deleteElement(element: HistoryUser) {
-        val list = mutableListOf<HistoryUser>()
+        val list = historyLiveData.value!!.toMutableList()
         list.remove(element)
         historyLiveData.value = list
     }
@@ -120,7 +120,7 @@ class UserSearchViewModel : ViewModel() {
         val list = historyLiveData.value!!
         val mutList = list.toMutableList()
         if (list.size > 6) {
-            mutList.removeAt(6)
+            mutList.removeAt(5)
         }
         SharedPreferencesManager.saveHistory(mutList)
     }
