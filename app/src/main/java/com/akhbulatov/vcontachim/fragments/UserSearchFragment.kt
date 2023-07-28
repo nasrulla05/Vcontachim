@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -46,16 +47,16 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 object : HistoryAdapter.AddUserListener {
                     override fun addUser(user: HistoryUser) {
 
-//                    search.setOnKeyListener(object : View.OnKeyListener {
-//                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-//                            if ((event?.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-//                                viewModelHistory.addElement(user)
-//
-//                                return true
-//                            }
-//                            return false
-//                        }
-//                    })
+                    search.setOnKeyListener(object : View.OnKeyListener {
+                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                            if ((event?.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                                viewModel.addElement(user)
+
+                                return true
+                            }
+                            return false
+                        }
+                    })
 
 //                        search.setOnEditorActionListener(object :TextView.OnEditorActionListener{
 //                            override fun onEditorAction(

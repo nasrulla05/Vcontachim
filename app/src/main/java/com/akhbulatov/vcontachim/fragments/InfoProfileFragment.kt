@@ -30,10 +30,13 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             VcontachimApplication.router.exit()
         }
 
+        val id = arguments?.getLong(ARGUMENTS_USER)
+
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
             val careerLast = user.career?.lastOrNull()
 
             binding!!.apply {
+
 
                 onlineOrOffline.apply {
                     if (user.online == 1L) setImageResource(R.drawable.group_11)
@@ -96,10 +99,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                     user.counters.friends
                 )
                 followersOrFriends.text = "${user.counters.friends} $numberOfFriends"
-
-
             }
-
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
@@ -111,7 +111,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
             toast.show()
         }
 
-        val id = arguments?.getLong(ARGUMENTS_USER)
         viewModel.loadInfoProfile(id!!)
     }
 
