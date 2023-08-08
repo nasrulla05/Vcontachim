@@ -1,10 +1,10 @@
 package com.akhbulatov.vcontachim.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 
 @Database(
-    entities = [SearchHistory::class],
+    entities = [HistoryUser::class],
     version = 1,
     exportSchema = true
 )

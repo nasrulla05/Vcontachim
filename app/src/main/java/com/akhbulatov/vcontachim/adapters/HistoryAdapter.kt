@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
+import com.akhbulatov.vcontachim.database.HistoryUser
 import com.akhbulatov.vcontachim.databinding.ItemHistoryBinding
-import com.akhbulatov.vcontachim.model.HistoryUser
 
 class HistoryAdapter(private val user:ClearListener, private val userHis:AddUserListener) :
     ListAdapter<HistoryUser, HistoryAdapter.HistoryViewHolder>(HistoryDuffCallback) {
@@ -21,7 +21,7 @@ class HistoryAdapter(private val user:ClearListener, private val userHis:AddUser
     object HistoryDuffCallback : DiffUtil.ItemCallback<HistoryUser>() {
 
         override fun areItemsTheSame(oldItem: HistoryUser, newItem: HistoryUser): Boolean {
-            return oldItem.nameSurname == newItem.nameSurname
+            return oldItem.name == newItem.name
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -31,7 +31,7 @@ class HistoryAdapter(private val user:ClearListener, private val userHis:AddUser
     }
 
     interface ClearListener{
-        fun clearUser(user:HistoryUser)
+        fun clearUser(user: HistoryUser)
     }
 
     interface AddUserListener{
@@ -46,10 +46,10 @@ class HistoryAdapter(private val user:ClearListener, private val userHis:AddUser
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val history:HistoryUser = getItem(position)
+        val history: HistoryUser = getItem(position)
 
         userHis.addUser(history)
-        holder.binding.nameSurname.text = history.nameSurname
+        holder.binding.nameSurname.text = history.name
         holder.binding.clearUser.setOnClickListener {
             this.user.clearUser(history)
         }

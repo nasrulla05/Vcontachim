@@ -3,7 +3,7 @@ package com.akhbulatov.vcontachim.utility
 import android.content.Context
 import android.content.SharedPreferences
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.model.HistoryUser
+import com.akhbulatov.vcontachim.database.HistoryUser
 import com.google.gson.Gson
 
 object SharedPreferencesManager {

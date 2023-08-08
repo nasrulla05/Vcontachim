@@ -4,19 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.database.SearchHistory
+import com.akhbulatov.vcontachim.database.HistoryUser
 import com.akhbulatov.vcontachim.database.SearchHistoryDao
-import com.akhbulatov.vcontachim.model.HistoryUser
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import kotlinx.coroutines.launch
 
 class UserSearchViewModel : ViewModel() {
     val usersLiveData = MutableLiveData<List<UserSearchUi>>()
-    val historyLiveData = MutableLiveData<List<SearchHistory>>()
+    val historyLiveData = MutableLiveData<List<HistoryUser>>()
     val progressBarLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
 
-    val historyDao: SearchHistoryDao = VcontachimApplication.historyDatabase.historyDao()
+    private val historyDao: SearchHistoryDao = VcontachimApplication.historyDatabase.historyDao()
 
     fun searchUser(requestText: String) {
         viewModelScope.launch {
@@ -102,18 +101,27 @@ class UserSearchViewModel : ViewModel() {
         }
     }
 
-    fun addElement(element: SearchHistory) {
+    fun loadHistory() {
         viewModelScope.launch {
-            historyDao.addHistotry(element)
-            val list: List<SearchHistory> = historyDao.getAllHistory()
+            val list: List<HistoryUser> = historyDao.getAllHistory()
+            historyLiveData.value = list
+        }
+    }
+
+    fun addElement(element: HistoryUser) {
+        viewModelScope.launch {
+            historyDao.addHistory(element)
+            val list: List<HistoryUser> = historyDao.getAllHistory()
             historyLiveData.value = list
         }
     }
 
     fun deleteElement(element: HistoryUser) {
-        val list = historyLiveData.value!!.toMutableList()
-        list.remove(element)
-        historyLiveData.value = list
+        viewModelScope.launch {
+            historyDao.deleteHistory(element)
+            val list: List<HistoryUser> = historyDao.getAllHistory()
+            historyLiveData.value = list
+        }
     }
 
     fun clearListHistory() {
@@ -124,8 +132,6 @@ class UserSearchViewModel : ViewModel() {
     fun maxLengthHistory() {
         val list = historyLiveData.value!!
         val mutList = list.toMutableList()
-        if (list.size > 6) {
-            mutList.removeAt(5)
-        }
+        if (list.size > 6) mutList.removeAt(5)
     }
 }

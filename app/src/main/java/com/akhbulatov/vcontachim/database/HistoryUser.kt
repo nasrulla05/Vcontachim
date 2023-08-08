@@ -1,13 +1,12 @@
 package com.akhbulatov.vcontachim.database
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class SearchHistory(
-
+class HistoryUser(
     @PrimaryKey
 
     @ColumnInfo(name = "id_db")
@@ -15,4 +14,5 @@ class SearchHistory(
 
     @ColumnInfo(name = "name_bd")
     val name: String
+
 ) : Serializable

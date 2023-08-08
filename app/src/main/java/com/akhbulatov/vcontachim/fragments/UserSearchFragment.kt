@@ -4,17 +4,14 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.adapters.HistoryAdapter
 import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
+import com.akhbulatov.vcontachim.database.HistoryUser
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
-import com.akhbulatov.vcontachim.model.HistoryUser
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -40,6 +37,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 }
             )
 
+
             val adapterHistory = HistoryAdapter(
                 object : HistoryAdapter.ClearListener {
                     override fun clearUser(user: HistoryUser) {
@@ -49,40 +47,42 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 object : HistoryAdapter.AddUserListener {
                     override fun addUser(user: HistoryUser) {
 
-                    search.setOnKeyListener(object : View.OnKeyListener {
-                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                            if ((event?.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                                viewModel.addElement(user)
+//                    search.setOnKeyListener(object : View.OnKeyListener {
+//                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+//                            if ((event?.action == KeyEvent.ACTION_DOWN) || (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                                viewModel.addElement(user)
+//
+//                                return true
+//                            }
+//                            return false
+//                        }
+//                    })
 
-                                return true
-                            }
-                            return false
-                        }
-                    })
+//                        search.setOnEditorActionListener(object : TextView.OnEditorActionListener{
+//                            override fun onEditorAction(
+//                                v: TextView?,
+//                                actionId: Int,
+//                                event: KeyEvent?
+//                            ): Boolean {
+//                                if ( actionId == EditorInfo.IME_NULL && event?.action == KeyEvent.KEYCODE_SEARCH){
+//                                    viewModel.addElement(user)
+//                                }
+//                                return true
+//                            }
+//                        })
 
-                        search.setOnEditorActionListener(object : TextView.OnEditorActionListener{
-                            override fun onEditorAction(
-                                v: TextView?,
-                                actionId: Int,
-                                event: KeyEvent?
-                            ): Boolean {
-                                if ( actionId == EditorInfo.IME_NULL || event?.action == KeyEvent.KEYCODE_SEARCH){
-                                    viewModel.addElement(user)
-                                }
-                                return true
-                            }
-                        })
-
-//                        search.setOnEditorActionListener(object :OnEditorActionListener{
+//                        search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
 //                            override fun onEditorAction(
 //                                v: TextView?,
 //                                actionId: Int,
 //                                event: KeyEvent?
 //                            ): Boolean {
 //                                if (actionId == EditorInfo.IME_ACTION_SEND){
-//                                    viewModelHistory.addElement(user)
+//                                    viewModel.addElement(user)
+//
+//                                    return true
 //                                }
-//                                return true
+//                                return false
 //                            }
 //                        })
                     }
@@ -154,6 +154,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 )
                 snackbar.show()
             }
+
+            viewModel.loadHistory()
         }
     }
 

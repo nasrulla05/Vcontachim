@@ -2,8 +2,8 @@ package com.akhbulatov.vcontachim
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.room.Room
 import com.akhbulatov.vcontachim.database.HistoryDatabase
 import com.akhbulatov.vcontachim.network.VcontachimService
 import com.akhbulatov.vcontachim.utility.SharedPreferencesManager

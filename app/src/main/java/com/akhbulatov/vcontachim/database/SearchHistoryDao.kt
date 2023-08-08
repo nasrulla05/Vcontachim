@@ -1,22 +1,22 @@
 package com.akhbulatov.vcontachim.database
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
 interface SearchHistoryDao {
 
-    @Query("select*from searchhistory")
-    suspend fun getAllHistory(): SearchHistory
+    @Query("select*from HistoryUser")
+    suspend fun getAllHistory():List<HistoryUser>
 
-    @Query("delete from searchhistory")
-    suspend fun getDeleteHistory(): List<SearchHistory>
+//    @Query("delete from historyuser")
+//    suspend fun getDeleteHistory(): List<HistoryUser>
 
     @Insert
-    suspend fun addHistotry(history: SearchHistory)
+    suspend fun addHistory(history: HistoryUser)
 
     @Delete
-    suspend fun deleteHisory(history: SearchHistory)
+    suspend fun deleteHistory(history: HistoryUser)
 }
