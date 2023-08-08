@@ -6,6 +6,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
@@ -58,18 +60,18 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                         }
                     })
 
-//                        search.setOnEditorActionListener(object :TextView.OnEditorActionListener{
-//                            override fun onEditorAction(
-//                                v: TextView?,
-//                                actionId: Int,
-//                                event: KeyEvent?
-//                            ): Boolean {
-//                                if ( actionId == EditorInfo.IME_NULL && event?.action == KeyEvent.ACTION_DOWN){
-//                                    viewModelHistory.addElement(user)
-//                                }
-//                                return true
-//                            }
-//                        })
+                        search.setOnEditorActionListener(object : TextView.OnEditorActionListener{
+                            override fun onEditorAction(
+                                v: TextView?,
+                                actionId: Int,
+                                event: KeyEvent?
+                            ): Boolean {
+                                if ( actionId == EditorInfo.IME_NULL || event?.action == KeyEvent.KEYCODE_SEARCH){
+                                    viewModel.addElement(user)
+                                }
+                                return true
+                            }
+                        })
 
 //                        search.setOnEditorActionListener(object :OnEditorActionListener{
 //                            override fun onEditorAction(

@@ -2,7 +2,9 @@ package com.akhbulatov.vcontachim
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.arch.persistence.room.Room
 import android.content.Context
+import com.akhbulatov.vcontachim.database.HistoryDatabase
 import com.akhbulatov.vcontachim.network.VcontachimService
 import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -15,12 +17,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 class VcontachimApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
         context = this.applicationContext
         cicerone = Cicerone.create()
         router = cicerone.router
         navigateHolder = cicerone.getNavigatorHolder()
+
+        historyDatabase = Room.databaseBuilder(
+            this,
+            HistoryDatabase::class.java,
+            "vcontachim_database"
+        )
+            .build()
 
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(object : Interceptor {
@@ -58,6 +68,7 @@ class VcontachimApplication : Application() {
     }
 
     companion object {
+        lateinit var historyDatabase: HistoryDatabase
         lateinit var vcontachimService: VcontachimService
 
         @SuppressLint("StaticFieldLeak")
