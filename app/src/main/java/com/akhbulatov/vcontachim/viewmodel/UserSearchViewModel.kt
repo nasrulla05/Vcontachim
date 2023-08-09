@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
+import com.akhbulatov.vcontachim.database.HistoryDao
 import com.akhbulatov.vcontachim.database.HistoryUser
-import com.akhbulatov.vcontachim.database.SearchHistoryDao
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import kotlinx.coroutines.launch
 
@@ -15,7 +15,7 @@ class UserSearchViewModel : ViewModel() {
     val progressBarLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
 
-    private val historyDao: SearchHistoryDao = VcontachimApplication.historyDatabase.historyDao()
+    private val historyDao: HistoryDao = VcontachimApplication.historyDatabase.historyDao()
 
     fun searchUser(requestText: String) {
         viewModelScope.launch {
@@ -101,6 +101,11 @@ class UserSearchViewModel : ViewModel() {
         }
     }
 
+    fun clearUsers() {
+        val list = emptyList<UserSearchUi>()
+        usersLiveData.value = list
+    }
+
     fun loadHistory() {
         viewModelScope.launch {
             val list: List<HistoryUser> = historyDao.getAllHistory()
@@ -118,20 +123,22 @@ class UserSearchViewModel : ViewModel() {
 
     fun deleteElement(element: HistoryUser) {
         viewModelScope.launch {
-            historyDao.deleteHistory(element)
+            historyDao.deleteHistoryItem(element)
             val list: List<HistoryUser> = historyDao.getAllHistory()
             historyLiveData.value = list
         }
     }
 
-    fun clearListHistory() {
-        val list = emptyList<HistoryUser>()
-        historyLiveData.value = list
-    }
+//    fun clearListHistory() {
+//        viewModelScope.launch {
+//            VcontachimApplication.historyDatabase.historyDao().deleteListHistory()
+//        }
+//    }
 
     fun maxLengthHistory() {
         val list = historyLiveData.value!!
         val mutList = list.toMutableList()
-        if (list.size > 6) mutList.removeAt(5)
+        if (list.size > 6) mutList.removeAt(5 )
+        historyLiveData.value = mutList
     }
 }

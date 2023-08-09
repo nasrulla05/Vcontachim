@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.akhbulatov.vcontachim.R
@@ -43,50 +46,24 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                     override fun clearUser(user: HistoryUser) {
                         viewModel.deleteElement(user)
                     }
-                },
-                object : HistoryAdapter.AddUserListener {
-                    override fun addUser(user: HistoryUser) {
-
-//                    search.setOnKeyListener(object : View.OnKeyListener {
-//                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-//                            if ((event?.action == KeyEvent.ACTION_DOWN) || (keyCode == KeyEvent.KEYCODE_ENTER)) {
-//                                viewModel.addElement(user)
-//
-//                                return true
-//                            }
-//                            return false
-//                        }
-//                    })
-
-//                        search.setOnEditorActionListener(object : TextView.OnEditorActionListener{
-//                            override fun onEditorAction(
-//                                v: TextView?,
-//                                actionId: Int,
-//                                event: KeyEvent?
-//                            ): Boolean {
-//                                if ( actionId == EditorInfo.IME_NULL && event?.action == KeyEvent.KEYCODE_SEARCH){
-//                                    viewModel.addElement(user)
-//                                }
-//                                return true
-//                            }
-//                        })
-
-//                        search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
-//                            override fun onEditorAction(
-//                                v: TextView?,
-//                                actionId: Int,
-//                                event: KeyEvent?
-//                            ): Boolean {
-//                                if (actionId == EditorInfo.IME_ACTION_SEND){
-//                                    viewModel.addElement(user)
-//
-//                                    return true
-//                                }
-//                                return false
-//                            }
-//                        })
-                    }
                 })
+
+            search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+                override fun onEditorAction(
+                    v: TextView?,
+                    actionId: Int,
+                    event: KeyEvent?
+                ): Boolean {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                        val text = search.text.toString()
+                        val his = HistoryUser(text)
+                        viewModel.addElement(his)
+
+                        return true
+                    }
+                    return false
+                }
+            })
 
             listUsers.adapter = adapter
             history.adapter = adapterHistory
@@ -107,30 +84,29 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 
                 override fun afterTextChanged(s: Editable?) {
                     val text = s!!.toString()
-                    if (text.length > 2) viewModel.searchUser(text)
+                    if (text.length > 3) viewModel.searchUser(text)
 
                     human.setText(R.string.global_search)
                     clearListButton.visibility = View.GONE
                 }
             })
 
-            removeText.setOnClickListener {
-                viewModel.clearList()
-                binding!!.search.text.clear()
-                history.visibility = View.VISIBLE
-                listUsers.visibility = View.GONE
-                human.setText(R.string.search_history)
-                clearListButton.visibility = View.VISIBLE
-            }
-
             clearListButton.setOnClickListener {
-                viewModel.clearListHistory()
+                viewModel.clearUsers()
+//                viewModel.clearListHistory()
                 history.visibility = View.GONE
                 clearListButton.visibility = View.GONE
                 human.setText(R.string.global_search)
                 listUsers.visibility = View.VISIBLE
             }
 
+            removeText.setOnClickListener {
+                search.text.clear()
+                history.visibility = View.VISIBLE
+                listUsers.visibility = View.GONE
+                human.setText(R.string.search_history)
+                clearListButton.visibility = View.VISIBLE
+            }
 
             viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
                 if (it) progressBar.visibility = View.VISIBLE
@@ -141,8 +117,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 adapter.submitList(it)
             }
 
-            viewModel.historyLiveData.observe(viewLifecycleOwner) {
-                adapterHistory.submitList(it)
+            viewModel.historyLiveData.observe(viewLifecycleOwner) {list->
+                adapterHistory.submitList(list)
                 viewModel.maxLengthHistory()
             }
 

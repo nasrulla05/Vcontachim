@@ -5,9 +5,8 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [HistoryUser::class],
-    version = 1,
-    exportSchema = true
+    version = 1
 )
 abstract class HistoryDatabase : RoomDatabase() {
-    abstract fun historyDao(): SearchHistoryDao
+    abstract fun historyDao(): HistoryDao
 }

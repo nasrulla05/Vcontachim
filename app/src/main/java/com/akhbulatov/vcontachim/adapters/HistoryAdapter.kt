@@ -11,7 +11,7 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.database.HistoryUser
 import com.akhbulatov.vcontachim.databinding.ItemHistoryBinding
 
-class HistoryAdapter(private val user:ClearListener, private val userHis:AddUserListener) :
+class HistoryAdapter(private val user:ClearListener) :
     ListAdapter<HistoryUser, HistoryAdapter.HistoryViewHolder>(HistoryDuffCallback) {
 
     class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,7 +48,6 @@ class HistoryAdapter(private val user:ClearListener, private val userHis:AddUser
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val history: HistoryUser = getItem(position)
 
-        userHis.addUser(history)
         holder.binding.nameSurname.text = history.name
         holder.binding.clearUser.setOnClickListener {
             this.user.clearUser(history)
