@@ -109,7 +109,8 @@ class UserSearchViewModel : ViewModel() {
     fun loadHistory() {
         viewModelScope.launch {
             val list: List<HistoryUser> = historyDao.getAllHistory()
-            historyLiveData.value = list
+            val list2 = list.take(6)
+            historyLiveData.value = list2
         }
     }
 
@@ -129,16 +130,9 @@ class UserSearchViewModel : ViewModel() {
         }
     }
 
-//    fun clearListHistory() {
-//        viewModelScope.launch {
-//            VcontachimApplication.historyDatabase.historyDao().deleteListHistory()
-//        }
-//    }
-
-    fun maxLengthHistory() {
-        val list = historyLiveData.value!!
-        val mutList = list.toMutableList()
-        if (list.size > 6) mutList.removeAt(5 )
-        historyLiveData.value = mutList
+    fun clearListHistory() {
+        viewModelScope.launch {
+            VcontachimApplication.historyDatabase.historyDao().deleteHistoryList()
+        }
     }
 }

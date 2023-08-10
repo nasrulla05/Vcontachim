@@ -8,7 +8,10 @@ interface HistoryDao {
     @Query("select*from historyTable")
     suspend fun getAllHistory(): List<HistoryUser>
 
-    @Insert
+    @Query("delete from historyTable")
+    suspend fun deleteHistoryList()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addHistory(history: HistoryUser)
 
     @Delete

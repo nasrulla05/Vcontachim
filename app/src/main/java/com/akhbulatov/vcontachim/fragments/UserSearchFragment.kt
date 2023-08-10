@@ -18,6 +18,7 @@ import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
     private var binding: FragmentUserSearchBinding? = null
@@ -54,10 +55,10 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                     actionId: Int,
                     event: KeyEvent?
                 ): Boolean {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                         val text = search.text.toString()
                         val his = HistoryUser(text)
-                        viewModel.addElement(his)
+                        if (search.text.isNotEmpty()) viewModel.addElement(his)
 
                         return true
                     }
@@ -66,7 +67,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             })
 
             listUsers.adapter = adapter
-            history.adapter = adapterHistory
+            historyList.adapter = adapterHistory
 
             search.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -84,28 +85,28 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 
                 override fun afterTextChanged(s: Editable?) {
                     val text = s!!.toString()
-                    if (text.length > 3) viewModel.searchUser(text)
+                    if (text.length > 1) viewModel.searchUser(text)
 
-                    human.setText(R.string.global_search)
+                    searchHistoryTextView.setText(R.string.global_search)
                     clearListButton.visibility = View.GONE
+                    historyList.visibility = View.GONE
                 }
             })
 
-            clearListButton.setOnClickListener {
+            removeText.setOnClickListener {
                 viewModel.clearUsers()
-//                viewModel.clearListHistory()
-                history.visibility = View.GONE
-                clearListButton.visibility = View.GONE
-                human.setText(R.string.global_search)
-                listUsers.visibility = View.VISIBLE
+                search.text.clear()
+                searchHistoryTextView.setText(R.string.search_history)
+                clearListButton.visibility = View.VISIBLE
+                historyList.visibility = View.VISIBLE
             }
 
-            removeText.setOnClickListener {
-                search.text.clear()
-                history.visibility = View.VISIBLE
-                listUsers.visibility = View.GONE
-                human.setText(R.string.search_history)
-                clearListButton.visibility = View.VISIBLE
+            clearListButton.setOnClickListener {
+                searchHistoryTextView.setText(R.string.global_search)
+                historyList.visibility = View.GONE
+                listUsers.visibility = View.VISIBLE
+                clearListButton.visibility = View.GONE
+                viewModel.clearListHistory()
             }
 
             viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
@@ -113,13 +114,13 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 else progressBar.visibility = View.GONE
             }
 
-            viewModel.usersLiveData.observe(viewLifecycleOwner) {
-                adapter.submitList(it)
+            viewModel.usersLiveData.observe(viewLifecycleOwner) { list ->
+                listUsers.visibility = View.VISIBLE
+                adapter.submitList(list)
             }
 
-            viewModel.historyLiveData.observe(viewLifecycleOwner) {list->
-                adapterHistory.submitList(list)
-                viewModel.maxLengthHistory()
+            viewModel.historyLiveData.observe(viewLifecycleOwner) { list ->
+                adapterHistory.submitList(list.reversed())
             }
 
             viewModel.errorLiveData.observe(viewLifecycleOwner) {
@@ -131,7 +132,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 snackbar.show()
             }
 
-            viewModel.loadHistory()
+            if (historyList.visibility == View.VISIBLE) viewModel.loadHistory()
         }
     }
 
