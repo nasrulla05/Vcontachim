@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "historyTable")
-class HistoryUser(
+data class SearchHistoryModel(
     @PrimaryKey
 
     @ColumnInfo(name = "name_bd")
     val name: String
 
-):java.io.Serializable
+)

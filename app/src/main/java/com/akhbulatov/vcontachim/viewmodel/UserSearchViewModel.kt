@@ -4,18 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akhbulatov.vcontachim.VcontachimApplication
-import com.akhbulatov.vcontachim.database.HistoryDao
-import com.akhbulatov.vcontachim.database.HistoryUser
+import com.akhbulatov.vcontachim.database.SearchHistoryDao
+import com.akhbulatov.vcontachim.database.SearchHistoryModel
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import kotlinx.coroutines.launch
 
 class UserSearchViewModel : ViewModel() {
     val usersLiveData = MutableLiveData<List<UserSearchUi>>()
-    val historyLiveData = MutableLiveData<List<HistoryUser>>()
+    val historyLiveData = MutableLiveData<List<SearchHistoryModel>>()
     val progressBarLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
 
-    private val historyDao: HistoryDao = VcontachimApplication.historyDatabase.historyDao()
+    private val historyDao: SearchHistoryDao = VcontachimApplication.appDatabase.historyDao()
 
     fun searchUser(requestText: String) {
         viewModelScope.launch {
@@ -52,11 +52,6 @@ class UserSearchViewModel : ViewModel() {
                 progressBarLiveData.value = false
             }
         }
-    }
-
-    fun clearList() {
-        val list = emptyList<UserSearchUi>()
-        usersLiveData.value = list
     }
 
     fun addFriend(userUi: UserSearchUi) {
@@ -101,38 +96,37 @@ class UserSearchViewModel : ViewModel() {
         }
     }
 
-    fun clearUsers() {
+    fun clearUsersClick() {
         val list = emptyList<UserSearchUi>()
         usersLiveData.value = list
     }
 
     fun loadHistory() {
         viewModelScope.launch {
-            val list: List<HistoryUser> = historyDao.getAllHistory()
-            val list2 = list.take(6)
-            historyLiveData.value = list2
+            val list: List<SearchHistoryModel> = historyDao.getAllHistory()
+            val listTake = list.take(6)
+            historyLiveData.value = listTake
         }
     }
 
-    fun addElement(element: HistoryUser) {
+    fun addElement(element: SearchHistoryModel) {
         viewModelScope.launch {
             historyDao.addHistory(element)
-            val list: List<HistoryUser> = historyDao.getAllHistory()
-            historyLiveData.value = list
+            loadHistory()
         }
     }
 
-    fun deleteElement(element: HistoryUser) {
+    fun deleteElement(element: SearchHistoryModel) {
         viewModelScope.launch {
             historyDao.deleteHistoryItem(element)
-            val list: List<HistoryUser> = historyDao.getAllHistory()
-            historyLiveData.value = list
+            loadHistory()
         }
     }
 
-    fun clearListHistory() {
+    fun clearListHistoryClick() {
         viewModelScope.launch {
-            VcontachimApplication.historyDatabase.historyDao().deleteHistoryList()
+            VcontachimApplication.appDatabase.historyDao().deleteHistoryList()
+            loadHistory()
         }
     }
 }

@@ -38,11 +38,9 @@ android {
 
 dependencies {
 
-    implementation "androidx.room:room-runtime:2.5.2"
     implementation "androidx.room:room-ktx:2.5.2"
     kapt "androidx.room:room-compiler:2.5.2"
 
-    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.zhpanvip:viewpagerindicator:1.2.3'
 
     debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"

@@ -30,8 +30,8 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         binding!!.photos.adapter = photosAdapter
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
-            if (it)binding!!.progressBar.visibility = View.VISIBLE
-                else binding!!.progressBar.visibility = View.GONE
+            if (it) binding!!.progressBar.visibility = View.VISIBLE
+            else binding!!.progressBar.visibility = View.GONE
         }
 
         viewModel.photosLiveData.observe(viewLifecycleOwner) {

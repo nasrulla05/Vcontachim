@@ -8,35 +8,32 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akhbulatov.vcontachim.R
-import com.akhbulatov.vcontachim.database.HistoryUser
+import com.akhbulatov.vcontachim.database.SearchHistoryModel
 import com.akhbulatov.vcontachim.databinding.ItemHistoryBinding
 
-class HistoryAdapter(private val user:ClearListener) :
-    ListAdapter<HistoryUser, HistoryAdapter.HistoryViewHolder>(HistoryDuffCallback) {
+class HistoryAdapter(private val userListener:ClearListener) :
+    ListAdapter<SearchHistoryModel, HistoryAdapter.HistoryViewHolder>(HistoryDuffCallback) {
 
     class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemHistoryBinding = ItemHistoryBinding.bind(itemView)
     }
 
-    object HistoryDuffCallback : DiffUtil.ItemCallback<HistoryUser>() {
+    object HistoryDuffCallback : DiffUtil.ItemCallback<SearchHistoryModel>() {
 
-        override fun areItemsTheSame(oldItem: HistoryUser, newItem: HistoryUser): Boolean {
+        override fun areItemsTheSame(oldItem: SearchHistoryModel, newItem: SearchHistoryModel): Boolean {
             return oldItem.name == newItem.name
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: HistoryUser, newItem: HistoryUser): Boolean {
+        override fun areContentsTheSame(oldItem: SearchHistoryModel, newItem: SearchHistoryModel): Boolean {
             return oldItem == newItem
         }
     }
 
     interface ClearListener{
-        fun clearUser(user: HistoryUser)
+        fun clearUser(user: SearchHistoryModel)
     }
 
-    interface AddUserListener{
-        fun addUser(user: HistoryUser)
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
@@ -46,11 +43,11 @@ class HistoryAdapter(private val user:ClearListener) :
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val history: HistoryUser = getItem(position)
+        val history: SearchHistoryModel = getItem(position)
 
         holder.binding.nameSurname.text = history.name
         holder.binding.clearUser.setOnClickListener {
-            this.user.clearUser(history)
+            this.userListener.clearUser(history)
         }
     }
 }

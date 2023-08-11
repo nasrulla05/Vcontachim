@@ -34,7 +34,7 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
             if (it) binding!!.progressBar.visibility = View.VISIBLE
-             else binding!!.progressBar.visibility = View.GONE
+            else binding!!.progressBar.visibility = View.GONE
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {

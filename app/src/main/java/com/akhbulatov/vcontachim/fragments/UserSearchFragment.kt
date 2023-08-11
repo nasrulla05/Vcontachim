@@ -9,11 +9,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.adapters.HistoryAdapter
 import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
-import com.akhbulatov.vcontachim.database.HistoryUser
+import com.akhbulatov.vcontachim.database.SearchHistoryModel
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
 import com.akhbulatov.vcontachim.model.UserSearchUi
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
@@ -22,9 +22,7 @@ import java.util.*
 
 class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
     private var binding: FragmentUserSearchBinding? = null
-    private val viewModel by lazy {
-        ViewModelProvider(this)[UserSearchViewModel::class.java]
-    }
+    private val viewModel by viewModels<UserSearchViewModel>()
 
     @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,10 +39,9 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 }
             )
 
-
             val adapterHistory = HistoryAdapter(
                 object : HistoryAdapter.ClearListener {
-                    override fun clearUser(user: HistoryUser) {
+                    override fun clearUser(user: SearchHistoryModel) {
                         viewModel.deleteElement(user)
                     }
                 })
@@ -57,8 +54,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 ): Boolean {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                         val text = search.text.toString()
-                        val his = HistoryUser(text)
-                        if (search.text.isNotEmpty()) viewModel.addElement(his)
+                        val his = SearchHistoryModel(text)
+                        if (search.text.isNotBlank()) viewModel.addElement(his)
 
                         return true
                     }
@@ -87,27 +84,27 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                     val text = s!!.toString()
                     if (text.length > 1) viewModel.searchUser(text)
 
-                    searchHistoryTextView.setText(R.string.global_search)
-                    clearListButton.visibility = View.GONE
-                    historyList.visibility = View.GONE
+                    if (search.text.isBlank()) {
+                        searchHistoryTextView.setText(R.string.search_history)
+                        clearListButton.visibility = View.VISIBLE
+                        historyList.visibility = View.VISIBLE
+                        listUsers.visibility = View.GONE
+                    } else {
+                        searchHistoryTextView.setText(R.string.global_search)
+                        clearListButton.visibility = View.GONE
+                        historyList.visibility = View.GONE
+                        listUsers.visibility = View.VISIBLE
+                    }
                 }
             })
 
             removeText.setOnClickListener {
-                viewModel.clearUsers()
+                viewModel.clearUsersClick()
                 search.text.clear()
-                searchHistoryTextView.setText(R.string.search_history)
-                clearListButton.visibility = View.VISIBLE
-                historyList.visibility = View.VISIBLE
             }
 
             clearListButton.setOnClickListener {
-                searchHistoryTextView.setText(R.string.global_search)
-                historyList.visibility = View.GONE
-                listUsers.visibility = View.VISIBLE
-                clearListButton.visibility = View.GONE
-                viewModel.clearListHistory()
-            }
+                viewModel.clearListHistoryClick() }
 
             viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
                 if (it) progressBar.visibility = View.VISIBLE
@@ -132,7 +129,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                 snackbar.show()
             }
 
-            if (historyList.visibility == View.VISIBLE) viewModel.loadHistory()
+            viewModel.loadHistory()
         }
     }
 

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.akhbulatov.vcontachim.database.HistoryDatabase
+import com.akhbulatov.vcontachim.database.AppDatabase
 import com.akhbulatov.vcontachim.network.VcontachimService
 import com.akhbulatov.vcontachim.utility.SharedPreferencesManager
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -25,9 +25,9 @@ class VcontachimApplication : Application() {
         router = cicerone.router
         navigateHolder = cicerone.getNavigatorHolder()
 
-        historyDatabase = Room.databaseBuilder(
+        appDatabase = Room.databaseBuilder(
             this,
-            HistoryDatabase::class.java,
+            AppDatabase::class.java,
             "vcontachim_database"
         )
             .build()
@@ -68,7 +68,7 @@ class VcontachimApplication : Application() {
     }
 
     companion object {
-        lateinit var historyDatabase: HistoryDatabase
+        lateinit var appDatabase: AppDatabase
         lateinit var vcontachimService: VcontachimService
 
         @SuppressLint("StaticFieldLeak")
