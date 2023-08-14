@@ -41,8 +41,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
 
             val adapterHistory = HistoryAdapter(
                 object : HistoryAdapter.ClearListener {
-                    override fun clearUser(user: SearchHistoryModel) {
-                        viewModel.deleteElement(user)
+                    override fun clearUser(historyItem: SearchHistoryModel) {
+                        viewModel.deleteHistoryItem(historyItem)
                     }
                 })
 
@@ -55,7 +55,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                         val text = search.text.toString()
                         val his = SearchHistoryModel(text)
-                        if (search.text.isNotBlank()) viewModel.addElement(his)
+                        if (search.text.isNotBlank()) viewModel.addHistoryItem(his)
 
                         return true
                     }

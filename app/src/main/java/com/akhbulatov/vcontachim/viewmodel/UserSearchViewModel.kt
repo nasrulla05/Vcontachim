@@ -109,16 +109,16 @@ class UserSearchViewModel : ViewModel() {
         }
     }
 
-    fun addElement(element: SearchHistoryModel) {
+    fun addHistoryItem(element: SearchHistoryModel) {
         viewModelScope.launch {
             historyDao.addHistory(element)
             loadHistory()
         }
     }
 
-    fun deleteElement(element: SearchHistoryModel) {
+    fun deleteHistoryItem(history: SearchHistoryModel) {
         viewModelScope.launch {
-            historyDao.deleteHistoryItem(element)
+            historyDao.deleteHistoryItem(history)
             loadHistory()
         }
     }

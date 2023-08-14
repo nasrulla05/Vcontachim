@@ -31,7 +31,7 @@ class HistoryAdapter(private val userListener:ClearListener) :
     }
 
     interface ClearListener{
-        fun clearUser(user: SearchHistoryModel)
+        fun clearUser(historyItem: SearchHistoryModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
