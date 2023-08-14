@@ -1,7 +1,6 @@
 package com.akhbulatov.vcontachim.activity
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
@@ -10,19 +9,19 @@ import com.akhbulatov.vcontachim.databinding.ActivityMainBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-    private var binding: ActivityMainBinding? = null
+    private lateinit var binding: ActivityMainBinding
     private var navigator = AppNavigator(activity = this, R.id.action_container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val rootLayout: View = findViewById(R.id.activity_main)
-        binding = ActivityMainBinding.bind(rootLayout)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (savedInstanceState == null) {
             VcontachimApplication.router.replaceScreen(Screens.homeFr())
         }
 
-        binding!!.bottomNavigation.apply {
+        binding.bottomNavigation.apply {
             setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.homeFr -> VcontachimApplication.router.replaceScreen(Screens.homeFr())

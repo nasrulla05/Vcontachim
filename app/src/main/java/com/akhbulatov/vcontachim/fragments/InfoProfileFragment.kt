@@ -37,7 +37,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
 
             binding!!.apply {
 
-
                 onlineOrOffline.apply {
                     if (user.online == 1L) setImageResource(R.drawable.group_11)
                     else setImageResource(R.drawable.ic_android_black_24dp)
