@@ -30,11 +30,8 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         binding!!.photos.adapter = photosAdapter
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                binding!!.progressBar.visibility = View.VISIBLE
-            } else {
-                binding!!.progressBar.visibility = View.GONE
-            }
+            if (it) binding!!.progressBar.visibility = View.VISIBLE
+            else binding!!.progressBar.visibility = View.GONE
         }
 
         viewModel.photosLiveData.observe(viewLifecycleOwner) {
@@ -49,19 +46,17 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             )
             snackbar.show()
         }
-        val id = requireArguments().getLong(ARGUMENTS_ID)
-        val title = requireArguments().getString(ARGUMENTS_TITLE)
-        val sizePhoto = requireArguments().getInt(ARGUMENTS_SIZE_PHOTO)
+
+        val item = requireArguments().getSerializable(ARGUMENTS_ITEM) as PhotosAlbums.Items
 
         val plurals = VcontachimApplication.context.resources.getQuantityString(
             R.plurals.plurals_photo_albums,
-            sizePhoto
+            item.sizePhoto
         )
-        binding!!.toolbar.title = title
-        binding!!.toolbar.subtitle = "$sizePhoto $plurals"
+        binding!!.toolbar.title = item.title
+        binding!!.toolbar.subtitle = "${item.sizePhoto} $plurals"
 
-        viewModel.getPhotos(id)
-
+        viewModel.getPhotos(id = item.id)
     }
 
     override fun onDestroyView() {
@@ -70,18 +65,14 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
     }
 
     companion object {
-        private const val ARGUMENTS_ID = "id"
-        private const val ARGUMENTS_SIZE_PHOTO = "sizePhoto"
-        private const val ARGUMENTS_TITLE = "title"
+        private const val ARGUMENTS_ITEM = "iTEM"
 
         fun createFragment(albumId: PhotosAlbums.Items): Fragment {
             val photo = PhotosFragment()
             val bundle = Bundle()
-            bundle.putLong(ARGUMENTS_ID, albumId.id)
-            bundle.putInt(ARGUMENTS_SIZE_PHOTO, albumId.sizePhoto)
-            bundle.putString(ARGUMENTS_TITLE, albumId.title)
-            photo.arguments = bundle
+            bundle.putSerializable(ARGUMENTS_ITEM, albumId)
 
+            photo.arguments = bundle
             return photo
         }
     }

@@ -40,42 +40,47 @@ class NewsAdapter(private val addDeleteLike: LikeDeletePostListener) :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news: NewsUi = getItem(position)
 
-        Glide.with(holder.itemView)
-            .load(news.photo)
-            .into(holder.binding.avatar32DP)
+        holder.binding.apply {
 
-        holder.binding.title.text = news.name
+            Glide.with(holder.itemView)
+                .load(news.photo)
+                .into(avatar32DP)
 
+            title.text = news.name
 
-        val formatter = SimpleDateFormat("d MMM в k:mm")
-        val date = formatter.format(news.date?.times(1000L) ?: "")
-        holder.binding.date.text = date
+            val formatter = SimpleDateFormat("d MMM в k:mm")
+            val date2 = formatter.format(news.date?.times(1000L) ?: "")
 
-        holder.binding.countLike.text = news.countLike?.toString()
-        holder.binding.countComm.text = news.countComm?.toString()
-        holder.binding.countReposts.text = news.repostsCount?.toString()
-        holder.binding.countViews.text = news.view?.toString()
-        holder.binding.text.text = news.text
+            date.text = date2
+            countLike.text = news.countLike?.toString()
+            countComm.text = news.countComm?.toString()
+            countReposts.text = news.repostsCount?.toString()
+            countViews.text = news.view?.toString()
+            text.text = news.text
 
-        holder.adapter.submitList(news.photoList)
-        holder.binding.indicator.setupWithViewPager(holder.binding.viewPager2)
+            holder.adapter.submitList(news.photoList)
+            indicator.setupWithViewPager(holder.binding.viewPager2)
+
+            if (news.photoList?.size == 1)background.visibility = View.GONE
+            else background.visibility = View.VISIBLE
+
+            if (news.userLikes == 1) {
+                clickLike.setBackgroundResource(R.drawable.like)
+                like.setImageResource(R.drawable.group_16)
+                countLike.setTextColor(Color.parseColor("#E6457A"))
+            } else {
+                clickLike.setBackgroundResource(R.drawable.count_likes_comments_reposts)
+                like.setImageResource(R.drawable.like_outline_24)
+                countLike.setTextColor(Color.parseColor("#818C99"))
+            }
+
+            if (news.verified == 1) verified16.visibility = View.VISIBLE
+            else verified16.visibility = View.GONE
+        }
 
         holder.binding.clickLike.setOnClickListener {
             this.addDeleteLike.addDeleteLikePostClick(news)
         }
-
-        if (news.userLikes == 1) {
-            holder.binding.clickLike.setBackgroundResource(R.drawable.like)
-            holder.binding.like.setImageResource(R.drawable.group_16)
-            holder.binding.countLike.setTextColor(Color.parseColor("#E6457A"))
-        } else {
-            holder.binding.clickLike.setBackgroundResource(R.drawable.count_likes_comments_reposts)
-            holder.binding.like.setImageResource(R.drawable.like_outline_24)
-            holder.binding.countLike.setTextColor(Color.parseColor("#818C99"))
-        }
-
-        if (news.verified == 1) holder.binding.verified16.visibility = View.VISIBLE
-        else holder.binding.verified16.visibility = View.GONE
     }
 
     interface LikeDeletePostListener {

@@ -44,10 +44,9 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
             })
         binding!!.commentList.adapter = videoCommAdapter
 
-        val arg = arguments?.getSerializable(ARGUMENTS_VIDEO)!!
-        val video: Video.Item = arg as Video.Item
+        val arg = arguments?.getSerializable(ARGUMENTS_VIDEO) as Video.Item
 
-        binding!!.exit.subtitle = video.comments.toString()
+        binding!!.exit.subtitle = arg.comments.toString()
 
         viewModel.videoCommLiveData.observe(viewLifecycleOwner) {
             videoCommAdapter.submitList(it)
@@ -62,7 +61,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
             toast.show()
         }
 
-        viewModel.loadVideoComments(video)
+        viewModel.loadVideoComments(arg)
 
         binding!!.leaveAComment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -77,7 +76,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
                 if (binding!!.leaveAComment.text.isNotEmpty()) {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_active)
                     binding!!.submitComment.setOnClickListener {
-                        viewModel.createComm(video, s!!.toString())
+                        viewModel.createComm(arg, s!!.toString())
                         Keyboard.hideKeyBoard(view)
                         s.clear()
                     }

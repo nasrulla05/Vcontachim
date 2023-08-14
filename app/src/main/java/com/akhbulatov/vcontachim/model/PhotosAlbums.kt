@@ -21,6 +21,6 @@ class PhotosAlbums(
 
         @SerializedName("thumb_src")
         val avatar: String
-    )
+    ):java.io.Serializable
 
 }

@@ -46,11 +46,8 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
         binding!!.videoList.adapter = videoAdapter
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                binding!!.progressBar.visibility = View.VISIBLE
-            } else {
-                binding!!.progressBar.visibility = View.GONE
-            }
+            if (it)binding!!.progressBar.visibility = View.VISIBLE
+            else binding!!.progressBar.visibility = View.GONE
         }
 
         viewModel.videoLiveData.observe(viewLifecycleOwner) {
