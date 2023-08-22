@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +11,7 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentInfoProfileBinding
+import com.akhbulatov.vcontachim.utility.showToast
 import com.akhbulatov.vcontachim.viewmodel.InfoProfileViewModel
 import com.bumptech.glide.Glide
 
@@ -31,6 +31,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         }
 
         val id = arguments?.getLong(ARGUMENTS_USER)
+        val userId = arguments?.getLong(USER_ID)
 
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
             val careerLast = user.career?.lastOrNull()
@@ -64,8 +65,8 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                     else viewModel.deleteFriend(user.id)
                 }
 
-                if (user.isFriend == 0) {
-                    subscribeOrAddFriend.apply {
+                subscribeOrAddFriend.apply {
+                    if (user.isFriend == 0) {
                         setIconResource(R.drawable.user_add_outline_20)
                         setIconTintResource(R.color.white)
                         setText(R.string.add_friend)
@@ -76,10 +77,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                                 R.color.blue
                             )
                         )
-
-                    }
-                } else {
-                    subscribeOrAddFriend.apply {
+                    } else {
                         setIconResource(R.drawable.ic_verified)
                         setIconTintResource(R.color.blue)
                         setText(R.string.in_friends)
@@ -91,6 +89,8 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                             )
                         )
                     }
+
+                    visibility = if (user.id == userId) View.GONE else View.VISIBLE
                 }
 
                 val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
@@ -102,12 +102,7 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val toast = Toast.makeText(
-                requireContext(),
-                it,
-                Toast.LENGTH_LONG
-            )
-            toast.show()
+            showToast(it)
         }
 
         viewModel.loadInfoProfile(id!!)
@@ -121,12 +116,23 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
     companion object {
 
         private const val ARGUMENTS_USER = "USER"
+        private const val USER_ID = "ID"
 
         fun createFragment(id: Long): Fragment {
             val fr = InfoProfileFragment()
             val bundle = Bundle()
 
-            bundle.putSerializable(ARGUMENTS_USER, id)
+            bundle.putLong(ARGUMENTS_USER, id)
+
+            fr.arguments = bundle
+            return fr
+        }
+
+        fun uploadingYourId(id: Long): Fragment {
+            val fr = InfoProfileFragment()
+            val bundle = Bundle()
+
+            bundle.putLong(USER_ID, id)
 
             fr.arguments = bundle
             return fr

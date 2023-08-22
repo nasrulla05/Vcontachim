@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
@@ -15,13 +14,12 @@ import com.akhbulatov.vcontachim.databinding.FragmentVideoCommentsBinding
 import com.akhbulatov.vcontachim.model.Video
 import com.akhbulatov.vcontachim.model.VideoCommentsUI
 import com.akhbulatov.vcontachim.utility.Keyboard
+import com.akhbulatov.vcontachim.utility.showToast
 import com.akhbulatov.vcontachim.viewmodel.VideoCommentsViewModel
 
 class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
     private var binding: FragmentVideoCommentsBinding? = null
-    private val viewModel by lazy {
-        ViewModelProvider(this)[VideoCommentsViewModel::class.java]
-    }
+    private val viewModel by viewModels<VideoCommentsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,12 +51,7 @@ class VideoCommentsFragment : Fragment(R.layout.fragment_video_comments) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val toast = Toast.makeText(
-                requireContext(),
-                it,
-                Toast.LENGTH_LONG
-            )
-            toast.show()
+            showToast(it)
         }
 
         viewModel.loadVideoComments(arg)

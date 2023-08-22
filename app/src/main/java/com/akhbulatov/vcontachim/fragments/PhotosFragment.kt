@@ -9,8 +9,8 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.PhotosAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentPhotosBinding
 import com.akhbulatov.vcontachim.model.PhotosAlbums
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.PhotosViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class PhotosFragment : Fragment(R.layout.fragment_photos) {
     private var binding: FragmentPhotosBinding? = null
@@ -39,12 +39,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            showSnackbar(it)
         }
 
         val item = requireArguments().getSerializable(ARGUMENTS_ITEM) as PhotosAlbums.Items

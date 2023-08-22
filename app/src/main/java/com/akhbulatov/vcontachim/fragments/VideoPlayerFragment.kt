@@ -3,15 +3,15 @@ package com.akhbulatov.vcontachim.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentVideoPlayerBinding
 import com.akhbulatov.vcontachim.model.Video
+import com.akhbulatov.vcontachim.utility.showToast
 import com.akhbulatov.vcontachim.viewmodel.VideoPlayerViewModel
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -25,9 +25,7 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
     private var exoPlayer: ExoPlayer? = null
     private var playbackPosition = 0L
     private var playWhenReady = true
-    private val viewModel: VideoPlayerViewModel by lazy {
-        ViewModelProvider(this)[VideoPlayerViewModel::class.java]
-    }
+    private val viewModel by viewModels<VideoPlayerViewModel>()
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,12 +101,7 @@ class VideoPlayerFragment : Fragment(R.layout.fragment_video_player) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val toast = Toast.makeText(
-                context,
-                it,
-                Toast.LENGTH_LONG
-            )
-            toast.show()
+            showToast(it)
         }
 
         preparePlayer(item)

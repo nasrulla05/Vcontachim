@@ -9,8 +9,8 @@ import com.akhbulatov.vcontachim.adapters.NewsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentNewsBinding
 import com.akhbulatov.vcontachim.model.NewsUi
 import com.akhbulatov.vcontachim.model.TypeNews
+import com.akhbulatov.vcontachim.utility.showToast
 import com.akhbulatov.vcontachim.viewmodel.NewsViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
     private var binding: FragmentNewsBinding? = null
@@ -42,12 +42,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(
-                view,
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            showToast(it)
         }
 
         val type = arguments?.getSerializable(ARGUMENTS_TYPE) as TypeNews
