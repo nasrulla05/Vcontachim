@@ -21,9 +21,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
             val authorizedUser = SharedPreferencesManager.accessToken
             if (authorizedUser == null) {
-                VcontachimApplication.router.navigateTo(Screens.loginFr())
+                VcontachimApplication.router.replaceScreen(Screens.loginFr())
             } else {
-                VcontachimApplication.router.navigateTo(Screens.mainAc())
+                VcontachimApplication.router.replaceScreen(Screens.mainAc())
             }
         }
     }
