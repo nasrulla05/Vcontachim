@@ -10,9 +10,9 @@ import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentPhotoBinding
 import com.akhbulatov.vcontachim.model.Item
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.PhotoViewModel
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
 
 class PhotoFragment : Fragment(R.layout.fragment_photo) {
@@ -76,12 +76,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         }
 
         viewModel.errorLikeLiveData.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            showSnackbar(it)
         }
 
         binding!!.commentsClick.setOnClickListener {

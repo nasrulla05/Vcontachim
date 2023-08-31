@@ -8,8 +8,8 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.CommunityAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommunitiesBinding
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.CommunitiesViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
     private var binding: FragmentCommunitiesBinding? = null
@@ -38,12 +38,7 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar: Snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            showSnackbar(it)
         }
 
         viewModel.getCommunity()

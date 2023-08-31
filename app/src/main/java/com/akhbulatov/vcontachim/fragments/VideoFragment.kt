@@ -10,8 +10,8 @@ import com.akhbulatov.vcontachim.adapters.VideoAdapter
 import com.akhbulatov.vcontachim.adddialog.MenuVideoBottomDialog
 import com.akhbulatov.vcontachim.databinding.FragmentVideoBinding
 import com.akhbulatov.vcontachim.model.Video
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.VideoViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class VideoFragment : Fragment(R.layout.fragment_video) {
     private var binding: FragmentVideoBinding? = null
@@ -55,12 +55,7 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            showSnackbar(it)
         }
         viewModel.getVideo()
 

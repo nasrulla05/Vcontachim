@@ -16,8 +16,8 @@ import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
 import com.akhbulatov.vcontachim.database.SearchHistoryModel
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
 import com.akhbulatov.vcontachim.model.UserSearchUi
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
@@ -104,7 +104,8 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             }
 
             clearListButton.setOnClickListener {
-                viewModel.clearListHistoryClick() }
+                viewModel.clearListHistoryClick()
+            }
 
             viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
                 if (it) progressBar.visibility = View.VISIBLE
@@ -121,12 +122,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             }
 
             viewModel.errorLiveData.observe(viewLifecycleOwner) {
-                val snackbar = Snackbar.make(
-                    requireView(),
-                    it,
-                    Snackbar.LENGTH_LONG
-                )
-                snackbar.show()
+                showSnackbar(it)
             }
 
             viewModel.loadHistory()

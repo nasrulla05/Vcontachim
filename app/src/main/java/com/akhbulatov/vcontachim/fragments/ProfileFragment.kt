@@ -7,21 +7,19 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.Screens
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.databinding.FragmentProfileBinding
 import com.akhbulatov.vcontachim.model.Root
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.ProfileViewModel
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private var binding: FragmentProfileBinding? = null
-    private val viewModel: ProfileViewModel by lazy {
-        ViewModelProvider(this)[ProfileViewModel::class.java]
-    }
+    private val viewModel by viewModels<ProfileViewModel>()
 
     @SuppressLint("SetTextI18n", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,13 +44,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         viewModel.failureLiveData.observe(viewLifecycleOwner) {
-            val error: Snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            error.show()
+            showSnackbar(it)
         }
+
         viewModel.getProfileInfo()
 
         binding!!.apply {

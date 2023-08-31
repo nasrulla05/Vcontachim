@@ -15,8 +15,8 @@ import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
 import com.akhbulatov.vcontachim.model.Item
 import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import com.akhbulatov.vcontachim.utility.Keyboard
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
     private var binding: FragmentCommentsBinding? = null
@@ -52,12 +52,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            showSnackbar(it)
         }
 
 
@@ -93,6 +88,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                 } else {
                     binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
                 }
+
             }
         })
     }

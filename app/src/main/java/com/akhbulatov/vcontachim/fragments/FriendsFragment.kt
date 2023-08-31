@@ -10,8 +10,8 @@ import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.FriendsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentFriendsBinding
 import com.akhbulatov.vcontachim.model.Friends
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.FriendsViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class FriendsFragment : Fragment(R.layout.fragment_friends) {
     private var binding: FragmentFriendsBinding? = null
@@ -48,12 +48,7 @@ class FriendsFragment : Fragment(R.layout.fragment_friends) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            val snackbar: Snackbar = Snackbar.make(
-                requireView(),
-                it,
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            showSnackbar(it)
         }
 
         viewModel.main()
