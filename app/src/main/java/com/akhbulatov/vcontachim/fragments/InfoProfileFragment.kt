@@ -31,7 +31,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
         }
 
         val id = arguments?.getLong(ARGUMENTS_USER)
-        val userId = arguments?.getLong(USER_ID)
 
         viewModel.infoProfileLiveData.observe(viewLifecycleOwner) { user ->
             val careerLast = user.career?.lastOrNull()
@@ -66,6 +65,8 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                 }
 
                 subscribeOrAddFriend.apply {
+                    visibility = if (user.id == 0L) View.GONE else View.VISIBLE
+
                     if (user.isFriend == 0) {
                         setIconResource(R.drawable.user_add_outline_20)
                         setIconTintResource(R.color.white)
@@ -89,8 +90,6 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
                             )
                         )
                     }
-
-                    visibility = if (user.id == userId) View.GONE else View.VISIBLE
                 }
 
                 val numberOfFriends = VcontachimApplication.context.resources.getQuantityString(
@@ -116,23 +115,12 @@ class InfoProfileFragment : Fragment(R.layout.fragment_info_profile) {
     companion object {
 
         private const val ARGUMENTS_USER = "USER"
-        private const val USER_ID = "ID"
 
         fun createFragment(id: Long): Fragment {
             val fr = InfoProfileFragment()
             val bundle = Bundle()
 
             bundle.putLong(ARGUMENTS_USER, id)
-
-            fr.arguments = bundle
-            return fr
-        }
-
-        fun uploadingYourId(id: Long): Fragment {
-            val fr = InfoProfileFragment()
-            val bundle = Bundle()
-
-            bundle.putLong(USER_ID, id)
 
             fr.arguments = bundle
             return fr

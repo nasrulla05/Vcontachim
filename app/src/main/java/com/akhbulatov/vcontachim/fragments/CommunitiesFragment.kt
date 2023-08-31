@@ -8,7 +8,7 @@ import com.akhbulatov.vcontachim.R
 import com.akhbulatov.vcontachim.VcontachimApplication
 import com.akhbulatov.vcontachim.adapters.CommunityAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentCommunitiesBinding
-import com.akhbulatov.vcontachim.utility.showToast
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.CommunitiesViewModel
 
 class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
@@ -38,7 +38,7 @@ class CommunitiesFragment : Fragment(R.layout.fragment_communities) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            showToast(it)
+            showSnackbar(it)
         }
 
         viewModel.getCommunity()

@@ -10,7 +10,7 @@ import com.akhbulatov.vcontachim.adapters.VideoAdapter
 import com.akhbulatov.vcontachim.adddialog.MenuVideoBottomDialog
 import com.akhbulatov.vcontachim.databinding.FragmentVideoBinding
 import com.akhbulatov.vcontachim.model.Video
-import com.akhbulatov.vcontachim.utility.showToast
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.VideoViewModel
 
 class VideoFragment : Fragment(R.layout.fragment_video) {
@@ -55,7 +55,7 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            showToast(it)
+            showSnackbar(it)
         }
         viewModel.getVideo()
 

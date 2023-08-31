@@ -16,7 +16,7 @@ import com.akhbulatov.vcontachim.adapters.UserSearchAdapter
 import com.akhbulatov.vcontachim.database.SearchHistoryModel
 import com.akhbulatov.vcontachim.databinding.FragmentUserSearchBinding
 import com.akhbulatov.vcontachim.model.UserSearchUi
-import com.akhbulatov.vcontachim.utility.showToast
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.UserSearchViewModel
 import java.util.*
 
@@ -122,7 +122,7 @@ class UserSearchFragment : Fragment(R.layout.fragment_user_search) {
             }
 
             viewModel.errorLiveData.observe(viewLifecycleOwner) {
-                showToast(it)
+                showSnackbar(it)
             }
 
             viewModel.loadHistory()

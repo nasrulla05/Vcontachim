@@ -9,7 +9,7 @@ import com.akhbulatov.vcontachim.adapters.NewsAdapter
 import com.akhbulatov.vcontachim.databinding.FragmentNewsBinding
 import com.akhbulatov.vcontachim.model.NewsUi
 import com.akhbulatov.vcontachim.model.TypeNews
-import com.akhbulatov.vcontachim.utility.showToast
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.NewsViewModel
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
@@ -42,7 +42,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            showToast(it)
+            showSnackbar(it)
         }
 
         val type = arguments?.getSerializable(ARGUMENTS_TYPE) as TypeNews

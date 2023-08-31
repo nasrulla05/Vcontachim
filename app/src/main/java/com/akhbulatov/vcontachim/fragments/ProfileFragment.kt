@@ -38,7 +38,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
             binding!!.infoProfile.apply {
                 setOnClickListener {
-                    VcontachimApplication.router.navigateTo(Screens.userId(response.id))
+                    VcontachimApplication.router.navigateTo(Screens.infoProfile(response.id))
                 }
             }
         }

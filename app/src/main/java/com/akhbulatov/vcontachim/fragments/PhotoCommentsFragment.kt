@@ -15,7 +15,7 @@ import com.akhbulatov.vcontachim.databinding.FragmentCommentsBinding
 import com.akhbulatov.vcontachim.model.Item
 import com.akhbulatov.vcontachim.model.PhotoCommentsUi
 import com.akhbulatov.vcontachim.utility.Keyboard
-import com.akhbulatov.vcontachim.utility.showToast
+import com.akhbulatov.vcontachim.utility.showSnackbar
 import com.akhbulatov.vcontachim.viewmodel.PhotoCommentsViewModel
 
 class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
@@ -52,7 +52,7 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
         }
 
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            showToast(it)
+            showSnackbar(it)
         }
 
 
@@ -85,7 +85,9 @@ class PhotoCommentsFragment : Fragment(R.layout.fragment_comments) {
                             toast.show()
                         }
                     }
-                } else binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
+                } else {
+                    binding!!.submitComment.setImageResource(R.drawable.send_28_not_active)
+                }
 
             }
         })
