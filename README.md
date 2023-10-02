@@ -9,4 +9,4 @@
 - Для работы с навигацией используется Cicerone 
 
 Скриншоты:
-  
+  app/screenshots/home.png
