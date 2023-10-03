@@ -11,3 +11,4 @@
 Скриншоты:
 
   ![Главная](app/screenshots/home.png)
+  ![Главная](app/screenshots/search.png)
